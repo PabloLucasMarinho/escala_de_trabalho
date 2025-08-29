@@ -10,6 +10,7 @@ const createUserToken = async (user: IUser, req: Request, res: Response) => {
     return res.status(500).json({ error: "Chave secreta não configurada." });
   }
 
+  // Create a token
   const token = jwt.sign(
     {
       id: user._id,
@@ -17,4 +18,13 @@ const createUserToken = async (user: IUser, req: Request, res: Response) => {
     },
     secret
   );
+
+  // Return token
+  res.status(200).json({
+    message: "Você está autenticado",
+    token: token,
+    userId: user._id,
+  });
 };
+
+export default createUserToken;

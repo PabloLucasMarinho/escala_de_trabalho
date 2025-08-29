@@ -11,7 +11,7 @@ const User = mongoose.model(
       },
       email: {
         type: String,
-        requied: true,
+        required: true,
       },
       password: {
         type: String,
