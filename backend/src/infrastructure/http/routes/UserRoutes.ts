@@ -1,15 +1,15 @@
 import { Router } from "express";
-import UserController from "../controllers/UserControlle.js";
+import UserController from "../controllers/UserController.js";
 
 // Middleware
-import verifyToken from "../helpers/verify-token.js";
+import VerifyToken from "../../middlewares/VerifyToken.js";
 
 const router = Router();
 
 router.post("/register", UserController.register);
 router.post("/login", UserController.login);
-router.get("/checkuser", UserController.checkUser);
+router.get("/getuser", VerifyToken, UserController.getUserByToken);
 router.get("/:id", UserController.getUserById);
-router.patch("/edit/:id", verifyToken, UserController.editUser);
+router.patch("/edit/:id", VerifyToken, UserController.editUser);
 
 export default router;

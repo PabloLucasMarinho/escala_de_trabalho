@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import UserRoutes from "../http/routes/UserRoutes.js";
+import EmployeeRoutes from "../http/routes/EmployeeRoutes.js";
 
 const app = express();
 
@@ -12,5 +13,6 @@ app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 
 // Routes
 app.use("/users", UserRoutes);
+app.use("/employees", EmployeeRoutes);
 
 app.listen(5000);

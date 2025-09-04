@@ -1,17 +1,19 @@
 import type { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import getToken from "./get-token.js";
 import "dotenv/config";
+import { AuthService } from "../services/AuthService.js";
+
+const authService = new AuthService();
 
 // Middleware para validar o token
-const verifyToken = (req: Request, res: Response, next: NextFunction) => {
+const VerifyToken = (req: Request, res: Response, next: NextFunction) => {
   const secret: string = process.env.JWT_SECRET!;
 
   if (!req.headers.authorization) {
     return res.status(401).json({ message: "Acesso negado." });
   }
 
-  const token = getToken(req);
+  const token = authService.getToken(req);
 
   if (!token) {
     return res.status(401).json({ message: "Acesso negado." });
@@ -27,4 +29,4 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default verifyToken;
+export default VerifyToken;
