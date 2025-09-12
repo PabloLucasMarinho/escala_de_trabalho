@@ -7,7 +7,7 @@ export class EmployeeSchemas {
     return z.object({
       name: z
         .string()
-        .nonempty({ message: "O nome é obrigatório." })
+        .nonempty({ error: "O nome é obrigatório." })
         .trim()
         .superRefine((value, context) => {
           if (value && value.length > 0) {

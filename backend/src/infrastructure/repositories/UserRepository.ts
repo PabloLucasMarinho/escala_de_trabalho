@@ -2,10 +2,11 @@ import type { HydratedDocument } from "mongoose";
 import type { IUser } from "../../domain/entities/IUser.js";
 import type { IUserRepository } from "../../domain/repositories/IUserRepository.js";
 import User from "../../domain/entities/User.js";
+import type { IRegisterUserDTO } from "../../shared/communication/dtos/user/IRegisterUserDTO.js";
 
 export class UserRepository implements IUserRepository {
   // Cria um novo usuário
-  async create(user: IUser): Promise<HydratedDocument<IUser>> {
+  async create(user: IRegisterUserDTO): Promise<HydratedDocument<IUser>> {
     const newUser = new User(user);
     const savedUser = await newUser.save();
 

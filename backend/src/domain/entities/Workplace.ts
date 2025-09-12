@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
-import type { IEmployee } from "./IEmployee.js";
+import type { IWorkplace } from "./IWorkplace.js";
 
-const employeeSchema = new Schema<IEmployee>(
+const worplaceSchema = new Schema<IWorkplace>(
   {
     name: {
       type: String,
@@ -17,6 +17,6 @@ const employeeSchema = new Schema<IEmployee>(
   { timestamps: true }
 );
 
-const Employee = mongoose.model<IEmployee>("Employee", employeeSchema);
+const Workplace = mongoose.model<IWorkplace>("Workplace", worplaceSchema);
 
-export default Employee;
+export default Workplace;

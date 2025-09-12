@@ -10,8 +10,8 @@ export class UserSchemas {
       .object({
         name: z
           .string()
-          .nonempty({ message: "O nome é obrigatório." })
           .trim()
+          .nonempty({ error: "O nome é obrigatório." })
           .superRefine((value, context) => {
             if (value && value.length > 0) {
               if (!nameRegex.test(value)) {
@@ -22,20 +22,20 @@ export class UserSchemas {
             }
           }),
         email: z
-          .email({ message: "O e-mail fornecido é inválido." })
-          .nonempty({ message: "O e-mail é obrigatório." })
-          .trim(),
+          .email({ error: "O e-mail fornecido é inválido." })
+          .trim()
+          .nonempty({ error: "O e-mail é obrigatório." }),
         password: z
           .string()
-          .nonempty({ message: "A senha é obrigatória." })
+          .nonempty({ error: "A senha é obrigatória." })
           .regex(passwordRegex, {
-            message:
+            error:
               "A senha deve conter no mínimo 8 caracteres, uma letra maiúscula, uma minúscula, um número e um caractere especial.",
           }),
         confirmPassword: z.string(),
       })
       .refine((data) => data.password === data.confirmPassword, {
-        message: "A senha e a confirmação de senha não conferem.",
+        error: "A senha e a confirmação de senha não conferem.",
         path: ["confirmPassword"],
       });
   }
@@ -47,10 +47,10 @@ export class UserSchemas {
   private static login() {
     return z.object({
       email: z
-        .email({ message: "O e-mail fornecido é inválido." })
-        .nonempty({ message: "O e-mail é obrigatório." })
-        .trim(),
-      password: z.string().nonempty({ message: "A senha é obrigatória." }),
+        .email({ error: "O e-mail fornecido é inválido." })
+        .trim()
+        .nonempty({ error: "O e-mail é obrigatório." }),
+      password: z.string().nonempty({ error: "A senha é obrigatória." }),
     });
   }
 
@@ -104,7 +104,7 @@ export class UserSchemas {
         confirmPassword: z.string().optional(),
       })
       .refine((data) => data.password === data.confirmPassword, {
-        message: "A senha e a confirmação de senha não conferem.",
+        error: "A senha e a confirmação de senha não conferem.",
         path: ["confirmPassword"],
       });
   }

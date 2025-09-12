@@ -1,10 +1,9 @@
 import type { Types } from "mongoose";
 
-export interface IEmployee {
+export interface IWorkplace {
   _id?: Types.ObjectId;
   name: string;
   adm: Types.ObjectId;
-  shift?: Types.ObjectId;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
