@@ -1,14 +1,14 @@
 import type { HydratedDocument } from "mongoose";
-import type { IUser } from "../entities/IUser.js";
+import type { IUser } from "../../infrastructure/entities/IUser.js";
 import type { IUpdateUserDTO } from "../../shared/communication/dtos/user/IUpdateUserDTO.js";
 import type { IRegisterUserDTO } from "../../shared/communication/dtos/user/IRegisterUserDTO.js";
 
 export interface IUserRepository {
   // Cria um novo usuário
-  create(user: IRegisterUserDTO): Promise<HydratedDocument<IUser>>;
+  create(user: IRegisterUserDTO): Promise<IUser>;
 
   // Encontra usuário pelo e-mail
-  findByEmail(email: string): Promise<HydratedDocument<IUser> | null>;
+  findByEmail(email: string): Promise<IUser | null>;
 
   // Encontra usuário pelo Id
   findById(

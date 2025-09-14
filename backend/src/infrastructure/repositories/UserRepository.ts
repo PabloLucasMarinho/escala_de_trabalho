@@ -1,45 +1,55 @@
-import type { HydratedDocument } from "mongoose";
-import type { IUser } from "../../domain/entities/IUser.js";
-import type { IUserRepository } from "../../domain/repositories/IUserRepository.js";
+import type { IUserReadOnlyRepository } from "../../domain/repositories/user/IUserReadOnlyRepository.js";
+import type { IUserWriteOnlyRepository } from "../../domain/repositories/user/IUserWriteOnlyRepository.js";
+import type { IUserUpdateOnlyRepository } from "../../domain/repositories/user/IUserUpdateOnlyRepository.js";
+import type { IUser } from "../entities/IUser.js";
 import User from "../../domain/entities/User.js";
-import type { IRegisterUserDTO } from "../../shared/communication/dtos/user/IRegisterUserDTO.js";
+import type { Types } from "mongoose";
+import { injectable } from "tsyringe";
 
-export class UserRepository implements IUserRepository {
-  // Cria um novo usuário
-  async create(user: IRegisterUserDTO): Promise<HydratedDocument<IUser>> {
-    const newUser = new User(user);
-    const savedUser = await newUser.save();
+@injectable()
+export class UserRepository
+  implements
+    IUserReadOnlyRepository,
+    IUserWriteOnlyRepository,
+    IUserUpdateOnlyRepository
+{
+  async Add(user: IUser): Promise<Types.ObjectId> {
+    const newUser = await new User(user).save();
 
-    return savedUser;
+    return newUser._id;
   }
 
-  // Encontra usuário pelo e-mail
-  async findByEmail(email: string): Promise<HydratedDocument<IUser> | null> {
-    const user = await User.findOne({ email });
+  async ExistActiveUserWithEmail(email: string): Promise<boolean> {
+    const user = await User.exists({ email: email, active: true });
+
+    return user ? true : false;
+  }
+
+  async ExistActiveUserWithId(id: string): Promise<boolean> {
+    const user = await User.exists({ id: id, active: true });
+
+    return user ? true : false;
+  }
+
+  async GetByEmail(email: string): Promise<IUser> {
+    const user = await User.findOne({ email }).where("active", true).exec();
+    if (!user) {
+      throw new Error("Não existe usuário cadastrado com esse e-mail.");
+    }
 
     return user;
   }
 
-  // Encontra usuário pelo Id
-  async findById(
-    id: string | undefined | null
-  ): Promise<HydratedDocument<IUser> | null> {
-    const user = await User.findById(id).select("-password");
+  async GetById(id: string): Promise<IUser> {
+    const user = await User.findById(id);
+    if (!user) {
+      throw new Error("Usuário não existe.");
+    }
 
     return user;
   }
 
-  // Atualiza um usuário
-  async update(
-    id: string,
-    updatedData: Partial<IUser>
-  ): Promise<HydratedDocument<IUser>> {
-    const user = await User.findByIdAndUpdate(
-      { _id: id },
-      { $set: updatedData },
-      { new: true }
-    );
-
-    return user!;
+  async Update(user: Partial<IUser>, id: string): Promise<void> {
+    await User.findByIdAndUpdate({ _id: id }, { $set: user }, { new: true });
   }
 }

@@ -1,6 +1,5 @@
 import type { Request } from "express";
-import type { IUser } from "../entities/IUser.js";
-import type { JwtPayload } from "jsonwebtoken";
+import type { IUser } from "../../infrastructure/entities/IUser.js";
 
 export interface IAuthService {
   create(user: IUser): string;

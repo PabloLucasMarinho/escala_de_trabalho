@@ -1,15 +1,14 @@
-import type { IUser } from "../../domain/entities/IUser.js";
-import jwt, { type JwtPayload } from "jsonwebtoken";
+import type { IUser } from "../entities/IUser.js";
+import jwt from "jsonwebtoken";
 import "dotenv/config";
 import type { Request } from "express";
 import type { IAuthService } from "../../domain/services/IAuthService.js";
 
-const secret: string = process.env.JWT_SECRET!;
-if (!secret) {
-  throw new Error("Chave secreta não configurada.");
-}
-
 export class AuthService implements IAuthService {
+  private readonly secret: string;
+  constructor() {
+    this.secret = process.env.JWT_SECRET!;
+  }
   create(user: IUser): string {
     // Cria o token
     const token = jwt.sign(
@@ -17,7 +16,7 @@ export class AuthService implements IAuthService {
         id: user._id,
         name: user.name,
       },
-      secret
+      this.secret
     );
 
     return token;
@@ -32,7 +31,7 @@ export class AuthService implements IAuthService {
 
   getUserId(token: string): string {
     // Decodificação do token
-    const decoded = jwt.verify(token, secret);
+    const decoded = jwt.verify(token, this.secret);
 
     // Verificação do tipo payload
     if (typeof decoded !== "object" || !("id" in decoded)) {

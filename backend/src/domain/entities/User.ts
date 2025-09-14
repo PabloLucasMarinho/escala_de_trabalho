@@ -1,5 +1,5 @@
 import mongoose from "../../infrastructure/db/conn.js";
-import type { IUser } from "./IUser.js";
+import type { IUser } from "../../infrastructure/entities/IUser.js";
 const { Schema } = mongoose;
 
 const userSchema = new Schema<IUser>(
@@ -17,6 +17,10 @@ const userSchema = new Schema<IUser>(
     password: {
       type: String,
       required: true,
+    },
+    active: {
+      type: Boolean,
+      default: true,
     },
   },
   { timestamps: true }

@@ -1,6 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import type { IShift } from "./IShift.js";
-import { Weekday } from "../enums/Weekday.js";
+import type { IShift } from "../../infrastructure/entities/IShift.js";
 
 const shiftSchema = new Schema<IShift>(
   {
@@ -22,7 +21,10 @@ const shiftSchema = new Schema<IShift>(
     },
     weekday: {
       type: String,
-      enum: Object.values(Weekday),
+      required: true,
+    },
+    frequency: {
+      type: String,
       required: true,
     },
     workplace: {

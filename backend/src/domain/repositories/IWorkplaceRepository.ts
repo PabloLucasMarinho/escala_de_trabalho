@@ -1,5 +1,5 @@
 import type { HydratedDocument, Types } from "mongoose";
-import type { IWorkplace } from "../entities/IWorkplace.js";
+import type { IWorkplace } from "../../infrastructure/entities/IWorkplace.js";
 import type { IRegisterWorkplaceDTO } from "../../shared/communication/dtos/workplace/IRegisterWorkplaceDTO.js";
 
 export interface IWorkplaceRepository {

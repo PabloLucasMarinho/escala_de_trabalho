@@ -1,7 +1,7 @@
 import type { HydratedDocument } from "mongoose";
 import type { IEmployeeRepository } from "../../../domain/repositories/IEmployeeRepository.js";
 import type { IRegisterEmployeeDTO } from "../../../shared/communication/dtos/employee/IRegisterEmployeeDTO.js";
-import type { IEmployee } from "../../../domain/entities/IEmployee.js";
+import type { IEmployee } from "../../../infrastructure/entities/IEmployee.js";
 import type { IAuthService } from "../../../domain/services/IAuthService.js";
 import mongoose from "mongoose";
 

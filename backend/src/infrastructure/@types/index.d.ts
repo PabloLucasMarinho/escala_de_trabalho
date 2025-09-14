@@ -1,6 +1,6 @@
 import { Request } from "express";
 import type { JwtPayload } from "jsonwebtoken";
-import { IUser } from "../../domain/entities/IUser.ts";
+import { IUser } from "../entities/IUser.ts";
 
 declare module "express" {
   export interface Request {

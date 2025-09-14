@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import type { IEmployee } from "./IEmployee.js";
+import type { IEmployee } from "../../infrastructure/entities/IEmployee.js";
 
 const employeeSchema = new Schema<IEmployee>(
   {

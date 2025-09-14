@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import type { IWorkplace } from "./IWorkplace.js";
+import type { IWorkplace } from "../../infrastructure/entities/IWorkplace.js";
 
 const worplaceSchema = new Schema<IWorkplace>(
   {

@@ -1,8 +1,8 @@
 import type { HydratedDocument } from "mongoose";
-import type { IEmployee } from "../../domain/entities/IEmployee.js";
+import type { IEmployee } from "../entities/IEmployee.js";
 import type { IEmployeeRepository } from "../../domain/repositories/IEmployeeRepository.js";
 import Employee from "../../domain/entities/Employee.js";
-import type { IUser } from "../../domain/entities/IUser.js";
+import type { IUser } from "../entities/IUser.js";
 import type { IRegisterEmployeeDTO } from "../../shared/communication/dtos/employee/IRegisterEmployeeDTO.js";
 
 export class EmployeeRepository implements IEmployeeRepository {
