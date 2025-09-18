@@ -2,8 +2,6 @@ import { type Request, type Response } from "express";
 import { RegisterUserUseCase } from "../../application/useCases/user/register/RegisterUserUseCase.js";
 import { GetUserProfileUseCase } from "../../application/useCases/user/Profile/GetUserProfileUseCase.js";
 import { inject, injectable } from "tsyringe";
-import { HttpContextTokenValue } from "../Token/HttpContextTokenValue.js";
-import { LoggedUser } from "../../infrastructure/services/LoggedUser.js";
 
 @injectable()
 export default class UserController {
@@ -24,9 +22,9 @@ export default class UserController {
 
   public async GetUserProfile(req: Request, res: Response): Promise<void> {
     // Executa o caso de uso
-    const response = await this.getUserProfileUseCase.Execute();
+    const response = await this.getUserProfileUseCase.Execute(req);
 
     //Devolve o status code e resposta
-    res.status(200).json();
+    res.status(200).json(response);
   }
 }

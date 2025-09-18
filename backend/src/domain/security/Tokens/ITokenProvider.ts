@@ -1,5 +1,5 @@
 import type { Request } from "express";
 
 export interface ITokenProvider {
-  Value(): string;
+  Value(req: Request): string;
 }

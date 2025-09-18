@@ -1,27 +1,24 @@
-import type { ITokenProvider } from "../../domain/security/Tokens/ITokenProvider.js";
 import type { ILoggedUser } from "../../domain/services/ILoggedUser.js";
 import type { IUser } from "../entities/IUser.js";
-import jwt from "jsonwebtoken";
-import "dotenv/config";
 import User from "../../domain/entities/User.js";
-import { inject, injectable } from "tsyringe";
-import { HttpContextTokenValue } from "../../API/Token/HttpContextTokenValue.js";
+import { TokenHandler } from "../security/Tokens/TokenHandler.js";
+import type { Request } from "express";
+import type { Types } from "mongoose";
 
-const secret: string = process.env.JWT_SECRET!;
+const tokenHandler = new TokenHandler();
 
-@injectable()
 export class LoggedUser implements ILoggedUser {
-  constructor(
-    @inject("ITokenProvider")
-    private readonly tokenProvider: ITokenProvider
-  ) {}
+  private readonly _req: Request;
+  constructor(req: Request) {
+    this._req = req;
+  }
 
   async User(): Promise<IUser> {
-    const token = this.tokenProvider.Value();
+    const token = tokenHandler.Value(this._req);
 
-    const userId = jwt.verify(token, secret) as string;
+    const userId = tokenHandler.Verify(token);
 
-    const user = await User.findById(userId).where("active", true).exec();
+    const user = await User.findById(userId.id).where("active", true).exec();
 
     return user!;
   }

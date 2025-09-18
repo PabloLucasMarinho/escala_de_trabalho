@@ -1,15 +1,13 @@
-import { inject, injectable } from "tsyringe";
-import type { ILoggedUser } from "../../../../domain/services/ILoggedUser.js";
+import type { Request } from "express";
 import { ResponseUserProfileJson } from "../../../../shared/communication/Responses/ResponseUserProfileJson.js";
 import type { IGetUserProfileUseCase } from "./IGetUserProfileUseCase.js";
 import { LoggedUser } from "../../../../infrastructure/services/LoggedUser.js";
 
-@injectable()
 export class GetUserProfileUseCase implements IGetUserProfileUseCase {
-  constructor(@inject(LoggedUser) private readonly loggedUser: ILoggedUser) {}
+  async Execute(req: Request): Promise<ResponseUserProfileJson> {
+    const loggedUser = new LoggedUser(req);
 
-  async Execute(): Promise<ResponseUserProfileJson> {
-    const user = await this.loggedUser.User();
+    const user = await loggedUser.User();
 
     const response = new ResponseUserProfileJson();
     response.Name = user.name;

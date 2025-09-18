@@ -7,7 +7,7 @@ import type { IUserReadOnlyRepository } from "../domain/repositories/user/IUserR
 import type { IPasswordEncripter } from "../domain/security/Cryptography/IPasswordEncripter.js";
 import { BCryptNet } from "./security/BCryptNet.js";
 import type { IAccessTokenGenerator } from "../domain/security/Tokens/IAccessTokenGenerator.js";
-import { JwtTokenGenerator } from "./security/Tokens/Access/Generator/JwtTokenGenerator.js";
+import { TokenHandler } from "./security/Tokens/TokenHandler.js";
 
 // AddRepositories
 container.register<IUserWriteOnlyRepository>("IUserWriteOnlyRepository", {
@@ -22,9 +22,9 @@ container.register<IPasswordEncripter>("IPasswordEncripter", {
   useClass: BCryptNet,
 });
 
-// AddToken
+// AddTokenHandler
 container.register<IAccessTokenGenerator>("IAccessTokenGenerator", {
-  useClass: JwtTokenGenerator,
+  useClass: TokenHandler,
 });
 
 // AddLoggedUser

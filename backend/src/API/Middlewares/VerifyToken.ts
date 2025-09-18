@@ -1,32 +1,17 @@
 import type { NextFunction, Request, Response } from "express";
-import jwt from "jsonwebtoken";
+import { TokenHandler } from "../../infrastructure/security/Tokens/TokenHandler.js";
 import "dotenv/config";
-import { AuthService } from "../../infrastructure/services/AuthService.js";
 
-const authService = new AuthService();
+const tokenHandler = new TokenHandler();
 
 // Middleware para validar o token
 const VerifyToken = (req: Request, res: Response, next: NextFunction) => {
-  const secret: string = process.env.JWT_SECRET!;
+  const token = tokenHandler.Value(req);
 
-  if (!req.headers.authorization) {
-    return res.status(401).json({ message: "Acesso negado." });
-  }
+  const verifiedToken = tokenHandler.Verify(token);
 
-  const token = authService.getToken(req);
-
-  if (!token) {
-    return res.status(401).json({ message: "Acesso negado." });
-  }
-
-  try {
-    const verified = jwt.verify(token, secret);
-
-    req.user = verified;
-    next();
-  } catch (error) {
-    return res.status(400).json({ message: "Token inválido." });
-  }
+  req.user = verifiedToken.id;
+  next();
 };
 
 export default VerifyToken;

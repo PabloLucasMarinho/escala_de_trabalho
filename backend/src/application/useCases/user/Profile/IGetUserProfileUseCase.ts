@@ -1,6 +1,6 @@
-import type { ILoggedUser } from "../../../../domain/services/ILoggedUser.js";
+import type { Request } from "express";
 import type { ResponseUserProfileJson } from "../../../../shared/communication/Responses/ResponseUserProfileJson.js";
 
 export interface IGetUserProfileUseCase {
-  Execute(loggedUser: ILoggedUser): Promise<ResponseUserProfileJson>;
+  Execute(req: Request): Promise<ResponseUserProfileJson>;
 }
