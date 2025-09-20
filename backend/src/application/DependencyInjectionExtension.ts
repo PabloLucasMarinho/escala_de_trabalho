@@ -5,6 +5,8 @@ import type { IRegisterUserUseCase } from "./useCases/user/register/IRegisterUse
 import { RegisterUserUseCase } from "./useCases/user/register/RegisterUserUseCase.js";
 import type { ILoginUserUseCase } from "./useCases/user/Login/ILoginUserUseCase.js";
 import { LoginUserUseCase } from "./useCases/user/Login/LoginUserUseCase.js";
+import type { IUpdateUserUseCase } from "./useCases/user/Update/IUpdateUserUseCase.js";
+import { UpdateUserUseCase } from "./useCases/user/Update/UpdateUserUseCase.js";
 
 // AddUseCases
 container.register<IRegisterUserUseCase>("IRegisterUserUseCase", {
@@ -15,4 +17,7 @@ container.register<ILoginUserUseCase>("ILoginUserUseCase", {
 });
 container.register<IGetUserProfileUseCase>("IGetUserProfileUseCase", {
   useClass: GetUserProfileUseCase,
+});
+container.register<IUpdateUserUseCase>("IUpdateUserUseCase", {
+  useClass: UpdateUserUseCase,
 });

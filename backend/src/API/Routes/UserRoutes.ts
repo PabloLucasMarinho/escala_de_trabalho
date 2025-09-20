@@ -19,7 +19,10 @@ router.get(
   VerifyToken,
   userController.GetUserProfile.bind(userController)
 );
-// router.get("/:id", UserController.getUserById);
-// router.patch("/edit/:id", VerifyToken, UserController.editUser);
+router.patch(
+  "/edit/:id",
+  VerifyToken,
+  userController.Update.bind(userController)
+);
 
 export default router;

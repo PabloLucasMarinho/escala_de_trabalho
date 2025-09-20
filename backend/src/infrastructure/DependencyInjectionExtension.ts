@@ -8,12 +8,16 @@ import type { IPasswordEncripter } from "../domain/security/Cryptography/IPasswo
 import { BCryptNet } from "./security/BCryptNet.js";
 import type { IAccessTokenGenerator } from "../domain/security/Tokens/IAccessTokenGenerator.js";
 import { TokenHandler } from "./security/Tokens/TokenHandler.js";
+import type { IUserUpdateOnlyRepository } from "../domain/repositories/user/IUserUpdateOnlyRepository.js";
 
 // AddRepositories
 container.register<IUserWriteOnlyRepository>("IUserWriteOnlyRepository", {
   useClass: UserRepository,
 });
 container.register<IUserReadOnlyRepository>("IUserReadOnlyRepository", {
+  useClass: UserRepository,
+});
+container.register<IUserUpdateOnlyRepository>("IUserUpdateOnlyRepository", {
   useClass: UserRepository,
 });
 

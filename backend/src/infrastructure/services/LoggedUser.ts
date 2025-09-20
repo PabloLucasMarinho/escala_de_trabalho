@@ -3,7 +3,6 @@ import type { IUser } from "../entities/IUser.js";
 import User from "../../domain/entities/User.js";
 import { TokenHandler } from "../security/Tokens/TokenHandler.js";
 import type { Request } from "express";
-import type { Types } from "mongoose";
 
 const tokenHandler = new TokenHandler();
 
