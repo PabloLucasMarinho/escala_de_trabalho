@@ -1,10 +1,8 @@
 import { Router } from "express";
+import VerifyToken from "../Middlewares/VerifyToken.js";
 import UserController from "../Controllers/UserController.js";
 import LoginController from "../Controllers/LoginController.js";
 import { container } from "tsyringe";
-
-// Middleware
-import VerifyToken from "../Middlewares/VerifyToken.js";
 
 const router = Router();
 
@@ -19,10 +17,15 @@ router.get(
   VerifyToken,
   userController.GetUserProfile.bind(userController)
 );
-router.patch(
+router.put(
   "/edit/:id",
   VerifyToken,
   userController.Update.bind(userController)
+);
+router.put(
+  "/change-password",
+  VerifyToken,
+  userController.ChangePassword.bind(userController)
 );
 
 export default router;

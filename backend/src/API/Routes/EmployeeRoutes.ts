@@ -1,11 +1,13 @@
-// import { Router } from "express";
-// import EmployeeController from "../controllers/EmployeeController.js";
+import { Router } from "express";
+import VerifyToken from "../Middlewares/VerifyToken.js";
+import { container } from "tsyringe";
+import EmployeeController from "../Controllers/EmployeeController.js";
 
-// // Middleware
-// import verifyToken from "../middlewares/VerifyToken.js";
+const router = Router();
 
-// const router = Router();
+// Dependências
+const employeeController = container.resolve(EmployeeController);
 
-// router.post("/register", verifyToken, EmployeeController.register);
+router.post("/register", VerifyToken, employeeController.Register.bind(employeeController));
 
-// export default router;
+export default router;

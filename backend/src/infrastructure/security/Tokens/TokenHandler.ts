@@ -3,7 +3,7 @@ import type { ITokenProvider } from "../../../domain/security/Tokens/ITokenProvi
 import "dotenv/config";
 import type { Types } from "mongoose";
 import jwt, { type JwtPayload } from "jsonwebtoken";
-import type { Request } from "express";
+import type { InputData } from "../../../shared/communication/types/Request.js";
 
 export class TokenHandler implements IAccessTokenGenerator, ITokenProvider {
   private readonly secret = process.env.JWT_SECRET!;
@@ -23,7 +23,7 @@ export class TokenHandler implements IAccessTokenGenerator, ITokenProvider {
     return token;
   }
 
-  Value(req: Request): string {
+  Value(req: InputData<any>): string {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
       throw new Error("Acesso negado.");

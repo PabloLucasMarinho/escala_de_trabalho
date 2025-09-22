@@ -1,36 +1,50 @@
-import type { HydratedDocument } from "mongoose";
-import type { IEmployeeRepository } from "../../../domain/repositories/IEmployeeRepository.js";
-import type { IRegisterEmployeeDTO } from "../../../shared/communication/dtos/employee/IRegisterEmployeeDTO.js";
+import { inject, injectable } from "tsyringe";
+import type { RequestRegisterEmployeeJson } from "../../../shared/communication/Requests/RequestRegisterEmployeeJson.js";
+import { ResponseRegisteredEmployeeJson } from "../../../shared/communication/Responses/ResponseRegisteredEmployeeJson.js";
+import type { IRegisterEmployeeUseCase } from "./IRegisterEmployeeUseCase.js";
+import type { InputData } from "../../../shared/communication/types/Request.js";
+import type { IEmployeeReadOnlyRepository } from "../../../domain/repositories/Employee/IEmployeeReadOnlyRepository.js";
+import type { IEmployeeWriteOnlyRepository } from "../../../domain/repositories/Employee/IEmployeeWriteOnlyRepository.js";
 import type { IEmployee } from "../../../infrastructure/entities/IEmployee.js";
-import type { IAuthService } from "../../../domain/services/IAuthService.js";
-import mongoose from "mongoose";
+import { RegisterEmployeeValidator } from "./RegisterEmployeeValidator.js";
+import { LoggedUser } from "../../../infrastructure/services/LoggedUser.js";
 
-export default class RegisterEmployeeUseCase {
+@injectable()
+export default class RegisterEmployeeUseCase implements IRegisterEmployeeUseCase {
   constructor(
-    private employeeRepository: IEmployeeRepository,
-    private authService: IAuthService
+    @inject("IEmployeeReadOnlyRepository") private readonly readOnlyRepository: IEmployeeReadOnlyRepository,
+    @inject("IEmployeeWriteOnlyRepository") private readonly writeOnlyRepository: IEmployeeWriteOnlyRepository
   ) {}
 
-  async execute(
-    data: IRegisterEmployeeDTO,
-    token: string
-  ): Promise<HydratedDocument<IEmployee>> {
-    // Verifica se funcionário já existe
-    const employeeExists = await this.employeeRepository.findByName(data.name);
-    if (employeeExists) {
+  async Execute(req: InputData<RequestRegisterEmployeeJson>): Promise<ResponseRegisteredEmployeeJson> {
+    // Valida os dados enviados
+    const employee = await this.Validate(req);
+
+    const loggedUser = new LoggedUser(req);
+
+    const user = await loggedUser.User();
+
+    employee.adm = user._id!;
+
+    // Cria o funcionário no banco de dados
+    const newEmployee = await this.writeOnlyRepository.Add(employee);
+
+    const response = new ResponseRegisteredEmployeeJson();
+
+    response.Id = newEmployee._id!.toString();
+    response.Name = newEmployee.name;
+
+    return response;
+  }
+
+  private async Validate(req: InputData<RequestRegisterEmployeeJson>): Promise<IEmployee> {
+    const employee = RegisterEmployeeValidator.Validate(req);
+
+    const employeeExist = await this.readOnlyRepository.ExistActiveEmployeeWithName(employee.name);
+    if (employeeExist) {
       throw new Error("Colaborador já cadastrado.");
     }
 
-    // Persiste os dados do novo funcionário no bd e retorna ele
-    const userId = this.authService.getUserId(token!);
-
-    const userObjectId = new mongoose.Types.ObjectId(userId);
-
-    const newEmployee = await this.employeeRepository.create({
-      ...data,
-      adm: userObjectId,
-    });
-
-    return newEmployee;
+    return employee;
   }
 }

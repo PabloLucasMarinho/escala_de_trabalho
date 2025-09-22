@@ -1,17 +1,17 @@
-import type { NextFunction, Request, Response } from "express";
+import type { NextFunction, Response } from "express";
 import z from "zod";
 
 export const ErrorHandler = (
   error: unknown,
-  req: Request,
   res: Response,
   next: NextFunction
 ) => {
   // Trata erros de validação do Zod
   if (error instanceof z.ZodError) {
+    const validationErrors = error.issues.map((issue) => issue.message);
+
     return res.status(422).json({
-      errors:
-        "Erro de validação: " + error.issues.map((issue) => issue.message),
+      errors: validationErrors,
     });
   }
 

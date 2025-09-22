@@ -3,6 +3,7 @@ import { RegisterUserUseCase } from "../../application/useCases/user/register/Re
 import { GetUserProfileUseCase } from "../../application/useCases/user/Profile/GetUserProfileUseCase.js";
 import { inject, injectable } from "tsyringe";
 import { UpdateUserUseCase } from "../../application/useCases/user/Update/UpdateUserUseCase.js";
+import { ChangePasswordUseCase } from "../../application/useCases/user/ChangePassword/ChangePasswordUseCase.js";
 
 @injectable()
 export default class UserController {
@@ -12,10 +13,12 @@ export default class UserController {
     @inject(UpdateUserUseCase)
     private updateUserUseCase: UpdateUserUseCase,
     @inject(GetUserProfileUseCase)
-    private getUserProfileUseCase: GetUserProfileUseCase
+    private getUserProfileUseCase: GetUserProfileUseCase,
+    @inject(ChangePasswordUseCase)
+    private changePasswordUseCase: ChangePasswordUseCase
   ) {}
 
-  public async Register(req: Request, res: Response): Promise<void> {
+  async Register(req: Request, res: Response): Promise<void> {
     // Executa o caso de uso
     const response = await this.registerUserUseCase.Execute(req);
 
@@ -23,7 +26,7 @@ export default class UserController {
     res.status(201).json(response);
   }
 
-  public async GetUserProfile(req: Request, res: Response): Promise<void> {
+  async GetUserProfile(req: Request, res: Response): Promise<void> {
     // Executa o caso de uso
     const response = await this.getUserProfileUseCase.Execute(req);
 
@@ -31,13 +34,19 @@ export default class UserController {
     res.status(200).json(response);
   }
 
-  public async Update(req: Request, res: Response): Promise<void> {
+  async Update(req: Request, res: Response): Promise<void> {
     // Executa o caso de uso
-    const response = await this.updateUserUseCase.Execute(req);
+    await this.updateUserUseCase.Execute(req);
 
     // Devolve o status code
     res.status(204).json({ message: "Cadastro atualizado com sucesso." });
   }
 
-  public async ChangePassword(req: Request, res: Response): Promise<void> {}
+  async ChangePassword(req: Request, res: Response): Promise<void> {
+    // Executa o caso de uso
+    await this.changePasswordUseCase.Execute(req);
+
+    // Devolve o status code
+    res.status(204).json({ message: "Senha atualizada com sucesso." });
+  }
 }

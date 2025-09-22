@@ -1,24 +1,36 @@
 import { container } from "tsyringe";
-import type { ILoggedUser } from "../domain/services/ILoggedUser.js";
-import { LoggedUser } from "./services/LoggedUser.js";
-import type { IUserWriteOnlyRepository } from "../domain/repositories/user/IUserWriteOnlyRepository.js";
 import { UserRepository } from "./repositories/UserRepository.js";
 import type { IUserReadOnlyRepository } from "../domain/repositories/user/IUserReadOnlyRepository.js";
+import type { IUserWriteOnlyRepository } from "../domain/repositories/user/IUserWriteOnlyRepository.js";
+import type { IUserUpdateOnlyRepository } from "../domain/repositories/user/IUserUpdateOnlyRepository.js";
 import type { IPasswordEncripter } from "../domain/security/Cryptography/IPasswordEncripter.js";
 import { BCryptNet } from "./security/BCryptNet.js";
 import type { IAccessTokenGenerator } from "../domain/security/Tokens/IAccessTokenGenerator.js";
 import { TokenHandler } from "./security/Tokens/TokenHandler.js";
-import type { IUserUpdateOnlyRepository } from "../domain/repositories/user/IUserUpdateOnlyRepository.js";
+import type { ILoggedUser } from "../domain/services/ILoggedUser.js";
+import { LoggedUser } from "./services/LoggedUser.js";
+import { EmployeeRepository } from "./repositories/EmployeeRepository.js";
+import type { IEmployeeReadOnlyRepository } from "../domain/repositories/Employee/IEmployeeReadOnlyRepository.js";
+import type { IEmployeeWriteOnlyRepository } from "../domain/repositories/Employee/IEmployeeWriteOnlyRepository.js";
 
-// AddRepositories
-container.register<IUserWriteOnlyRepository>("IUserWriteOnlyRepository", {
+/* AddRepositories */
+// User Repository
+container.register<IUserReadOnlyRepository>("IUserReadOnlyRepository", {
   useClass: UserRepository,
 });
-container.register<IUserReadOnlyRepository>("IUserReadOnlyRepository", {
+container.register<IUserWriteOnlyRepository>("IUserWriteOnlyRepository", {
   useClass: UserRepository,
 });
 container.register<IUserUpdateOnlyRepository>("IUserUpdateOnlyRepository", {
   useClass: UserRepository,
+});
+
+// Employee Repository
+container.register<IEmployeeReadOnlyRepository>("IEmployeeReadOnlyRepository", {
+  useClass: EmployeeRepository,
+});
+container.register<IEmployeeWriteOnlyRepository>("IEmployeeWriteOnlyRepository", {
+  useClass: EmployeeRepository,
 });
 
 // AddPasswordEncripter

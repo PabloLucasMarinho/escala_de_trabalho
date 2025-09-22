@@ -7,8 +7,13 @@ import type { ILoginUserUseCase } from "./useCases/user/Login/ILoginUserUseCase.
 import { LoginUserUseCase } from "./useCases/user/Login/LoginUserUseCase.js";
 import type { IUpdateUserUseCase } from "./useCases/user/Update/IUpdateUserUseCase.js";
 import { UpdateUserUseCase } from "./useCases/user/Update/UpdateUserUseCase.js";
+import type { IChangePasswordUseCase } from "./useCases/user/ChangePassword/IChangePasswordUseCase.js";
+import { ChangePasswordUseCase } from "./useCases/user/ChangePassword/ChangePasswordUseCase.js";
+import type { IRegisterEmployeeUseCase } from "./useCases/employee/IRegisterEmployeeUseCase.js";
+import RegisterEmployeeUseCase from "./useCases/employee/RegisterEmployeeUseCase.js";
 
-// AddUseCases
+/* AddUseCases */
+// User Use Cases
 container.register<IRegisterUserUseCase>("IRegisterUserUseCase", {
   useClass: RegisterUserUseCase,
 });
@@ -20,4 +25,12 @@ container.register<IGetUserProfileUseCase>("IGetUserProfileUseCase", {
 });
 container.register<IUpdateUserUseCase>("IUpdateUserUseCase", {
   useClass: UpdateUserUseCase,
+});
+container.register<IChangePasswordUseCase>("IChangePasswordUseCase", {
+  useClass: ChangePasswordUseCase,
+});
+
+// Employee Use Cases
+container.register<IRegisterEmployeeUseCase>("IRegisterEmployeeUseCase", {
+  useClass: RegisterEmployeeUseCase,
 });

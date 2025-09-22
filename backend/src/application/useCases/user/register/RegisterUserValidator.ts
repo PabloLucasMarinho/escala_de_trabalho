@@ -6,7 +6,7 @@ import {
 import type { Request } from "express";
 
 export class RegisterUserValidator {
-  private static Register() {
+  private static ValidateData() {
     return z
       .object({
         name: z
@@ -42,6 +42,6 @@ export class RegisterUserValidator {
   }
 
   public static Validate(req: Request) {
-    return this.Register().parse(req.body);
+    return this.ValidateData().parse(req.body);
   }
 }

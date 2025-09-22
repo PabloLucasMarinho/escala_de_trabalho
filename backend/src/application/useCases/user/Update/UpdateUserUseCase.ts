@@ -3,7 +3,6 @@ import type { IUpdateUserUseCase } from "./IUpdateUserUseCase.js";
 import { UpdateUserValidator } from "./UpdateUserValidator.js";
 import { inject, injectable } from "tsyringe";
 import type { IUserReadOnlyRepository } from "../../../../domain/repositories/user/IUserReadOnlyRepository.js";
-import type { IUpdateUserDTO } from "../../../../shared/communication/dtos/user/IUpdateUserDTO.js";
 import { LoggedUser } from "../../../../infrastructure/services/LoggedUser.js";
 import type { IUserUpdateOnlyRepository } from "../../../../domain/repositories/user/IUserUpdateOnlyRepository.js";
 
@@ -25,7 +24,7 @@ export class UpdateUserUseCase implements IUpdateUserUseCase {
     const user = await loggedUser.User();
 
     // Valida os dados enviados
-    const validatedUpdate = await this.Validate(req, user.email);
+    await this.Validate(req, user.email);
 
     const dbUser = await this.updateOnlyRepository.GetById(req.user.toString());
 
@@ -40,10 +39,7 @@ export class UpdateUserUseCase implements IUpdateUserUseCase {
     this.updateOnlyRepository.Update(dbUser, user._id!.toString());
   }
 
-  private async Validate(
-    req: Request,
-    currentEmail: string
-  ): Promise<IUpdateUserDTO> {
+  private async Validate(req: Request, currentEmail: string): Promise<void> {
     const user = UpdateUserValidator.Validate(req);
 
     if (currentEmail !== user.email) {
@@ -55,7 +51,5 @@ export class UpdateUserUseCase implements IUpdateUserUseCase {
         throw new Error("E-mail já cadastrado por outro usuário.");
       }
     }
-
-    return user;
   }
 }

@@ -3,6 +3,6 @@ import type { IEntityBase } from "./IEntityBase.js";
 
 export interface IEmployee extends IEntityBase {
   name: string;
-  adm: Types.ObjectId;
+  adm?: Types.ObjectId;
   shift?: Types.ObjectId;
 }

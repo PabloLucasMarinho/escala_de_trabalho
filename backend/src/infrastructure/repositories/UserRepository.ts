@@ -7,12 +7,7 @@ import type { Types } from "mongoose";
 import { injectable } from "tsyringe";
 
 @injectable()
-export class UserRepository
-  implements
-    IUserReadOnlyRepository,
-    IUserWriteOnlyRepository,
-    IUserUpdateOnlyRepository
-{
+export class UserRepository implements IUserReadOnlyRepository, IUserWriteOnlyRepository, IUserUpdateOnlyRepository {
   async Add(user: IUser): Promise<Types.ObjectId> {
     const newUser = await new User(user).save();
 

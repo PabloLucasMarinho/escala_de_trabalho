@@ -2,13 +2,13 @@ import type { ILoggedUser } from "../../domain/services/ILoggedUser.js";
 import type { IUser } from "../entities/IUser.js";
 import User from "../../domain/entities/User.js";
 import { TokenHandler } from "../security/Tokens/TokenHandler.js";
-import type { Request } from "express";
+import type { InputData } from "../../shared/communication/types/Request.js";
 
 const tokenHandler = new TokenHandler();
 
 export class LoggedUser implements ILoggedUser {
-  private readonly _req: Request;
-  constructor(req: Request) {
+  private readonly _req: InputData<any>;
+  constructor(req: InputData<any>) {
     this._req = req;
   }
 

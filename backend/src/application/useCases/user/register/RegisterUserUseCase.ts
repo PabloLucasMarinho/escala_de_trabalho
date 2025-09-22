@@ -46,9 +46,7 @@ export class RegisterUserUseCase implements IRegisterUserUseCase {
   private async Validate(req: Request): Promise<IUser> {
     const user = RegisterUserValidator.Validate(req);
 
-    const emailExist = await this.readOnlyRepository.ExistActiveUserWithEmail(
-      user.email
-    );
+    const emailExist = await this.readOnlyRepository.ExistActiveUserWithEmail(user.email);
     if (emailExist) {
       throw new Error("E-mail já cadastrado por outro usuário.");
     }

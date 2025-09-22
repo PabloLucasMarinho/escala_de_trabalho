@@ -1,27 +1,27 @@
-import type { HydratedDocument } from "mongoose";
+import { injectable } from "tsyringe";
+import type { IEmployeeReadOnlyRepository } from "../../domain/repositories/Employee/IEmployeeReadOnlyRepository.js";
+import type { RequestRegisterEmployeeJson } from "../../shared/communication/Requests/RequestRegisterEmployeeJson.js";
+import type { InputData } from "../../shared/communication/types/Request.js";
 import type { IEmployee } from "../entities/IEmployee.js";
-import type { IEmployeeRepository } from "../../domain/repositories/IEmployeeRepository.js";
-import Employee from "../../domain/entities/Employee.js";
 import type { IUser } from "../entities/IUser.js";
-import type { IRegisterEmployeeDTO } from "../../shared/communication/dtos/employee/IRegisterEmployeeDTO.js";
+import Employee from "../../domain/entities/Employee.js";
+import type { IEmployeeWriteOnlyRepository } from "../../domain/repositories/Employee/IEmployeeWriteOnlyRepository.js";
 
-export class EmployeeRepository implements IEmployeeRepository {
-  async create(
-    employee: IRegisterEmployeeDTO
-  ): Promise<HydratedDocument<IEmployee>> {
-    const newEmployee = new Employee(employee);
-    const savedEmployee = await newEmployee.save();
+@injectable()
+export class EmployeeRepository implements IEmployeeReadOnlyRepository, IEmployeeWriteOnlyRepository {
+  async Add(employee: IEmployee): Promise<IEmployee> {
+    const newEmployee = await new Employee(employee).save();
 
-    return savedEmployee;
+    return newEmployee;
   }
 
-  findById(id: string): Promise<HydratedDocument<IUser>> {
+  async ExistActiveEmployeeWithName(name: string): Promise<boolean> {
+    const employee = await Employee.exists({ name: name.toUpperCase(), active: true });
+
+    return employee ? false : true;
+  }
+
+  GetById(user: IUser, employeeId: string): Promise<IEmployee | null> {
     throw new Error("Method not implemented.");
-  }
-
-  async findByName(name: string): Promise<HydratedDocument<IEmployee> | null> {
-    const employee = await Employee.findOne({ name });
-
-    return employee;
   }
 }
