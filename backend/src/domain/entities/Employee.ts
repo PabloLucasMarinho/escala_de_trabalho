@@ -13,6 +13,10 @@ const employeeSchema = new Schema<IEmployee>(
       required: false,
       ref: "User",
     },
+    active: {
+      type: Boolean,
+      default: true,
+    },
   },
   { timestamps: true }
 );

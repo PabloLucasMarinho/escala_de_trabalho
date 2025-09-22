@@ -1,4 +1,4 @@
 export class ResponseRegisteredEmployeeJson {
-  public Id: string = String();
-  public Name: string = String();
+  public id: string = String();
+  public name: string = String();
 }

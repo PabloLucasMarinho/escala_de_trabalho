@@ -1,5 +1,5 @@
 export class ResponseUserProfileJson {
-  public Name: string = String();
+  public name: string = String();
 
-  public Email: string = String();
+  public email: string = String();
 }

@@ -16,7 +16,7 @@ export class UpdateUserUseCase implements IUpdateUserUseCase {
   ) {}
 
   async Execute(req: Request): Promise<void> {
-    if (!req.user) {
+    if (!req.params.id) {
       throw new Error("Usuário não existe.");
     }
 
@@ -26,7 +26,7 @@ export class UpdateUserUseCase implements IUpdateUserUseCase {
     // Valida os dados enviados
     await this.Validate(req, user.email);
 
-    const dbUser = await this.updateOnlyRepository.GetById(req.user.toString());
+    const dbUser = await this.updateOnlyRepository.GetById(req.params.id);
 
     if (req.body.name && req.body.name.length > 0) {
       dbUser.name = req.body.name;
@@ -43,9 +43,7 @@ export class UpdateUserUseCase implements IUpdateUserUseCase {
     const user = UpdateUserValidator.Validate(req);
 
     if (currentEmail !== user.email) {
-      const emailExist = await this.readOnlyRepository.ExistActiveUserWithEmail(
-        user.email!
-      );
+      const emailExist = await this.readOnlyRepository.ExistActiveUserWithEmail(user.email!);
 
       if (emailExist) {
         throw new Error("E-mail já cadastrado por outro usuário.");

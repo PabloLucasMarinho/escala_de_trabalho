@@ -12,6 +12,8 @@ import { LoggedUser } from "./services/LoggedUser.js";
 import { EmployeeRepository } from "./repositories/EmployeeRepository.js";
 import type { IEmployeeReadOnlyRepository } from "../domain/repositories/Employee/IEmployeeReadOnlyRepository.js";
 import type { IEmployeeWriteOnlyRepository } from "../domain/repositories/Employee/IEmployeeWriteOnlyRepository.js";
+import type { IEmployeeUpdateOnlyRepository } from "../domain/repositories/Employee/IEmployeeUpdateOnlyRepository.js";
+import type { IEmployeeDeleteOnlyRepository } from "../domain/repositories/Employee/IEmployeeDeleteOnlyRepository.js";
 
 /* AddRepositories */
 // User Repository
@@ -30,6 +32,12 @@ container.register<IEmployeeReadOnlyRepository>("IEmployeeReadOnlyRepository", {
   useClass: EmployeeRepository,
 });
 container.register<IEmployeeWriteOnlyRepository>("IEmployeeWriteOnlyRepository", {
+  useClass: EmployeeRepository,
+});
+container.register<IEmployeeUpdateOnlyRepository>("IEmployeeUpdateOnlyRepository", {
+  useClass: EmployeeRepository,
+});
+container.register<IEmployeeDeleteOnlyRepository>("IEmployeeDeleteOnlyRepository", {
   useClass: EmployeeRepository,
 });
 

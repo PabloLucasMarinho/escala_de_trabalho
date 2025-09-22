@@ -10,8 +10,8 @@ export class GetUserProfileUseCase implements IGetUserProfileUseCase {
     const user = await loggedUser.User();
 
     const response = new ResponseUserProfileJson();
-    response.Name = user.name;
-    response.Email = user.email;
+    response.name = user.name;
+    response.email = user.email;
 
     return response;
   }

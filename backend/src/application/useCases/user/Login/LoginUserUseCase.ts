@@ -21,18 +21,15 @@ export class LoginUserUseCase implements ILoginUserUseCase {
   async Execute(req: Request): Promise<ResponseRegisteredUserJson> {
     const user = await this.readOnlyRepository.GetByEmail(req.body.email);
 
-    if (
-      !user ||
-      !this.passwordEncripter.IsValid(req.body.password, user.password)
-    ) {
+    if (!user || !this.passwordEncripter.IsValid(req.body.password, user.password)) {
       throw new Error("E-mail ou senha inválidos.");
     }
 
     const response = new ResponseRegisteredUserJson();
     const token = new ResponseTokensJson();
-    token.AccessToken = this.tokenHandler.Generate(user._id!);
-    response.Name = user.name;
-    response.Token = token;
+    token.accessToken = this.tokenHandler.Generate(user._id!);
+    response.name = user.name;
+    response.token = token;
 
     return response;
   }

@@ -9,8 +9,14 @@ import type { IUpdateUserUseCase } from "./useCases/user/Update/IUpdateUserUseCa
 import { UpdateUserUseCase } from "./useCases/user/Update/UpdateUserUseCase.js";
 import type { IChangePasswordUseCase } from "./useCases/user/ChangePassword/IChangePasswordUseCase.js";
 import { ChangePasswordUseCase } from "./useCases/user/ChangePassword/ChangePasswordUseCase.js";
-import type { IRegisterEmployeeUseCase } from "./useCases/employee/IRegisterEmployeeUseCase.js";
-import RegisterEmployeeUseCase from "./useCases/employee/RegisterEmployeeUseCase.js";
+import type { IRegisterEmployeeUseCase } from "./useCases/employee/Register/IRegisterEmployeeUseCase.js";
+import RegisterEmployeeUseCase from "./useCases/employee/Register/RegisterEmployeeUseCase.js";
+import type { IGetByIdEmployeeUseCase } from "./useCases/employee/GetById/IGetByIdEmployeeUseCase.js";
+import GetByIdEmployeeUseCase from "./useCases/employee/GetById/GetByIdEmployeeUseCase.js";
+import type { IUpdateEmployeeUseCase } from "./useCases/employee/Update/IUpdateEmployeeUseCase.js";
+import UpdateEmployeeUseCase from "./useCases/employee/Update/UpdateEmployeeUseCase.js";
+import type { IDeleteEmployeeUseCase } from "./useCases/employee/Delete/IDeleteEmployeeUseCase.js";
+import { DeleteEmployeeUseCase } from "./useCases/employee/Delete/DeleteEmployeeUseCase.js";
 
 /* AddUseCases */
 // User Use Cases
@@ -33,4 +39,13 @@ container.register<IChangePasswordUseCase>("IChangePasswordUseCase", {
 // Employee Use Cases
 container.register<IRegisterEmployeeUseCase>("IRegisterEmployeeUseCase", {
   useClass: RegisterEmployeeUseCase,
+});
+container.register<IGetByIdEmployeeUseCase>("IGetByIdEmployeeUseCase", {
+  useClass: GetByIdEmployeeUseCase,
+});
+container.register<IUpdateEmployeeUseCase>("IUpdateEmployeeUseCase", {
+  useClass: UpdateEmployeeUseCase,
+});
+container.register<IDeleteEmployeeUseCase>("IDeleteEmployeeUseCase", {
+  useClass: DeleteEmployeeUseCase,
 });

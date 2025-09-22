@@ -4,6 +4,6 @@ import { IUser } from "../entities/IUser.ts";
 
 declare module "express" {
   export interface Request {
-    user?: string | JwtPayload;
+    id?: string | JwtPayload;
   }
 }

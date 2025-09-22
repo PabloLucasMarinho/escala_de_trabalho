@@ -1,9 +1,9 @@
 import z from "zod";
 import { nameRegex } from "../../../shared/communication/constants/regex.js";
 import type { InputData } from "../../../shared/communication/types/Request.js";
-import type { RequestRegisterEmployeeJson } from "../../../shared/communication/Requests/RequestRegisterEmployeeJson.js";
+import type { RequestEmployeeJson } from "../../../shared/communication/Requests/RequestEmployeeJson.js";
 
-export class RegisterEmployeeValidator {
+export class EmployeeValidator {
   private static ValidateData() {
     return z.object({
       name: z
@@ -20,7 +20,7 @@ export class RegisterEmployeeValidator {
     });
   }
 
-  public static Validate(req: InputData<RequestRegisterEmployeeJson>) {
+  public static Validate(req: InputData<RequestEmployeeJson>) {
     return this.ValidateData().parse(req.body);
   }
 }

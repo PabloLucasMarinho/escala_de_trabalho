@@ -35,10 +35,10 @@ export class RegisterUserUseCase implements IRegisterUserUseCase {
 
     const response = new ResponseRegisteredUserJson();
     const token = new ResponseTokensJson();
-    token.AccessToken = this.accessTokenGenerator.Generate(userId);
+    token.accessToken = this.accessTokenGenerator.Generate(userId);
 
-    response.Name = req.body.name.toUpperCase();
-    response.Token = token;
+    response.name = req.body.name.toUpperCase();
+    response.token = token;
 
     return response;
   }

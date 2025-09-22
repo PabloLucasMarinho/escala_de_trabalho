@@ -39,7 +39,7 @@ export default class UserController {
     await this.updateUserUseCase.Execute(req);
 
     // Devolve o status code
-    res.status(204).json({ message: "Cadastro atualizado com sucesso." });
+    res.status(204);
   }
 
   async ChangePassword(req: Request, res: Response): Promise<void> {
@@ -47,6 +47,6 @@ export default class UserController {
     await this.changePasswordUseCase.Execute(req);
 
     // Devolve o status code
-    res.status(204).json({ message: "Senha atualizada com sucesso." });
+    res.status(204);
   }
 }

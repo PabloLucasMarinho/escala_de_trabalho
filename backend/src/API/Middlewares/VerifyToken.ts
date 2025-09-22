@@ -10,7 +10,7 @@ const VerifyToken = (req: Request, res: Response, next: NextFunction) => {
 
   const verifiedToken = tokenHandler.Verify(token);
 
-  req.user = verifiedToken.id;
+  req.id = verifiedToken.id;
   next();
 };
 

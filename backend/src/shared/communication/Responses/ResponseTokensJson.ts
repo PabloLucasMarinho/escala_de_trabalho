@@ -1,3 +1,3 @@
 export class ResponseTokensJson {
-  public AccessToken: string = String();
+  public accessToken: string = String();
 }
