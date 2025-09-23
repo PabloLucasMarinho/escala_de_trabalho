@@ -1,7 +1,6 @@
-import type { ResponseTokensJson } from "./ResponseTokensJson.js";
+import type ResponseTokensJson from "./ResponseTokensJson.js";
 
-export class ResponseRegisteredUserJson {
+export default class ResponseRegisteredUserJson {
   public name: string = String();
-
   public token: ResponseTokensJson = Object();
 }

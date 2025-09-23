@@ -1,3 +1,3 @@
-export class ResponseEmployeeJson {
+export default class ResponseEmployeeJson {
   public name: string = String();
 }

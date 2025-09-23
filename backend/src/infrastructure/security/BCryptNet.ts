@@ -1,7 +1,7 @@
 import type { IPasswordEncripter } from "../../domain/security/Cryptography/IPasswordEncripter.js";
 import bcrypt from "bcrypt";
 
-export class BCryptNet implements IPasswordEncripter {
+export default class BCryptNet implements IPasswordEncripter {
   Encrypt(password: string): string {
     const salt = bcrypt.genSaltSync(12);
 

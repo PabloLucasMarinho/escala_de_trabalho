@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
-import { TokenHandler } from "../../infrastructure/security/Tokens/TokenHandler.js";
+import TokenHandler from "../../infrastructure/security/Tokens/TokenHandler.js";
 import "dotenv/config";
 
 const tokenHandler = new TokenHandler();

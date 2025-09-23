@@ -1,18 +1,18 @@
 import { inject, injectable } from "tsyringe";
+import type { InputData } from "../../../../shared/communication/types/Request.js";
 import type { IDeleteEmployeeUseCase } from "./IDeleteEmployeeUseCase.js";
-import type { Request } from "express";
-import { LoggedUser } from "../../../../infrastructure/services/LoggedUser.js";
 import type { IEmployeeReadOnlyRepository } from "../../../../domain/repositories/Employee/IEmployeeReadOnlyRepository.js";
 import type { IEmployeeDeleteOnlyRepository } from "../../../../domain/repositories/Employee/IEmployeeDeleteOnlyRepository.js";
+import LoggedUser from "../../../../infrastructure/services/LoggedUser.js";
 
 @injectable()
-export class DeleteEmployeeUseCase implements IDeleteEmployeeUseCase {
+export default class DeleteEmployeeUseCase implements IDeleteEmployeeUseCase {
   constructor(
     @inject("IEmployeeReadOnlyRepository") private readonly readOnlyRepository: IEmployeeReadOnlyRepository,
     @inject("IEmployeeDeleteOnlyRepository") private readonly deleteOnlyRepository: IEmployeeDeleteOnlyRepository
   ) {}
 
-  async Execute(req: Request): Promise<void> {
+  async Execute(req: InputData<any>): Promise<void> {
     if (!req.params.id) {
       throw new Error("Colaborador não existe.");
     }

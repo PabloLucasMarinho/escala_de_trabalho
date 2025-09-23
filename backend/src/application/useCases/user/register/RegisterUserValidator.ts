@@ -1,11 +1,9 @@
 import z from "zod";
-import {
-  nameRegex,
-  passwordRegex,
-} from "../../../../shared/communication/constants/regex.js";
-import type { Request } from "express";
+import { nameRegex, passwordRegex } from "../../../../shared/communication/constants/regex.js";
+import type { InputData } from "../../../../shared/communication/types/Request.js";
+import type RequestRegisterJson from "../../../../shared/communication/Requests/RequestRegisterUserJson.js";
 
-export class RegisterUserValidator {
+export default class RegisterUserValidator {
   private static ValidateData() {
     return z
       .object({
@@ -16,23 +14,15 @@ export class RegisterUserValidator {
           .superRefine((value, context) => {
             if (value && value.length > 0) {
               if (!nameRegex.test(value)) {
-                context.addIssue(
-                  "O nome só pode conter letras, espaços, hífens e apóstrofos."
-                );
+                context.addIssue("O nome só pode conter letras, espaços, hífens e apóstrofos.");
               }
             }
           }),
-        email: z
-          .email({ error: "O e-mail fornecido é inválido." })
-          .trim()
-          .nonempty({ error: "O e-mail é obrigatório." }),
-        password: z
-          .string()
-          .nonempty({ error: "A senha é obrigatória." })
-          .regex(passwordRegex, {
-            error:
-              "A senha deve conter no mínimo 8 caracteres, uma letra maiúscula, uma minúscula, um número e um caractere especial.",
-          }),
+        email: z.email({ error: "O e-mail fornecido é inválido." }).trim().nonempty({ error: "O e-mail é obrigatório." }),
+        password: z.string().nonempty({ error: "A senha é obrigatória." }).regex(passwordRegex, {
+          error:
+            "A senha deve conter no mínimo 8 caracteres, uma letra maiúscula, uma minúscula, um número e um caractere especial.",
+        }),
         confirmPassword: z.string(),
       })
       .refine((data) => data.password === data.confirmPassword, {
@@ -41,7 +31,7 @@ export class RegisterUserValidator {
       });
   }
 
-  public static Validate(req: Request) {
+  public static Validate(req: InputData<RequestRegisterJson>) {
     return this.ValidateData().parse(req.body);
   }
 }

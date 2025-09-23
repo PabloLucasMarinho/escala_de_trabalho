@@ -1,13 +1,14 @@
-import type { Request } from "express";
 import type { IUpdateUserUseCase } from "./IUpdateUserUseCase.js";
-import { UpdateUserValidator } from "./UpdateUserValidator.js";
+import UpdateUserValidator from "./UpdateUserValidator.js";
 import { inject, injectable } from "tsyringe";
 import type { IUserReadOnlyRepository } from "../../../../domain/repositories/user/IUserReadOnlyRepository.js";
-import { LoggedUser } from "../../../../infrastructure/services/LoggedUser.js";
+import LoggedUser from "../../../../infrastructure/services/LoggedUser.js";
 import type { IUserUpdateOnlyRepository } from "../../../../domain/repositories/user/IUserUpdateOnlyRepository.js";
+import type { InputData } from "../../../../shared/communication/types/Request.js";
+import type RequestUpdateUserJson from "../../../../shared/communication/Requests/RequestUpdateUserJson.js";
 
 @injectable()
-export class UpdateUserUseCase implements IUpdateUserUseCase {
+export default class UpdateUserUseCase implements IUpdateUserUseCase {
   constructor(
     @inject("IUserReadOnlyRepository")
     private readonly readOnlyRepository: IUserReadOnlyRepository,
@@ -15,7 +16,7 @@ export class UpdateUserUseCase implements IUpdateUserUseCase {
     private readonly updateOnlyRepository: IUserUpdateOnlyRepository
   ) {}
 
-  async Execute(req: Request): Promise<void> {
+  async Execute(req: InputData<RequestUpdateUserJson>): Promise<void> {
     if (!req.params.id) {
       throw new Error("Usuário não existe.");
     }
@@ -39,7 +40,7 @@ export class UpdateUserUseCase implements IUpdateUserUseCase {
     this.updateOnlyRepository.Update(dbUser, user._id!.toString());
   }
 
-  private async Validate(req: Request, currentEmail: string): Promise<void> {
+  private async Validate(req: InputData<RequestUpdateUserJson>, currentEmail: string): Promise<void> {
     const user = UpdateUserValidator.Validate(req);
 
     if (currentEmail !== user.email) {

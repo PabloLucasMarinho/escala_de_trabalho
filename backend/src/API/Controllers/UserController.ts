@@ -1,9 +1,13 @@
-import { type Request, type Response } from "express";
-import { RegisterUserUseCase } from "../../application/useCases/user/register/RegisterUserUseCase.js";
-import { GetUserProfileUseCase } from "../../application/useCases/user/Profile/GetUserProfileUseCase.js";
 import { inject, injectable } from "tsyringe";
-import { UpdateUserUseCase } from "../../application/useCases/user/Update/UpdateUserUseCase.js";
-import { ChangePasswordUseCase } from "../../application/useCases/user/ChangePassword/ChangePasswordUseCase.js";
+import type { Response } from "express";
+import type { InputData } from "../../shared/communication/types/Request.js";
+import RegisterUserUseCase from "../../application/useCases/user/register/RegisterUserUseCase.js";
+import GetUserProfileUseCase from "../../application/useCases/user/Profile/GetUserProfileUseCase.js";
+import UpdateUserUseCase from "../../application/useCases/user/Update/UpdateUserUseCase.js";
+import ChangePasswordUseCase from "../../application/useCases/user/ChangePassword/ChangePasswordUseCase.js";
+import type RequestRegisterJson from "../../shared/communication/Requests/RequestRegisterUserJson.js";
+import type RequestUpdateUserJson from "../../shared/communication/Requests/RequestUpdateUserJson.js";
+import type RequestChangePasswordJson from "../../shared/communication/Requests/RequestChangePasswordJson.js";
 
 @injectable()
 export default class UserController {
@@ -18,7 +22,7 @@ export default class UserController {
     private changePasswordUseCase: ChangePasswordUseCase
   ) {}
 
-  async Register(req: Request, res: Response): Promise<void> {
+  async Register(req: InputData<RequestRegisterJson>, res: Response): Promise<void> {
     // Executa o caso de uso
     const response = await this.registerUserUseCase.Execute(req);
 
@@ -26,7 +30,7 @@ export default class UserController {
     res.status(201).json(response);
   }
 
-  async GetUserProfile(req: Request, res: Response): Promise<void> {
+  async GetUserProfile(req: InputData<any>, res: Response): Promise<void> {
     // Executa o caso de uso
     const response = await this.getUserProfileUseCase.Execute(req);
 
@@ -34,19 +38,19 @@ export default class UserController {
     res.status(200).json(response);
   }
 
-  async Update(req: Request, res: Response): Promise<void> {
+  async Update(req: InputData<RequestUpdateUserJson>, res: Response): Promise<void> {
     // Executa o caso de uso
     await this.updateUserUseCase.Execute(req);
 
     // Devolve o status code
-    res.status(204);
+    res.status(204).send();
   }
 
-  async ChangePassword(req: Request, res: Response): Promise<void> {
+  async ChangePassword(req: InputData<RequestChangePasswordJson>, res: Response): Promise<void> {
     // Executa o caso de uso
     await this.changePasswordUseCase.Execute(req);
 
     // Devolve o status code
-    res.status(204);
+    res.status(204).send();
   }
 }

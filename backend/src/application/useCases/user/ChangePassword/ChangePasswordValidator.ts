@@ -1,25 +1,20 @@
 import z from "zod";
 import { passwordRegex } from "../../../../shared/communication/constants/regex.js";
-import type { Request } from "express";
+import type { InputData } from "../../../../shared/communication/types/Request.js";
+import type RequestChangePasswordJson from "../../../../shared/communication/Requests/RequestChangePasswordJson.js";
 
-export class ChangePasswordValidator {
+export default class ChangePasswordValidator {
   private static ValidateData() {
     return z
       .object({
-        currentPassword: z
-          .string()
-          .nonempty({ error: "A senha atual não pode ser vazia." })
-          .regex(passwordRegex, {
-            error:
-              "A senha deve conter no mínimo 8 caracteres, uma letra maiúscula, uma minúscula, um número e um caractere especial.",
-          }),
-        newPassword: z
-          .string()
-          .nonempty({ error: "A nova senha não pode ser vazia." })
-          .regex(passwordRegex, {
-            error:
-              "A senha deve conter no mínimo 8 caracteres, uma letra maiúscula, uma minúscula, um número e um caractere especial.",
-          }),
+        currentPassword: z.string().nonempty({ error: "A senha atual não pode ser vazia." }).regex(passwordRegex, {
+          error:
+            "A senha deve conter no mínimo 8 caracteres, uma letra maiúscula, uma minúscula, um número e um caractere especial.",
+        }),
+        newPassword: z.string().nonempty({ error: "A nova senha não pode ser vazia." }).regex(passwordRegex, {
+          error:
+            "A senha deve conter no mínimo 8 caracteres, uma letra maiúscula, uma minúscula, um número e um caractere especial.",
+        }),
         confirmPassword: z.string(),
       })
       .refine((data) => data.newPassword === data.confirmPassword, {
@@ -28,7 +23,7 @@ export class ChangePasswordValidator {
       });
   }
 
-  public static Validate(req: Request) {
+  public static Validate(req: InputData<RequestChangePasswordJson>) {
     return this.ValidateData().parse(req.body);
   }
 }

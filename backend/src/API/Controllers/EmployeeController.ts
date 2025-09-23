@@ -1,12 +1,13 @@
-import type { Request, Response } from "express";
 import { inject, injectable } from "tsyringe";
-import type { RequestEmployeeJson } from "../../shared/communication/Requests/RequestEmployeeJson.js";
-import type { ResponseRegisteredEmployeeJson } from "../../shared/communication/Responses/ResponseRegisteredEmployeeJson.js";
-import RegisterEmployeeUseCase from "../../application/useCases/employee/Register/RegisterEmployeeUseCase.js";
 import type { InputData } from "../../shared/communication/types/Request.js";
+import type { Response } from "express";
+import type RequestEmployeeJson from "../../shared/communication/Requests/RequestEmployeeJson.js";
+import type ResponseRegisteredEmployeeJson from "../../shared/communication/Responses/ResponseRegisteredEmployeeJson.js";
+import type ResponseEmployeeJson from "../../shared/communication/Responses/ResponseEmployeeJson.js";
+import RegisterEmployeeUseCase from "../../application/useCases/employee/Register/RegisterEmployeeUseCase.js";
 import GetByIdEmployeeUseCase from "../../application/useCases/employee/GetById/GetByIdEmployeeUseCase.js";
 import UpdateEmployeeUseCase from "../../application/useCases/employee/Update/UpdateEmployeeUseCase.js";
-import { DeleteEmployeeUseCase } from "../../application/useCases/employee/Delete/DeleteEmployeeUseCase.js";
+import DeleteEmployeeUseCase from "../../application/useCases/employee/Delete/DeleteEmployeeUseCase.js";
 
 @injectable()
 export default class EmployeeController {
@@ -24,19 +25,19 @@ export default class EmployeeController {
     res.status(201).json(response);
   }
 
-  async GetById(req: Request, res: Response): Promise<void> {
+  async GetById(req: InputData<any>, res: Response<ResponseEmployeeJson>): Promise<void> {
     const response = await this.getByIdEmployeeUseCase.Execute(req);
 
     res.status(200).json(response);
   }
 
-  async Update(req: InputData<RequestEmployeeJson>, res: Response): Promise<void> {
+  async Update(req: InputData<RequestEmployeeJson>, res: Response<null>): Promise<void> {
     await this.updateEmployeeUseCase.Execute(req);
 
     res.status(204).send();
   }
 
-  async Delete(req: Request, res: Response): Promise<void> {
+  async Delete(req: InputData<any>, res: Response<null>): Promise<void> {
     await this.deleteEmployeeUseCase.Execute(req);
 
     res.status(204).send();

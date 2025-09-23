@@ -1,15 +1,15 @@
-import type { IGetByIdEmployeeUseCase } from "./IGetByIdEmployeeUseCase.js";
-import type { Request } from "express";
-import { ResponseEmployeeJson } from "../../../../shared/communication/Responses/ResponseEmployeeJson.js";
-import { LoggedUser } from "../../../../infrastructure/services/LoggedUser.js";
 import { inject, injectable } from "tsyringe";
+import type { InputData } from "../../../../shared/communication/types/Request.js";
+import type { IGetByIdEmployeeUseCase } from "./IGetByIdEmployeeUseCase.js";
 import type { IEmployeeReadOnlyRepository } from "../../../../domain/repositories/Employee/IEmployeeReadOnlyRepository.js";
+import LoggedUser from "../../../../infrastructure/services/LoggedUser.js";
+import ResponseEmployeeJson from "../../../../shared/communication/Responses/ResponseEmployeeJson.js";
 
 @injectable()
 export default class GetByIdEmployeeUseCase implements IGetByIdEmployeeUseCase {
   constructor(@inject("IEmployeeReadOnlyRepository") private readonly readOnlyRepository: IEmployeeReadOnlyRepository) {}
 
-  async Execute(req: Request): Promise<ResponseEmployeeJson> {
+  async Execute(req: InputData<any>): Promise<ResponseEmployeeJson> {
     const loggedUser = new LoggedUser(req);
 
     const user = await loggedUser.User();

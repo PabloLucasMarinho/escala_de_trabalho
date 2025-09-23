@@ -4,11 +4,11 @@ import type { IUserReadOnlyRepository } from "../domain/repositories/user/IUserR
 import type { IUserWriteOnlyRepository } from "../domain/repositories/user/IUserWriteOnlyRepository.js";
 import type { IUserUpdateOnlyRepository } from "../domain/repositories/user/IUserUpdateOnlyRepository.js";
 import type { IPasswordEncripter } from "../domain/security/Cryptography/IPasswordEncripter.js";
-import { BCryptNet } from "./security/BCryptNet.js";
+import BCryptNet from "./security/BCryptNet.js";
 import type { IAccessTokenGenerator } from "../domain/security/Tokens/IAccessTokenGenerator.js";
-import { TokenHandler } from "./security/Tokens/TokenHandler.js";
+import TokenHandler from "./security/Tokens/TokenHandler.js";
 import type { ILoggedUser } from "../domain/services/ILoggedUser.js";
-import { LoggedUser } from "./services/LoggedUser.js";
+import LoggedUser from "./services/LoggedUser.js";
 import { EmployeeRepository } from "./repositories/EmployeeRepository.js";
 import type { IEmployeeReadOnlyRepository } from "../domain/repositories/Employee/IEmployeeReadOnlyRepository.js";
 import type { IEmployeeWriteOnlyRepository } from "../domain/repositories/Employee/IEmployeeWriteOnlyRepository.js";

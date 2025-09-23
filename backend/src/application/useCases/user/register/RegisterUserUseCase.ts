@@ -1,17 +1,18 @@
-import type { Request } from "express";
+import type { InputData } from "../../../../shared/communication/types/Request.js";
+import type RequestRegisterJson from "../../../../shared/communication/Requests/RequestRegisterUserJson.js";
 import type { IUser } from "../../../../infrastructure/entities/IUser.js";
 import type { IRegisterUserUseCase } from "./IRegisterUserUseCase.js";
-import { RegisterUserValidator } from "./RegisterUserValidator.js";
+import RegisterUserValidator from "./RegisterUserValidator.js";
 import type { IUserReadOnlyRepository } from "../../../../domain/repositories/user/IUserReadOnlyRepository.js";
 import type { IPasswordEncripter } from "../../../../domain/security/Cryptography/IPasswordEncripter.js";
 import type { IUserWriteOnlyRepository } from "../../../../domain/repositories/user/IUserWriteOnlyRepository.js";
-import { ResponseRegisteredUserJson } from "../../../../shared/communication/Responses/ResponseRegisteredUserJson.js";
-import { ResponseTokensJson } from "../../../../shared/communication/Responses/ResponseTokensJson.js";
+import ResponseRegisteredUserJson from "../../../../shared/communication/Responses/ResponseRegisteredUserJson.js";
+import ResponseTokensJson from "../../../../shared/communication/Responses/ResponseTokensJson.js";
 import type { IAccessTokenGenerator } from "../../../../domain/security/Tokens/IAccessTokenGenerator.js";
 import { inject, injectable } from "tsyringe";
 
 @injectable()
-export class RegisterUserUseCase implements IRegisterUserUseCase {
+export default class RegisterUserUseCase implements IRegisterUserUseCase {
   constructor(
     @inject("IUserReadOnlyRepository")
     private readonly readOnlyRepository: IUserReadOnlyRepository,
@@ -23,7 +24,7 @@ export class RegisterUserUseCase implements IRegisterUserUseCase {
     private readonly passwordEncripter: IPasswordEncripter
   ) {}
 
-  async Execute(req: Request): Promise<ResponseRegisteredUserJson> {
+  async Execute(req: InputData<RequestRegisterJson>): Promise<ResponseRegisteredUserJson> {
     // Valida os dados enviados
     const user = await this.Validate(req);
 
@@ -43,7 +44,7 @@ export class RegisterUserUseCase implements IRegisterUserUseCase {
     return response;
   }
 
-  private async Validate(req: Request): Promise<IUser> {
+  private async Validate(req: InputData<RequestRegisterJson>): Promise<IUser> {
     const user = RegisterUserValidator.Validate(req);
 
     const emailExist = await this.readOnlyRepository.ExistActiveUserWithEmail(user.email);

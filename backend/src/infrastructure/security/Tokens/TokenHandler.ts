@@ -5,7 +5,7 @@ import type { Types } from "mongoose";
 import jwt, { type JwtPayload } from "jsonwebtoken";
 import type { InputData } from "../../../shared/communication/types/Request.js";
 
-export class TokenHandler implements IAccessTokenGenerator, ITokenProvider {
+export default class TokenHandler implements IAccessTokenGenerator, ITokenProvider {
   private readonly secret = process.env.JWT_SECRET!;
 
   Generate(userId: Types.ObjectId): string {

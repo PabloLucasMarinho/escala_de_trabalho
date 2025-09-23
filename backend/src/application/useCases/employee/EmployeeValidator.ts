@@ -1,9 +1,9 @@
 import z from "zod";
 import { nameRegex } from "../../../shared/communication/constants/regex.js";
 import type { InputData } from "../../../shared/communication/types/Request.js";
-import type { RequestEmployeeJson } from "../../../shared/communication/Requests/RequestEmployeeJson.js";
+import type RequestEmployeeJson from "../../../shared/communication/Requests/RequestEmployeeJson.js";
 
-export class EmployeeValidator {
+export default class EmployeeValidator {
   private static ValidateData() {
     return z.object({
       name: z

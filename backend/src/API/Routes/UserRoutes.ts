@@ -12,20 +12,8 @@ const loginController = container.resolve(LoginController);
 
 router.post("/register", userController.Register.bind(userController));
 router.post("/login", loginController.Login.bind(loginController));
-router.get(
-  "/getuser",
-  VerifyToken,
-  userController.GetUserProfile.bind(userController)
-);
-router.put(
-  "/edit/:id",
-  VerifyToken,
-  userController.Update.bind(userController)
-);
-router.put(
-  "/change-password",
-  VerifyToken,
-  userController.ChangePassword.bind(userController)
-);
+router.get("/getuser", VerifyToken, userController.GetUserProfile.bind(userController));
+router.put("/edit/:id", VerifyToken, userController.Update.bind(userController));
+router.put("/change-password", VerifyToken, userController.ChangePassword.bind(userController));
 
 export default router;
