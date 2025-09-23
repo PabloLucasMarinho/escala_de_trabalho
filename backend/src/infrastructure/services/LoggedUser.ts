@@ -1,8 +1,8 @@
-import type { ILoggedUser } from "../../domain/services/ILoggedUser.js";
-import type { IUser } from "../entities/IUser.js";
+import type ILoggedUser from "../../domain/services/ILoggedUser.js";
+import type IUser from "../entities/IUser.js";
 import User from "../../domain/entities/User.js";
 import TokenHandler from "../security/Tokens/TokenHandler.js";
-import type { InputData } from "../../shared/communication/types/Request.js";
+import type { InputData } from "../../shared/communication/types/InputData.js";
 
 const tokenHandler = new TokenHandler();
 

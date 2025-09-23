@@ -1,8 +1,8 @@
 import { inject, injectable } from "tsyringe";
-import type { InputData } from "../../../../shared/communication/types/Request.js";
-import type { IDeleteEmployeeUseCase } from "./IDeleteEmployeeUseCase.js";
-import type { IEmployeeReadOnlyRepository } from "../../../../domain/repositories/Employee/IEmployeeReadOnlyRepository.js";
-import type { IEmployeeDeleteOnlyRepository } from "../../../../domain/repositories/Employee/IEmployeeDeleteOnlyRepository.js";
+import type { InputData } from "../../../../shared/communication/types/InputData.js";
+import type IDeleteEmployeeUseCase from "./IDeleteEmployeeUseCase.js";
+import type IEmployeeReadOnlyRepository from "../../../../domain/repositories/Employee/IEmployeeReadOnlyRepository.js";
+import type IEmployeeDeleteOnlyRepository from "../../../../domain/repositories/Employee/IEmployeeDeleteOnlyRepository.js";
 import LoggedUser from "../../../../infrastructure/services/LoggedUser.js";
 
 @injectable()

@@ -1,5 +1,6 @@
-import mongoose, { Schema } from "mongoose";
-import type { IShift } from "../../infrastructure/entities/IShift.js";
+import { Schema } from "mongoose";
+import mongoose from "../../infrastructure/db/conn.js";
+import type IShift from "../../infrastructure/entities/IShift.js";
 
 const shiftSchema = new Schema<IShift>(
   {
@@ -36,6 +37,10 @@ const shiftSchema = new Schema<IShift>(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Employee",
       required: true,
+    },
+    active: {
+      type: Boolean,
+      default: true,
     },
   },
   { timestamps: true }

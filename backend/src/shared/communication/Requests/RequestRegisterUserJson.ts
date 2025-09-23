@@ -1,4 +1,4 @@
-export default class RequestRegisterJson {
+export default class RequestRegisterUserJson {
   public name: string = String();
   public email: string = String();
   public password: string = String();

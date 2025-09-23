@@ -1,9 +1,7 @@
-import type { IUser } from "../../../infrastructure/entities/IUser.js";
+import type IUser from "../../../infrastructure/entities/IUser.js";
 
-export interface IUserReadOnlyRepository {
+export default interface IUserReadOnlyRepository {
   ExistActiveUserWithEmail(email: string): Promise<boolean>;
-
   ExistActiveUserWithId(id: string): Promise<boolean>;
-
   GetByEmail(email: string): Promise<IUser>;
 }

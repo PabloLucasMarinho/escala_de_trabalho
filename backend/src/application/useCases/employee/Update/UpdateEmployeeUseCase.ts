@@ -1,12 +1,11 @@
 import { inject, injectable } from "tsyringe";
-import type { IUpdateEmployeeUseCase } from "./IUpdateEmployeeUseCase.js";
-import type { IEmployeeUpdateOnlyRepository } from "../../../../domain/repositories/Employee/IEmployeeUpdateOnlyRepository.js";
-import type { Request } from "express";
-import { EmployeeValidator } from "../EmployeeValidator.js";
-import { LoggedUser } from "../../../../infrastructure/services/LoggedUser.js";
-import type { IEmployeeReadOnlyRepository } from "../../../../domain/repositories/Employee/IEmployeeReadOnlyRepository.js";
-import type { InputData } from "../../../../shared/communication/types/Request.js";
-import type { RequestEmployeeJson } from "../../../../shared/communication/Requests/RequestEmployeeJson.js";
+import type IUpdateEmployeeUseCase from "./IUpdateEmployeeUseCase.js";
+import type IEmployeeUpdateOnlyRepository from "../../../../domain/repositories/Employee/IEmployeeUpdateOnlyRepository.js";
+import EmployeeValidator from "../EmployeeValidator.js";
+import LoggedUser from "../../../../infrastructure/services/LoggedUser.js";
+import type IEmployeeReadOnlyRepository from "../../../../domain/repositories/Employee/IEmployeeReadOnlyRepository.js";
+import type { InputData } from "../../../../shared/communication/types/InputData.js";
+import type RequestEmployeeJson from "../../../../shared/communication/Requests/RequestEmployeeJson.js";
 
 @injectable()
 export default class UpdateEmployeeUseCase implements IUpdateEmployeeUseCase {

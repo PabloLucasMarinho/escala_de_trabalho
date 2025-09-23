@@ -1,5 +1,5 @@
-import type { IUser } from "../../infrastructure/entities/IUser.js";
+import type IUser from "../../infrastructure/entities/IUser.js";
 
-export interface ILoggedUser {
+export default interface ILoggedUser {
   User(): Promise<IUser>;
 }

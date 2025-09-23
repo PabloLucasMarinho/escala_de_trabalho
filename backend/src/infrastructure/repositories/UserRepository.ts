@@ -1,10 +1,10 @@
-import type { IUserReadOnlyRepository } from "../../domain/repositories/user/IUserReadOnlyRepository.js";
-import type { IUserWriteOnlyRepository } from "../../domain/repositories/user/IUserWriteOnlyRepository.js";
-import type { IUserUpdateOnlyRepository } from "../../domain/repositories/user/IUserUpdateOnlyRepository.js";
-import type { IUser } from "../entities/IUser.js";
-import User from "../../domain/entities/User.js";
-import type { Types } from "mongoose";
 import { injectable } from "tsyringe";
+import type { Types } from "mongoose";
+import type IUserWriteOnlyRepository from "../../domain/repositories/user/IUserWriteOnlyRepository.js";
+import type IUserReadOnlyRepository from "../../domain/repositories/user/IUserReadOnlyRepository.js";
+import type IUserUpdateOnlyRepository from "../../domain/repositories/user/IUserUpdateOnlyRepository.js";
+import type IUser from "../entities/IUser.js";
+import User from "../../domain/entities/User.js";
 
 @injectable()
 export class UserRepository implements IUserReadOnlyRepository, IUserWriteOnlyRepository, IUserUpdateOnlyRepository {

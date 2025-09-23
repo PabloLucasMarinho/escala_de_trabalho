@@ -1,9 +1,16 @@
-// import { Router } from "express";
-// import VerifyToken from "../middlewares/VerifyToken.js";
-// import WorkplaceController from "../controllers/WorkplaceController.js";
+import { Router } from "express";
+import { container } from "tsyringe";
+import VerifyToken from "../Middlewares/VerifyToken.js";
+import WorkplaceController from "../Controllers/WorkplaceController.js";
 
-// const router = Router();
+const router = Router();
 
-// router.post("/register", VerifyToken, WorkplaceController.register);
+// Dependências
+const workplaceController = container.resolve(WorkplaceController);
 
-// export default router;
+router.post("/register", VerifyToken, workplaceController.Register.bind(workplaceController));
+router.get("/:id", VerifyToken, workplaceController.GetById.bind(workplaceController));
+router.put("/:id", VerifyToken, workplaceController.Update.bind(workplaceController));
+router.delete("/:id", VerifyToken, workplaceController.Delete.bind(workplaceController));
+
+export default router;

@@ -1,7 +1,7 @@
-import type { Request } from "express";
-import type { RequestRegisterEmployeeJson } from "../../../shared/communication/Requests/RequestRegisterEmployeeJson.js";
-import type { ResponseRegisteredEmployeeJson } from "../../../shared/communication/Responses/ResponseRegisteredEmployeeJson.js";
+import type { InputData } from "../../../../shared/communication/types/InputData.js";
+import type RequestEmployeeJson from "../../../../shared/communication/Requests/RequestEmployeeJson.js";
+import type ResponseRegisteredEmployeeJson from "../../../../shared/communication/Responses/ResponseRegisteredEmployeeJson.js";
 
-export interface IRegisterEmployeeUseCase {
-  Execute(req: Request<unknown, unknown, RequestRegisterEmployeeJson>): Promise<ResponseRegisteredEmployeeJson>;
+export default interface IRegisterEmployeeUseCase {
+  Execute(req: InputData<RequestEmployeeJson>): Promise<ResponseRegisteredEmployeeJson>;
 }

@@ -1,6 +1,6 @@
-import type { Request } from "express";
-import type { ResponseUserProfileJson } from "../../../../shared/communication/Responses/ResponseUserProfileJson.js";
+import type { InputData } from "../../../../shared/communication/types/InputData.js";
+import type ResponseUserProfileJson from "../../../../shared/communication/Responses/ResponseUserProfileJson.js";
 
-export interface IGetUserProfileUseCase {
-  Execute(req: Request): Promise<ResponseUserProfileJson>;
+export default interface IGetUserProfileUseCase {
+  Execute(req: InputData<any>): Promise<ResponseUserProfileJson>;
 }

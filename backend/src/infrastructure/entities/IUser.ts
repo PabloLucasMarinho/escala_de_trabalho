@@ -1,6 +1,6 @@
-import type { IEntityBase } from "./IEntityBase.js";
+import type IEntityBase from "./IEntityBase.js";
 
-export interface IUser extends IEntityBase {
+export default interface IUser extends IEntityBase {
   name: string;
   email: string;
   password: string;

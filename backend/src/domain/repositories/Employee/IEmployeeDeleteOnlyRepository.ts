@@ -1,5 +1,5 @@
-import type { IEmployee } from "../../../infrastructure/entities/IEmployee.js";
+import type IEmployee from "../../../infrastructure/entities/IEmployee.js";
 
-export interface IEmployeeDeleteOnlyRepository {
+export default interface IEmployeeDeleteOnlyRepository {
   Delete(employee: IEmployee): Promise<void>;
 }

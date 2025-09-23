@@ -1,6 +1,6 @@
-import type { Request } from "express";
-import type { ResponseEmployeeJson } from "../../../../shared/communication/Responses/ResponseEmployeeJson.js";
+import type ResponseEmployeeJson from "../../../../shared/communication/Responses/ResponseEmployeeJson.js";
+import type { InputData } from "../../../../shared/communication/types/InputData.js";
 
-export interface IGetByIdEmployeeUseCase {
-  Execute(req: Request): Promise<ResponseEmployeeJson>;
+export default interface IGetByIdEmployeeUseCase {
+  Execute(req: InputData<any>): Promise<ResponseEmployeeJson>;
 }

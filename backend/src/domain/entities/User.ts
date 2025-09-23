@@ -1,6 +1,6 @@
+import { Schema } from "mongoose";
 import mongoose from "../../infrastructure/db/conn.js";
-import type { IUser } from "../../infrastructure/entities/IUser.js";
-const { Schema } = mongoose;
+import type IUser from "../../infrastructure/entities/IUser.js";
 
 const userSchema = new Schema<IUser>(
   {

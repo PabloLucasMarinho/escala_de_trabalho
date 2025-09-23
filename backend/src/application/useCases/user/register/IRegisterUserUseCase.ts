@@ -1,6 +1,7 @@
-import type { Request } from "express";
-import type { ResponseRegisteredUserJson } from "../../../../shared/communication/Responses/ResponseRegisteredUserJson.js";
+import type { InputData } from "../../../../shared/communication/types/InputData.js";
+import type ResponseRegisteredUserJson from "../../../../shared/communication/Responses/ResponseRegisteredUserJson.js";
+import type RequestRegisterUserJson from "../../../../shared/communication/Requests/RequestRegisterUserJson.js";
 
-export interface IRegisterUserUseCase {
-  Execute(req: Request): Promise<ResponseRegisteredUserJson>;
+export default interface IRegisterUserUseCase {
+  Execute(req: InputData<RequestRegisterUserJson>): Promise<ResponseRegisteredUserJson>;
 }

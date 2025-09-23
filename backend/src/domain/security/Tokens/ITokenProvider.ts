@@ -1,5 +1,5 @@
-import type { Request } from "express";
+import type { InputData } from "../../../shared/communication/types/InputData.js";
 
-export interface ITokenProvider {
-  Value(req: Request): string;
+export default interface ITokenProvider {
+  Value(req: InputData<any>): string;
 }

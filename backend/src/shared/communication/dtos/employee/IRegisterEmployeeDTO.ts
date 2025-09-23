@@ -1,6 +1,0 @@
-import type { Types } from "mongoose";
-
-export interface IRegisterEmployeeDTO {
-  name: string;
-  adm?: Types.ObjectId;
-}

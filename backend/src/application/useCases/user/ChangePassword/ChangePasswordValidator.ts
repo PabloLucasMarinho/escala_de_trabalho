@@ -1,6 +1,6 @@
 import z from "zod";
 import { passwordRegex } from "../../../../shared/communication/constants/regex.js";
-import type { InputData } from "../../../../shared/communication/types/Request.js";
+import type { InputData } from "../../../../shared/communication/types/InputData.js";
 import type RequestChangePasswordJson from "../../../../shared/communication/Requests/RequestChangePasswordJson.js";
 
 export default class ChangePasswordValidator {

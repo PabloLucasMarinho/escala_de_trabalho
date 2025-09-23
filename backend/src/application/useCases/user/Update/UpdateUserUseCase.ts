@@ -1,10 +1,10 @@
-import type { IUpdateUserUseCase } from "./IUpdateUserUseCase.js";
+import type IUpdateUserUseCase from "./IUpdateUserUseCase.js";
 import UpdateUserValidator from "./UpdateUserValidator.js";
 import { inject, injectable } from "tsyringe";
-import type { IUserReadOnlyRepository } from "../../../../domain/repositories/user/IUserReadOnlyRepository.js";
+import type IUserReadOnlyRepository from "../../../../domain/repositories/user/IUserReadOnlyRepository.js";
 import LoggedUser from "../../../../infrastructure/services/LoggedUser.js";
-import type { IUserUpdateOnlyRepository } from "../../../../domain/repositories/user/IUserUpdateOnlyRepository.js";
-import type { InputData } from "../../../../shared/communication/types/Request.js";
+import type IUserUpdateOnlyRepository from "../../../../domain/repositories/user/IUserUpdateOnlyRepository.js";
+import type { InputData } from "../../../../shared/communication/types/InputData.js";
 import type RequestUpdateUserJson from "../../../../shared/communication/Requests/RequestUpdateUserJson.js";
 
 @injectable()

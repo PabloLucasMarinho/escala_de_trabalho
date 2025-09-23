@@ -1,7 +1,7 @@
 import z from "zod";
 import { nameRegex, passwordRegex } from "../../../../shared/communication/constants/regex.js";
-import type { InputData } from "../../../../shared/communication/types/Request.js";
-import type RequestRegisterJson from "../../../../shared/communication/Requests/RequestRegisterUserJson.js";
+import type { InputData } from "../../../../shared/communication/types/InputData.js";
+import type RequestRegisterUserJson from "../../../../shared/communication/Requests/RequestRegisterUserJson.js";
 
 export default class RegisterUserValidator {
   private static ValidateData() {
@@ -31,7 +31,7 @@ export default class RegisterUserValidator {
       });
   }
 
-  public static Validate(req: InputData<RequestRegisterJson>) {
+  public static Validate(req: InputData<RequestRegisterUserJson>) {
     return this.ValidateData().parse(req.body);
   }
 }

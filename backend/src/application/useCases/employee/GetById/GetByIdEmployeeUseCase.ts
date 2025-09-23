@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
-import type { InputData } from "../../../../shared/communication/types/Request.js";
-import type { IGetByIdEmployeeUseCase } from "./IGetByIdEmployeeUseCase.js";
-import type { IEmployeeReadOnlyRepository } from "../../../../domain/repositories/Employee/IEmployeeReadOnlyRepository.js";
+import type { InputData } from "../../../../shared/communication/types/InputData.js";
+import type IGetByIdEmployeeUseCase from "./IGetByIdEmployeeUseCase.js";
+import type IEmployeeReadOnlyRepository from "../../../../domain/repositories/Employee/IEmployeeReadOnlyRepository.js";
 import LoggedUser from "../../../../infrastructure/services/LoggedUser.js";
 import ResponseEmployeeJson from "../../../../shared/communication/Responses/ResponseEmployeeJson.js";
 

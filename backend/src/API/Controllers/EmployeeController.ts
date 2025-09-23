@@ -1,5 +1,5 @@
 import { inject, injectable } from "tsyringe";
-import type { InputData } from "../../shared/communication/types/Request.js";
+import type { InputData } from "../../shared/communication/types/InputData.js";
 import type { Response } from "express";
 import type RequestEmployeeJson from "../../shared/communication/Requests/RequestEmployeeJson.js";
 import type ResponseRegisteredEmployeeJson from "../../shared/communication/Responses/ResponseRegisteredEmployeeJson.js";

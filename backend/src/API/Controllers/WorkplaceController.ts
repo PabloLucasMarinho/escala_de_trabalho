@@ -1,36 +1,38 @@
-// import type { Request, Response } from "express";
-// import { WorkplaceSchemas } from "../../shared/communication/schemas/WorkplaceSchemas.js";
-// import { WorkplaceRepository } from "../../infrastructure/repositories/WorkplaceRepository.js";
-// import { RegisterWorkplaceUseCase } from "../../application/useCases/workplace/RegisterWorkplaceUseCase.js";
-// import { AuthService } from "../../infrastructure/services/AuthService.js";
+import { inject, injectable } from "tsyringe";
+import type { Response } from "express";
+import type { InputData } from "../../shared/communication/types/InputData.js";
+import type RequestWorkplaceJson from "../../shared/communication/Requests/RequestWorkplaceJson.js";
+import type ResponseRegisteredWorkplaceJson from "../../shared/communication/Responses/ResponseRegisteredWorkplaceJson.js";
+import type ResponseWorkplaceJson from "../../shared/communication/Responses/ResponseWorkplaceJson.js";
+import RegisterWorkplaceUseCase from "../../application/useCases/workplace/Register/RegisterWorkplaceUseCase.js";
+import GetByIdWorkplaceUseCase from "../../application/useCases/workplace/GetById/GetByIdWorkplaceUseCase.js";
+import UpdateWorkplaceUseCase from "../../application/useCases/workplace/Update/UpdateWorkplaceUseCase.js";
 
-// const workplaceRepository = new WorkplaceRepository();
-// const authService = new AuthService();
-// const registerWorkplaceUseCase = new RegisterWorkplaceUseCase(
-//   workplaceRepository,
-//   authService
-// );
+@injectable()
+export default class WorkplaceController {
+  constructor(
+    @inject(RegisterWorkplaceUseCase) private registerWorkplaceUseCase: RegisterWorkplaceUseCase,
+    @inject(GetByIdWorkplaceUseCase) private getByIdWorkplaceUseCase: GetByIdWorkplaceUseCase,
+    @inject(UpdateWorkplaceUseCase) private updateWorkplaceUseCase: UpdateWorkplaceUseCase
+  ) {}
 
-// export default class WorkplaceController {
-//   static async register(req: Request, res: Response): Promise<void> {
-//     // Valdiação dos dados
-//     const validatedData = WorkplaceSchemas.validateRegister(req.body);
+  async Register(req: InputData<RequestWorkplaceJson>, res: Response<ResponseRegisteredWorkplaceJson>): Promise<void> {
+    const response = await this.registerWorkplaceUseCase.Execute(req);
 
-//     const token = authService.getToken(req);
+    res.status(201).json(response);
+  }
 
-//     // Cria local de trabalho no bd
-//     const newWorkplace = await registerWorkplaceUseCase.execute(
-//       validatedData,
-//       token!
-//     );
+  async GetById(req: InputData<any>, res: Response<ResponseWorkplaceJson>): Promise<void> {
+    const response = await this.getByIdWorkplaceUseCase.Execute(req);
 
-//     // Devolve resposta
-//     res.status(200).json(newWorkplace);
-//   }
+    res.status(200).json(response);
+  }
 
-//   static async getWorkplace(req: Request, res: Response): Promise<void> {}
+  async Update(req: InputData<RequestWorkplaceJson>, res: Response<null>): Promise<void> {
+    await this.updateWorkplaceUseCase.Execute(req);
 
-//   static async update(req: Request, res: Response): Promise<void> {}
+    res.status(204).send();
+  }
 
-//   static async delete(req: Request, res: Response): Promise<void> {}
-// }
+  async Delete(req: InputData<any>, res: Response<null>): Promise<void> {}
+}

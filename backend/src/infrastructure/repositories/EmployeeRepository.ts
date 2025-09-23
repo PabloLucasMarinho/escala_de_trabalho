@@ -1,14 +1,14 @@
 import { injectable } from "tsyringe";
-import type { IEmployeeReadOnlyRepository } from "../../domain/repositories/Employee/IEmployeeReadOnlyRepository.js";
-import type { IEmployeeWriteOnlyRepository } from "../../domain/repositories/Employee/IEmployeeWriteOnlyRepository.js";
-import type { IEmployeeUpdateOnlyRepository } from "../../domain/repositories/Employee/IEmployeeUpdateOnlyRepository.js";
-import type { IEmployeeDeleteOnlyRepository } from "../../domain/repositories/Employee/IEmployeeDeleteOnlyRepository.js";
-import type { IEmployee } from "../entities/IEmployee.js";
-import type { IUser } from "../entities/IUser.js";
+import type IEmployeeWriteOnlyRepository from "../../domain/repositories/Employee/IEmployeeWriteOnlyRepository.js";
+import type IEmployeeReadOnlyRepository from "../../domain/repositories/Employee/IEmployeeReadOnlyRepository.js";
+import type IEmployeeUpdateOnlyRepository from "../../domain/repositories/Employee/IEmployeeUpdateOnlyRepository.js";
+import type IEmployeeDeleteOnlyRepository from "../../domain/repositories/Employee/IEmployeeDeleteOnlyRepository.js";
 import Employee from "../../domain/entities/Employee.js";
+import type IEmployee from "../entities/IEmployee.js";
+import type IUser from "../entities/IUser.js";
 
 @injectable()
-export class EmployeeRepository
+export default class EmployeeRepository
   implements
     IEmployeeReadOnlyRepository,
     IEmployeeWriteOnlyRepository,

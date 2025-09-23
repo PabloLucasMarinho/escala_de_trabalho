@@ -1,4 +1,4 @@
-import type { IPasswordEncripter } from "../../domain/security/Cryptography/IPasswordEncripter.js";
+import type IPasswordEncripter from "../../domain/security/Cryptography/IPasswordEncripter.js";
 import bcrypt from "bcrypt";
 
 export default class BCryptNet implements IPasswordEncripter {

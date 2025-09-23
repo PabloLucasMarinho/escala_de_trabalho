@@ -1,6 +1,6 @@
 import type { Types } from "mongoose";
 
-export interface IEntityBase {
+export default interface IEntityBase {
   _id?: Types.ObjectId;
   active?: boolean;
   createdAt?: Date;

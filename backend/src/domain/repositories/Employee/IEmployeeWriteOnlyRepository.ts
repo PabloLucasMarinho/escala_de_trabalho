@@ -1,5 +1,5 @@
-import type { IEmployee } from "../../../infrastructure/entities/IEmployee.js";
+import type IEmployee from "../../../infrastructure/entities/IEmployee.js";
 
-export interface IEmployeeWriteOnlyRepository {
+export default interface IEmployeeWriteOnlyRepository {
   Add(employee: IEmployee): Promise<IEmployee>;
 }

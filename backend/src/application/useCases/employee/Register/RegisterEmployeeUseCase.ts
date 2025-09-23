@@ -1,11 +1,11 @@
 import { inject, injectable } from "tsyringe";
 import type RequestEmployeeJson from "../../../../shared/communication/Requests/RequestEmployeeJson.js";
 import ResponseRegisteredEmployeeJson from "../../../../shared/communication/Responses/ResponseRegisteredEmployeeJson.js";
-import type { IRegisterEmployeeUseCase } from "./IRegisterEmployeeUseCase.js";
-import type { InputData } from "../../../../shared/communication/types/Request.js";
-import type { IEmployeeReadOnlyRepository } from "../../../../domain/repositories/Employee/IEmployeeReadOnlyRepository.js";
-import type { IEmployeeWriteOnlyRepository } from "../../../../domain/repositories/Employee/IEmployeeWriteOnlyRepository.js";
-import type { IEmployee } from "../../../../infrastructure/entities/IEmployee.js";
+import type { InputData } from "../../../../shared/communication/types/InputData.js";
+import type IRegisterEmployeeUseCase from "./IRegisterEmployeeUseCase.js";
+import type IEmployeeReadOnlyRepository from "../../../../domain/repositories/Employee/IEmployeeReadOnlyRepository.js";
+import type IEmployeeWriteOnlyRepository from "../../../../domain/repositories/Employee/IEmployeeWriteOnlyRepository.js";
+import type IEmployee from "../../../../infrastructure/entities/IEmployee.js";
 import EmployeeValidator from "../EmployeeValidator.js";
 import LoggedUser from "../../../../infrastructure/services/LoggedUser.js";
 

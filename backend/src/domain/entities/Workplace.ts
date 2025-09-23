@@ -1,5 +1,6 @@
-import mongoose, { Schema } from "mongoose";
-import type { IWorkplace } from "../../infrastructure/entities/IWorkplace.js";
+import { Schema } from "mongoose";
+import mongoose from "../../infrastructure/db/conn.js";
+import type IWorkplace from "../../infrastructure/entities/IWorkplace.js";
 
 const worplaceSchema = new Schema<IWorkplace>(
   {
@@ -12,6 +13,10 @@ const worplaceSchema = new Schema<IWorkplace>(
       type: mongoose.Schema.Types.ObjectId,
       required: false,
       ref: "User",
+    },
+    active: {
+      type: Boolean,
+      default: true,
     },
   },
   { timestamps: true }

@@ -1,11 +1,11 @@
-import type { IChangePasswordUseCase } from "./IChangePasswordUseCase.js";
-import type { IUser } from "../../../../infrastructure/entities/IUser.js";
+import { inject, injectable } from "tsyringe";
+import type { InputData } from "../../../../shared/communication/types/InputData.js";
+import type IChangePasswordUseCase from "./IChangePasswordUseCase.js";
+import type IUser from "../../../../infrastructure/entities/IUser.js";
 import LoggedUser from "../../../../infrastructure/services/LoggedUser.js";
 import ChangePasswordValidator from "./ChangePasswordValidator.js";
-import { inject, injectable } from "tsyringe";
-import type { IPasswordEncripter } from "../../../../domain/security/Cryptography/IPasswordEncripter.js";
-import type { IUserUpdateOnlyRepository } from "../../../../domain/repositories/user/IUserUpdateOnlyRepository.js";
-import type { InputData } from "../../../../shared/communication/types/Request.js";
+import type IPasswordEncripter from "../../../../domain/security/Cryptography/IPasswordEncripter.js";
+import type IUserUpdateOnlyRepository from "../../../../domain/repositories/user/IUserUpdateOnlyRepository.js";
 import type RequestChangePasswordJson from "../../../../shared/communication/Requests/RequestChangePasswordJson.js";
 
 @injectable()

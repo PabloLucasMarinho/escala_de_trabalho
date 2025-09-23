@@ -1,7 +1,7 @@
 import type { Types } from "mongoose";
-import type { IEntityBase } from "./IEntityBase.js";
+import type IEntityBase from "./IEntityBase.js";
 
-export interface IShift extends IEntityBase {
+export default interface IShift extends IEntityBase {
   effectiveDate: Date;
   terminationDate: Date;
   shiftStart: string;

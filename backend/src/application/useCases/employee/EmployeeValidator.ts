@@ -1,6 +1,6 @@
 import z from "zod";
 import { nameRegex } from "../../../shared/communication/constants/regex.js";
-import type { InputData } from "../../../shared/communication/types/Request.js";
+import type { InputData } from "../../../shared/communication/types/InputData.js";
 import type RequestEmployeeJson from "../../../shared/communication/Requests/RequestEmployeeJson.js";
 
 export default class EmployeeValidator {

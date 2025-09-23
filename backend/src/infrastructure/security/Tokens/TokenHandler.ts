@@ -1,9 +1,9 @@
-import type { IAccessTokenGenerator } from "../../../domain/security/Tokens/IAccessTokenGenerator.js";
-import type { ITokenProvider } from "../../../domain/security/Tokens/ITokenProvider.js";
+import type IAccessTokenGenerator from "../../../domain/security/Tokens/IAccessTokenGenerator.js";
+import type ITokenProvider from "../../../domain/security/Tokens/ITokenProvider.js";
 import "dotenv/config";
 import type { Types } from "mongoose";
 import jwt, { type JwtPayload } from "jsonwebtoken";
-import type { InputData } from "../../../shared/communication/types/Request.js";
+import type { InputData } from "../../../shared/communication/types/InputData.js";
 
 export default class TokenHandler implements IAccessTokenGenerator, ITokenProvider {
   private readonly secret = process.env.JWT_SECRET!;

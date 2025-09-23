@@ -1,6 +1,6 @@
 import type { Request } from "express";
 
-export interface ParamsDictionary {
+interface ParamsDictionary {
   [key: string]: string;
 }
 

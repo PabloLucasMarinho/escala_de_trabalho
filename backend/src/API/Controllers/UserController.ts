@@ -1,11 +1,11 @@
 import { inject, injectable } from "tsyringe";
 import type { Response } from "express";
-import type { InputData } from "../../shared/communication/types/Request.js";
+import type { InputData } from "../../shared/communication/types/InputData.js";
 import RegisterUserUseCase from "../../application/useCases/user/register/RegisterUserUseCase.js";
 import GetUserProfileUseCase from "../../application/useCases/user/Profile/GetUserProfileUseCase.js";
 import UpdateUserUseCase from "../../application/useCases/user/Update/UpdateUserUseCase.js";
 import ChangePasswordUseCase from "../../application/useCases/user/ChangePassword/ChangePasswordUseCase.js";
-import type RequestRegisterJson from "../../shared/communication/Requests/RequestRegisterUserJson.js";
+import type RequestRegisterUserJson from "../../shared/communication/Requests/RequestRegisterUserJson.js";
 import type RequestUpdateUserJson from "../../shared/communication/Requests/RequestUpdateUserJson.js";
 import type RequestChangePasswordJson from "../../shared/communication/Requests/RequestChangePasswordJson.js";
 
@@ -22,7 +22,7 @@ export default class UserController {
     private changePasswordUseCase: ChangePasswordUseCase
   ) {}
 
-  async Register(req: InputData<RequestRegisterJson>, res: Response): Promise<void> {
+  async Register(req: InputData<RequestRegisterUserJson>, res: Response): Promise<void> {
     // Executa o caso de uso
     const response = await this.registerUserUseCase.Execute(req);
 
