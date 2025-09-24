@@ -1,10 +1,17 @@
-// // Middleware
-// import { Router } from "express";
-// import VerifyToken from "../middlewares/VerifyToken.js";
-// import ShiftController from "../controllers/ShiftController.js";
+// Middleware
+import { Router } from "express";
+import VerifyToken from "../Middlewares/VerifyToken.js";
+import { container } from "tsyringe";
+import ShiftController from "../Controllers/ShiftController.js";
 
-// const router = Router();
+const router = Router();
 
-// router.post("/register", VerifyToken, ShiftController.register);
+// Dependências
+const shiftController = container.resolve(ShiftController);
 
-// export default router;
+router.post("/register", VerifyToken, shiftController.Register.bind(shiftController));
+router.get("/:id", VerifyToken, shiftController.Register.bind(shiftController));
+router.put("/:id", VerifyToken, shiftController.Register.bind(shiftController));
+router.delete("/:id", VerifyToken, shiftController.Register.bind(shiftController));
+
+export default router;

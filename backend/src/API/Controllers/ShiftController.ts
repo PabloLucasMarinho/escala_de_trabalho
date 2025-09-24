@@ -1,19 +1,17 @@
-// import type { Request, Response } from "express";
-// import { ShiftSchemas } from "../../shared/communication/schemas/ShiftSchemas.js";
-// import RegisterShiftUseCase from "../../application/useCases/shift/RegisterShiftUseCase.js";
-// import { ShiftRepository } from "../../infrastructure/repositories/ShiftRepository.js";
+import { inject, injectable } from "tsyringe";
+import type { Response } from "express";
+import type { InputData } from "../../shared/communication/types/InputData.js";
+import type RequestRegisterShiftJson from "../../shared/communication/Requests/RequestRegisterShiftJson.js";
+import type ResponseRegisteredShiftJson from "../../shared/communication/Responses/ResponseRegisteredShiftJson.js";
+import RegisterShiftUseCase from "../../application/useCases/shift/Register/RegisterShiftUseCase.js";
 
-// const shiftRepository = new ShiftRepository();
-// const registerShiftUseCase = new RegisterShiftUseCase(shiftRepository);
+@injectable()
+export default class ShiftController {
+  constructor(@inject(RegisterShiftUseCase) private registerShiftUseCase: RegisterShiftUseCase) {}
 
-// export default class ShiftController {
-//   static async register(req: Request, res: Response): Promise<void> {
-//     // Validação dos dados enviados
-//     const validatedData = ShiftSchemas.validateRegister(req.body);
+  async Register(req: InputData<RequestRegisterShiftJson>, res: Response<ResponseRegisteredShiftJson>): Promise<void> {
+    const response = await this.registerShiftUseCase.Execute(req);
 
-//     // Cria turno no bd
-//     const newShift = await registerShiftUseCase.execute(validatedData);
-
-//     res.status(200).json({ newShift: newShift });
-//   }
-// }
+    res.status(201).json(response);
+  }
+}

@@ -7,7 +7,7 @@ import type IUser from "../entities/IUser.js";
 import User from "../../domain/entities/User.js";
 
 @injectable()
-export class UserRepository implements IUserReadOnlyRepository, IUserWriteOnlyRepository, IUserUpdateOnlyRepository {
+export default class UserRepository implements IUserReadOnlyRepository, IUserWriteOnlyRepository, IUserUpdateOnlyRepository {
   async Add(user: IUser): Promise<Types.ObjectId> {
     const newUser = await new User(user).save();
 

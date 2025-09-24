@@ -6,7 +6,7 @@ import cors from "cors";
 import UserRoutes from "./Routes/UserRoutes.js";
 import EmployeeRoutes from "./Routes/EmployeeRoutes.js";
 import WorkplaceRoutes from "./Routes/WorkplaceRoutes.js";
-// import ShiftRoutes from "./Routes/ShiftRoutes.js";
+import ShiftRoutes from "./Routes/ShiftRoutes.js";
 import { ErrorHandler } from "./Middlewares/ErrorHandler.js";
 
 const app = express();
@@ -21,7 +21,7 @@ app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use("/user", UserRoutes);
 app.use("/employee", EmployeeRoutes);
 app.use("/workplace", WorkplaceRoutes);
-// app.use("/shift", ShiftRoutes);
+app.use("/shift", ShiftRoutes);
 
 // Middleware de erros
 app.use(ErrorHandler);

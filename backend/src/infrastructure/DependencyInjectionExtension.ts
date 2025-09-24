@@ -1,5 +1,5 @@
 import { container } from "tsyringe";
-import { UserRepository } from "./repositories/UserRepository.js";
+import UserRepository from "./repositories/UserRepository.js";
 import type IUserReadOnlyRepository from "../domain/repositories/user/IUserReadOnlyRepository.js";
 import type IUserWriteOnlyRepository from "../domain/repositories/user/IUserWriteOnlyRepository.js";
 import type IUserUpdateOnlyRepository from "../domain/repositories/user/IUserUpdateOnlyRepository.js";
@@ -19,6 +19,11 @@ import type IWorkplaceWriteOnlyRepository from "../domain/repositories/Workplace
 import type IWorkplaceReadOnlyRepository from "../domain/repositories/Workplace/IWorkplaceReadOnlyRepository.js";
 import type IWorkplaceUpdateOnlyRepository from "../domain/repositories/Workplace/IWorkplaceUpdateOnlyRepository.js";
 import type IWorkplaceDeleteOnlyRepository from "../domain/repositories/Workplace/IWorkplaceDeleteOnlyRepository.js";
+import type IShiftWriteOnlyRepository from "../domain/repositories/Shift/IShiftWriteOnlyRepository.js";
+import ShiftRepository from "./repositories/ShiftRepository.js";
+import type IShiftReadOnlyRepository from "../domain/repositories/Shift/IShiftReadOnlyRepository.js";
+import type IShiftUpdateOnlyRepository from "../domain/repositories/Shift/IShiftUpdateOnlyRepository.js";
+import type IShiftDeleteOnlyRepository from "../domain/repositories/Shift/IShiftDeleteOnlyRepository.js";
 
 /* AddRepositories */
 // User Repository
@@ -58,6 +63,20 @@ container.register<IWorkplaceUpdateOnlyRepository>("IWorkplaceUpdateOnlyReposito
 });
 container.register<IWorkplaceDeleteOnlyRepository>("IWorkplaceDeleteOnlyRepository", {
   useClass: WorkplaceRepository,
+});
+
+// Shift Repository
+container.register<IShiftWriteOnlyRepository>("IShiftWriteOnlyRepository", {
+  useClass: ShiftRepository,
+});
+container.register<IShiftReadOnlyRepository>("IShiftReadOnlyRepository", {
+  useClass: ShiftRepository,
+});
+container.register<IShiftUpdateOnlyRepository>("IShiftUpdateOnlyRepository", {
+  useClass: ShiftRepository,
+});
+container.register<IShiftDeleteOnlyRepository>("IShiftDeleteOnlyRepository", {
+  useClass: ShiftRepository,
 });
 
 // AddPasswordEncripter

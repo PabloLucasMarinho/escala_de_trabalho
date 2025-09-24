@@ -23,6 +23,8 @@ import type IGetByIdWorkplaceUseCase from "./useCases/workplace/GetById/IGetById
 import GetByIdWorkplaceUseCase from "./useCases/workplace/GetById/GetByIdWorkplaceUseCase.js";
 import type IUpdateWorkplaceUseCase from "./useCases/workplace/Update/IUpdateWorkplaceUseCase.js";
 import UpdateWorkplaceUseCase from "./useCases/workplace/Update/UpdateWorkplaceUseCase.js";
+import type IRegisterShiftUseCase from "./useCases/shift/Register/IRegisterShiftUseCase.js";
+import RegisterShiftUseCase from "./useCases/shift/Register/RegisterShiftUseCase.js";
 
 /* AddUseCases */
 // User Use Cases
@@ -65,4 +67,12 @@ container.register<IGetByIdWorkplaceUseCase>("IGetByIdWorkplaceUseCase", {
 });
 container.register<IUpdateWorkplaceUseCase>("IUpdateWorkplaceUseCase", {
   useClass: UpdateWorkplaceUseCase,
+});
+container.register<IDeleteEmployeeUseCase>("IDeleteEmployeeUseCase", {
+  useClass: DeleteEmployeeUseCase,
+});
+
+// Shift Use Case
+container.register<IRegisterShiftUseCase>("IRegisterShiftUseCase", {
+  useClass: RegisterShiftUseCase,
 });

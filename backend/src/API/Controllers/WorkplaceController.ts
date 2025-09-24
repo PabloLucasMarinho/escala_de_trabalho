@@ -7,13 +7,15 @@ import type ResponseWorkplaceJson from "../../shared/communication/Responses/Res
 import RegisterWorkplaceUseCase from "../../application/useCases/workplace/Register/RegisterWorkplaceUseCase.js";
 import GetByIdWorkplaceUseCase from "../../application/useCases/workplace/GetById/GetByIdWorkplaceUseCase.js";
 import UpdateWorkplaceUseCase from "../../application/useCases/workplace/Update/UpdateWorkplaceUseCase.js";
+import DeleteWorkplaceUseCase from "../../application/useCases/workplace/Delete/DeleteWorkplaceUseCase.js";
 
 @injectable()
 export default class WorkplaceController {
   constructor(
     @inject(RegisterWorkplaceUseCase) private registerWorkplaceUseCase: RegisterWorkplaceUseCase,
     @inject(GetByIdWorkplaceUseCase) private getByIdWorkplaceUseCase: GetByIdWorkplaceUseCase,
-    @inject(UpdateWorkplaceUseCase) private updateWorkplaceUseCase: UpdateWorkplaceUseCase
+    @inject(UpdateWorkplaceUseCase) private updateWorkplaceUseCase: UpdateWorkplaceUseCase,
+    @inject(DeleteWorkplaceUseCase) private deleteWorkplaceUseCase: DeleteWorkplaceUseCase
   ) {}
 
   async Register(req: InputData<RequestWorkplaceJson>, res: Response<ResponseRegisteredWorkplaceJson>): Promise<void> {
@@ -34,5 +36,9 @@ export default class WorkplaceController {
     res.status(204).send();
   }
 
-  async Delete(req: InputData<any>, res: Response<null>): Promise<void> {}
+  async Delete(req: InputData<any>, res: Response<null>): Promise<void> {
+    await this.deleteWorkplaceUseCase.Execute(req);
+
+    res.status(204).send();
+  }
 }
