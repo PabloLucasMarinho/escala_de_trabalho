@@ -1,6 +1,6 @@
-export const CombineDateAndTime = (date: Date, time: string): Date => {
+export const CombineDateAndTime = (date: string, time: string): Date => {
+  const [year, month, day] = date.split("-").map(Number);
   const [hours, minutes] = time.split(":").map(Number);
-  const combinedDate = new Date(date);
-  combinedDate.setHours(hours!, minutes, 0, 0);
-  return combinedDate;
+  const utcDate = Date.UTC(year!, month! - 1, day, hours, minutes, 0, 0);
+  return new Date(utcDate);
 };

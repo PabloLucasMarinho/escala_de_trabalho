@@ -25,6 +25,8 @@ import type IUpdateWorkplaceUseCase from "./useCases/workplace/Update/IUpdateWor
 import UpdateWorkplaceUseCase from "./useCases/workplace/Update/UpdateWorkplaceUseCase.js";
 import type IRegisterShiftUseCase from "./useCases/shift/Register/IRegisterShiftUseCase.js";
 import RegisterShiftUseCase from "./useCases/shift/Register/RegisterShiftUseCase.js";
+import type IFilterShiftUseCase from "./useCases/shift/Filter/IFilterShiftUseCase.js";
+import FilterShiftUseCase from "./useCases/shift/Filter/FilterShiftUseCase.js";
 
 /* AddUseCases */
 // User Use Cases
@@ -75,4 +77,7 @@ container.register<IDeleteEmployeeUseCase>("IDeleteEmployeeUseCase", {
 // Shift Use Case
 container.register<IRegisterShiftUseCase>("IRegisterShiftUseCase", {
   useClass: RegisterShiftUseCase,
+});
+container.register<IFilterShiftUseCase>("IFilterShiftUseCase", {
+  useClass: FilterShiftUseCase,
 });

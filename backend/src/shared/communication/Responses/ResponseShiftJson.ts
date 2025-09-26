@@ -1,7 +1,6 @@
 import type { Types } from "mongoose";
-import type IEntityBase from "./IEntityBase.js";
 
-export default interface IShift extends IEntityBase {
+export default interface ResponseShiftJson {
   dateInit: Date;
   dateEnd: Date;
   weekday: string;

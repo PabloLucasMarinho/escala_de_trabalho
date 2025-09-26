@@ -2,7 +2,7 @@ import z from "zod";
 import { hourFormatRegex, isoDateRegex } from "../../../../shared/communication/constants/regex.js";
 import { Weekday } from "../../../../domain/enums/Weekday.js";
 import { Frequency } from "../../../../domain/enums/Frequency.js";
-import { CombineDateAndTime } from "../../../../infrastructure/utils/DateUtils.js";
+import { CombineDateAndTime } from "../../../../infrastructure/utils/dateUtils.js";
 import type { InputData } from "../../../../shared/communication/types/InputData.js";
 import type RequestRegisterShiftJson from "../../../../shared/communication/Requests/RequestRegisterShiftJson.js";
 import mongoose from "mongoose";
@@ -11,34 +11,16 @@ export default class RegisterShiftValidator {
   private static ValidateData() {
     return z
       .object({
-        effectiveDate: z
+        dateInit: z
           .string()
           .trim()
           .nonempty("A vigência inicial não pode estar vazia.")
-          .regex(isoDateRegex, { error: "Data inválida. Use YYYY-MM-DD." })
-          .transform((value, context) => {
-            const date = new Date(value);
-            if (isNaN(date.getTime())) {
-              context.addIssue("Data inválida.");
-              return z.NEVER;
-            }
-
-            return date;
-          }),
-        terminationDate: z
+          .regex(isoDateRegex, { error: "Data inválida. Use YYYY-MM-DD." }),
+        dateEnd: z
           .string()
           .trim()
           .nonempty("A vigência final não pode estar vazia.")
-          .regex(isoDateRegex, { error: "Data inválida. Use YYYY-MM-DD." })
-          .transform((value, context) => {
-            const date = new Date(value);
-            if (isNaN(date.getTime())) {
-              context.addIssue("Data inválida.");
-              return z.NEVER;
-            }
-
-            return date;
-          }),
+          .regex(isoDateRegex, { error: "Data inválida. Use YYYY-MM-DD." }),
         shiftStart: z
           .string()
           .trim()
@@ -98,14 +80,22 @@ export default class RegisterShiftValidator {
       })
       .refine(
         (data) => {
-          const initialDateTime = CombineDateAndTime(data.effectiveDate, data.shiftStart);
+          const initialDateTime = CombineDateAndTime(data.dateInit, data.shiftStart);
 
-          const finalDateTime = CombineDateAndTime(data.terminationDate, data.shiftEnd);
+          const finalDateTime = CombineDateAndTime(data.dateEnd, data.shiftEnd);
 
           return finalDateTime >= initialDateTime;
         },
         { error: "A data e hora final devem ser posteriores à data e hora inicial.", path: ["shiftEnd"] }
-      );
+      )
+      .transform((data) => ({
+        dateInit: CombineDateAndTime(data.dateInit, data.shiftStart),
+        dateEnd: CombineDateAndTime(data.dateEnd, data.shiftEnd),
+        weekday: data.weekday,
+        frequency: data.frequency,
+        workplace: data.workplace,
+        employee: data.employee,
+      }));
   }
 
   public static Validate(req: InputData<RequestRegisterShiftJson>) {

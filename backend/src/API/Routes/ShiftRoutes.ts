@@ -10,6 +10,7 @@ const router = Router();
 const shiftController = container.resolve(ShiftController);
 
 router.post("/register", VerifyToken, shiftController.Register.bind(shiftController));
+router.get("/filter", VerifyToken, shiftController.Filter.bind(shiftController));
 router.get("/:id", VerifyToken, shiftController.Register.bind(shiftController));
 router.put("/:id", VerifyToken, shiftController.Register.bind(shiftController));
 router.delete("/:id", VerifyToken, shiftController.Register.bind(shiftController));

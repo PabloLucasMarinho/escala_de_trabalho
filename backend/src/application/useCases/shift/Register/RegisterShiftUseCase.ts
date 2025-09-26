@@ -23,7 +23,7 @@ export default class RegisterShiftUseCase implements IRegisterShiftUseCase {
     return response;
   }
 
-  private async Validate(req: InputData<RequestRegisterShiftJson>): Promise<IShift> {
+  private Validate(req: InputData<RequestRegisterShiftJson>): IShift {
     const shift = RegisterShiftValidator.Validate(req);
 
     return shift;
