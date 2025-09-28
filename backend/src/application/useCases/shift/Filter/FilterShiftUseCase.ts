@@ -5,7 +5,8 @@ import type { InputData } from "../../../../shared/communication/types/InputData
 import FilterShiftValidator from "./FilterShiftValidator.js";
 import type IFilterShiftUseCase from "./IFilterShiftUseCase.js";
 import type IShiftReadOnlyRepository from "../../../../domain/repositories/Shift/IShiftReadOnlyRepository.js";
-import type ResponseShiftJson from "../../../../shared/communication/Responses/ResponseShiftJson.js";
+import ResponseShiftJson from "../../../../shared/communication/Responses/ResponseShiftJson.js";
+import { response } from "express";
 
 @injectable()
 export default class FilterShiftUseCase implements IFilterShiftUseCase {
@@ -20,7 +21,21 @@ export default class FilterShiftUseCase implements IFilterShiftUseCase {
       return null;
     }
 
-    return shifts as ResponseShiftJson[];
+    const responses: ResponseShiftJson[] = shifts.map((shift) => {
+      const response = new ResponseShiftJson();
+
+      response.id = shift._id!;
+      response.dateInit = shift.dateInit;
+      response.dateEnd = shift.dateEnd;
+      response.weekday = shift.weekday;
+      response.frequency = shift.frequency;
+      response.workplace = shift.workplace;
+      response.employee = shift.employee;
+
+      return response;
+    });
+
+    return responses;
   }
 
   private Validate(req: InputData<RequestFilterShiftJson>): FilterShiftDTO {

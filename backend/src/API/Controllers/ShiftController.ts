@@ -7,12 +7,14 @@ import RegisterShiftUseCase from "../../application/useCases/shift/Register/Regi
 import type RequestFilterShiftJson from "../../shared/communication/Requests/RequestFilterShiftJson.js";
 import type ResponseShiftJson from "../../shared/communication/Responses/ResponseShiftJson.js";
 import FilterShiftUseCase from "../../application/useCases/shift/Filter/FilterShiftUseCase.js";
+import GetByIdShiftUseCase from "../../application/useCases/shift/GetById/GetByIdShiftUseCase.js";
 
 @injectable()
 export default class ShiftController {
   constructor(
     @inject(RegisterShiftUseCase) private registerShiftUseCase: RegisterShiftUseCase,
-    @inject(FilterShiftUseCase) private filterShiftUseCase: FilterShiftUseCase
+    @inject(FilterShiftUseCase) private filterShiftUseCase: FilterShiftUseCase,
+    @inject(GetByIdShiftUseCase) private getByIdShiftUseCase: GetByIdShiftUseCase
   ) {}
 
   async Register(req: InputData<RequestRegisterShiftJson>, res: Response<ResponseRegisteredShiftJson>): Promise<void> {
@@ -26,4 +28,12 @@ export default class ShiftController {
 
     res.status(200).json(response);
   }
+
+  async GetById(req: InputData<any>, res: Response<ResponseShiftJson>): Promise<void> {
+    const response = await this.getByIdShiftUseCase.Execute(req);
+
+    res.status(200).json(response);
+  }
+
+  async Update(req: InputData<any>, res: Response): Promise<void> {}
 }
