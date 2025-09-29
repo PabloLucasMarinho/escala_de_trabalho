@@ -29,6 +29,10 @@ import type IFilterShiftUseCase from "./useCases/shift/Filter/IFilterShiftUseCas
 import FilterShiftUseCase from "./useCases/shift/Filter/FilterShiftUseCase.js";
 import type IGetByIdShiftUseCase from "./useCases/shift/GetById/IGetByIdShiftUseCase.js";
 import GetByIdShiftUseCase from "./useCases/shift/GetById/GetByIdShiftUseCase.js";
+import type IUpdateShiftUseCase from "./useCases/shift/Update/IUpdateShiftUseCase.js";
+import UpdateShiftUseCase from "./useCases/shift/Update/UpdateShiftUseCase.js";
+import type IDeleteShiftUseCase from "./useCases/shift/Delete/IDeleteShiftUseCase.js";
+import DeleteShiftUseCase from "./useCases/shift/Delete/DeleteShiftUseCase.js";
 
 /* AddUseCases */
 // User Use Cases
@@ -85,4 +89,10 @@ container.register<IFilterShiftUseCase>("IFilterShiftUseCase", {
 });
 container.register<IGetByIdShiftUseCase>("IGetByIdShiftUseCase", {
   useClass: GetByIdShiftUseCase,
+});
+container.register<IUpdateShiftUseCase>("IUpdateShiftUseCase", {
+  useClass: UpdateShiftUseCase,
+});
+container.register<IDeleteShiftUseCase>("IDeleteShiftUseCase", {
+  useClass: DeleteShiftUseCase,
 });
