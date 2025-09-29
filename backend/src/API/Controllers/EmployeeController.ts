@@ -25,7 +25,7 @@ export default class EmployeeController {
     res.status(201).json(response);
   }
 
-  async GetById(req: InputData<any>, res: Response<ResponseEmployeeJson>): Promise<void> {
+  async GetById(req: InputData<null>, res: Response<ResponseEmployeeJson>): Promise<void> {
     const response = await this.getByIdEmployeeUseCase.Execute(req);
 
     res.status(200).json(response);
@@ -37,7 +37,7 @@ export default class EmployeeController {
     res.status(204).send();
   }
 
-  async Delete(req: InputData<any>, res: Response<null>): Promise<void> {
+  async Delete(req: InputData<null>, res: Response<null>): Promise<void> {
     await this.deleteEmployeeUseCase.Execute(req);
 
     res.status(204).send();

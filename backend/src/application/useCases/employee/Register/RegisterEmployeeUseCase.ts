@@ -7,7 +7,7 @@ import type IEmployeeReadOnlyRepository from "../../../../domain/repositories/Em
 import type IEmployeeWriteOnlyRepository from "../../../../domain/repositories/Employee/IEmployeeWriteOnlyRepository.js";
 import type IEmployee from "../../../../infrastructure/entities/IEmployee.js";
 import EmployeeValidator from "../EmployeeValidator.js";
-import LoggedUser from "../../../../infrastructure/services/LoggedUser.js";
+import { checkLoggedUser } from "../../../SharedValidators/CheckLoggedUser.js";
 
 @injectable()
 export default class RegisterEmployeeUseCase implements IRegisterEmployeeUseCase {
@@ -20,9 +20,7 @@ export default class RegisterEmployeeUseCase implements IRegisterEmployeeUseCase
     // Valida os dados enviados
     const employee = await this.Validate(req);
 
-    const loggedUser = new LoggedUser(req);
-
-    const user = await loggedUser.User();
+    const user = await checkLoggedUser(req);
 
     employee.adm = user._id!;
 

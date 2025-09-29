@@ -88,6 +88,3 @@ container.register<IPasswordEncripter>("IPasswordEncripter", {
 container.register<IAccessTokenGenerator>("IAccessTokenGenerator", {
   useClass: TokenHandler,
 });
-
-// AddLoggedUser
-container.register<ILoggedUser>("ILoggedUser", { useClass: LoggedUser });

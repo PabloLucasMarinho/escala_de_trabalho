@@ -5,7 +5,8 @@ import type IWorkplaceUpdateOnlyRepository from "../../../../domain/repositories
 import type RequestWorkplaceJson from "../../../../shared/communication/Requests/RequestWorkplaceJson.js";
 import type { InputData } from "../../../../shared/communication/types/InputData.js";
 import WorkplaceValidator from "../WorkplaceValidator.js";
-import LoggedUser from "../../../../infrastructure/services/LoggedUser.js";
+import { checkParamsId } from "../../../SharedValidators/CheckParamsId.js";
+import { checkLoggedUser } from "../../../SharedValidators/CheckLoggedUser.js";
 
 @injectable()
 export default class UpdateWorkplaceUseCase implements IUpdateWorkplaceUseCase {
@@ -15,16 +16,13 @@ export default class UpdateWorkplaceUseCase implements IUpdateWorkplaceUseCase {
   ) {}
 
   async Execute(req: InputData<RequestWorkplaceJson>): Promise<void> {
-    if (!req.params.id) {
-      throw new Error("Colaborador não existe.");
-    }
+    const paramsId = checkParamsId(req.params.id);
 
     this.Validator(req);
 
-    const loggedUser = new LoggedUser(req);
-    const user = await loggedUser.User();
+    const user = await checkLoggedUser(req);
 
-    const workplace = await this.readOnlyRepository.GetById(user, req.params.id);
+    const workplace = await this.readOnlyRepository.GetById(user, paramsId);
 
     if (!workplace) {
       throw new Error("Local de Trabalho não existe");

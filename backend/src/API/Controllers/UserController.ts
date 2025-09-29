@@ -8,6 +8,8 @@ import ChangePasswordUseCase from "../../application/useCases/user/ChangePasswor
 import type RequestRegisterUserJson from "../../shared/communication/Requests/RequestRegisterUserJson.js";
 import type RequestUpdateUserJson from "../../shared/communication/Requests/RequestUpdateUserJson.js";
 import type RequestChangePasswordJson from "../../shared/communication/Requests/RequestChangePasswordJson.js";
+import type ResponseRegisteredUserJson from "../../shared/communication/Responses/ResponseRegisteredUserJson.js";
+import type ResponseUserProfileJson from "../../shared/communication/Responses/ResponseUserProfileJson.js";
 
 @injectable()
 export default class UserController {
@@ -22,7 +24,7 @@ export default class UserController {
     private changePasswordUseCase: ChangePasswordUseCase
   ) {}
 
-  async Register(req: InputData<RequestRegisterUserJson>, res: Response): Promise<void> {
+  async Register(req: InputData<RequestRegisterUserJson>, res: Response<ResponseRegisteredUserJson>): Promise<void> {
     // Executa o caso de uso
     const response = await this.registerUserUseCase.Execute(req);
 
@@ -30,7 +32,7 @@ export default class UserController {
     res.status(201).json(response);
   }
 
-  async GetUserProfile(req: InputData<any>, res: Response): Promise<void> {
+  async GetUserProfile(req: InputData<null>, res: Response<ResponseUserProfileJson>): Promise<void> {
     // Executa o caso de uso
     const response = await this.getUserProfileUseCase.Execute(req);
 
@@ -38,7 +40,7 @@ export default class UserController {
     res.status(200).json(response);
   }
 
-  async Update(req: InputData<RequestUpdateUserJson>, res: Response): Promise<void> {
+  async Update(req: InputData<RequestUpdateUserJson>, res: Response<null>): Promise<void> {
     // Executa o caso de uso
     await this.updateUserUseCase.Execute(req);
 
@@ -46,7 +48,7 @@ export default class UserController {
     res.status(204).send();
   }
 
-  async ChangePassword(req: InputData<RequestChangePasswordJson>, res: Response): Promise<void> {
+  async ChangePassword(req: InputData<RequestChangePasswordJson>, res: Response<null>): Promise<void> {
     // Executa o caso de uso
     await this.changePasswordUseCase.Execute(req);
 

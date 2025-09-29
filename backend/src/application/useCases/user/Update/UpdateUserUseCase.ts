@@ -2,10 +2,11 @@ import type IUpdateUserUseCase from "./IUpdateUserUseCase.js";
 import UpdateUserValidator from "./UpdateUserValidator.js";
 import { inject, injectable } from "tsyringe";
 import type IUserReadOnlyRepository from "../../../../domain/repositories/user/IUserReadOnlyRepository.js";
-import LoggedUser from "../../../../infrastructure/services/LoggedUser.js";
 import type IUserUpdateOnlyRepository from "../../../../domain/repositories/user/IUserUpdateOnlyRepository.js";
 import type { InputData } from "../../../../shared/communication/types/InputData.js";
 import type RequestUpdateUserJson from "../../../../shared/communication/Requests/RequestUpdateUserJson.js";
+import { checkParamsId } from "../../../SharedValidators/CheckParamsId.js";
+import { checkLoggedUser } from "../../../SharedValidators/CheckLoggedUser.js";
 
 @injectable()
 export default class UpdateUserUseCase implements IUpdateUserUseCase {
@@ -17,17 +18,14 @@ export default class UpdateUserUseCase implements IUpdateUserUseCase {
   ) {}
 
   async Execute(req: InputData<RequestUpdateUserJson>): Promise<void> {
-    if (!req.params.id) {
-      throw new Error("Usuário não existe.");
-    }
+    const paramsId = checkParamsId(req.params.id);
 
-    const loggedUser = new LoggedUser(req);
-    const user = await loggedUser.User();
+    const user = await checkLoggedUser(req);
 
     // Valida os dados enviados
     await this.Validate(req, user.email);
 
-    const dbUser = await this.updateOnlyRepository.GetById(req.params.id);
+    const dbUser = await this.updateOnlyRepository.GetById(paramsId);
 
     if (req.body.name && req.body.name.length > 0) {
       dbUser.name = req.body.name;

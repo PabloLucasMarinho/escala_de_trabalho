@@ -1,37 +1,16 @@
 import z from "zod";
-import { nameRegex, passwordRegex } from "../../../../shared/communication/constants/regex.js";
 import type { InputData } from "../../../../shared/communication/types/InputData.js";
 import type RequestRegisterUserJson from "../../../../shared/communication/Requests/RequestRegisterUserJson.js";
+import BaseValidator from "../../../SharedValidators/BaseValidator.js";
 
-export default class RegisterUserValidator {
-  private static ValidateData() {
+export default class RegisterUserValidator extends BaseValidator {
+  public static Validate(req: InputData<RequestRegisterUserJson>) {
     return z
       .object({
-        name: z
-          .string()
-          .trim()
-          .nonempty({ error: "O nome é obrigatório." })
-          .superRefine((value, context) => {
-            if (value && value.length > 0) {
-              if (!nameRegex.test(value)) {
-                context.addIssue("O nome só pode conter letras, espaços, hífens e apóstrofos.");
-              }
-            }
-          }),
-        email: z.email({ error: "O e-mail fornecido é inválido." }).trim().nonempty({ error: "O e-mail é obrigatório." }),
-        password: z.string().nonempty({ error: "A senha é obrigatória." }).regex(passwordRegex, {
-          error:
-            "A senha deve conter no mínimo 8 caracteres, uma letra maiúscula, uma minúscula, um número e um caractere especial.",
-        }),
-        confirmPassword: z.string(),
+        name: this.nameStringSchema,
+        email: this.emailStringSchema,
+        password: this.registerPasswordSchema,
       })
-      .refine((data) => data.password === data.confirmPassword, {
-        error: "A senha e a confirmação de senha não conferem.",
-        path: ["confirmPassword"],
-      });
-  }
-
-  public static Validate(req: InputData<RequestRegisterUserJson>) {
-    return this.ValidateData().parse(req.body);
+      .parse(req.body);
   }
 }

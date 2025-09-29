@@ -1,9 +1,10 @@
 import { inject, injectable } from "tsyringe";
-import LoggedUser from "../../../../infrastructure/services/LoggedUser.js";
 import type { InputData } from "../../../../shared/communication/types/InputData.js";
 import type IDeleteWorkplaceUseCase from "./IDeleteWorkplaceUseCase.js";
 import type IWorkplaceReadOnlyRepository from "../../../../domain/repositories/Workplace/IWorkplaceReadOnlyRepository.js";
 import type IWorkplaceDeleteOnlyRepository from "../../../../domain/repositories/Workplace/IWorkplaceDeleteOnlyRepository.js";
+import { checkParamsId } from "../../../SharedValidators/CheckParamsId.js";
+import { checkLoggedUser } from "../../../SharedValidators/CheckLoggedUser.js";
 
 @injectable()
 export default class DeleteWorkplaceUseCase implements IDeleteWorkplaceUseCase {
@@ -12,15 +13,12 @@ export default class DeleteWorkplaceUseCase implements IDeleteWorkplaceUseCase {
     @inject("IWorkplaceDeleteOnlyRepository") private readonly deleteOnlyRepository: IWorkplaceDeleteOnlyRepository
   ) {}
 
-  async Execute(req: InputData<any>): Promise<void> {
-    if (!req.params.id) {
-      throw new Error("Colaborador não existe.");
-    }
+  async Execute(req: InputData<null>): Promise<void> {
+    const paramsId = checkParamsId(req.params.id);
 
-    const loggedUser = new LoggedUser(req);
-    const user = await loggedUser.User();
+    const user = await checkLoggedUser(req);
 
-    const workplace = await this.readOnlyRepsitory.GetById(user, req.params.id);
+    const workplace = await this.readOnlyRepsitory.GetById(user, paramsId);
 
     if (!workplace) {
       throw new Error("Colaborador não existe.");

@@ -2,5 +2,5 @@ import type ResponseEmployeeJson from "../../../../shared/communication/Response
 import type { InputData } from "../../../../shared/communication/types/InputData.js";
 
 export default interface IGetByIdEmployeeUseCase {
-  Execute(req: InputData<any>): Promise<ResponseEmployeeJson>;
+  Execute(req: InputData<null>): Promise<ResponseEmployeeJson>;
 }

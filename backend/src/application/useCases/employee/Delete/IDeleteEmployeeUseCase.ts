@@ -1,5 +1,5 @@
 import type { InputData } from "../../../../shared/communication/types/InputData.js";
 
 export default interface IDeleteEmployeeUseCase {
-  Execute(req: InputData<any>): Promise<void>;
+  Execute(req: InputData<null>): Promise<void>;
 }

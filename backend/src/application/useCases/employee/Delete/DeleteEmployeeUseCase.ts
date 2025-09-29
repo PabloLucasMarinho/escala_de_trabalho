@@ -3,7 +3,8 @@ import type { InputData } from "../../../../shared/communication/types/InputData
 import type IDeleteEmployeeUseCase from "./IDeleteEmployeeUseCase.js";
 import type IEmployeeReadOnlyRepository from "../../../../domain/repositories/Employee/IEmployeeReadOnlyRepository.js";
 import type IEmployeeDeleteOnlyRepository from "../../../../domain/repositories/Employee/IEmployeeDeleteOnlyRepository.js";
-import LoggedUser from "../../../../infrastructure/services/LoggedUser.js";
+import { checkParamsId } from "../../../SharedValidators/CheckParamsId.js";
+import { checkLoggedUser } from "../../../SharedValidators/CheckLoggedUser.js";
 
 @injectable()
 export default class DeleteEmployeeUseCase implements IDeleteEmployeeUseCase {
@@ -12,15 +13,12 @@ export default class DeleteEmployeeUseCase implements IDeleteEmployeeUseCase {
     @inject("IEmployeeDeleteOnlyRepository") private readonly deleteOnlyRepository: IEmployeeDeleteOnlyRepository
   ) {}
 
-  async Execute(req: InputData<any>): Promise<void> {
-    if (!req.params.id) {
-      throw new Error("Colaborador não existe.");
-    }
-    const loggedUser = new LoggedUser(req);
+  async Execute(req: InputData<null>): Promise<void> {
+    const paramsId = checkParamsId(req.params.id);
 
-    const user = await loggedUser.User();
+    const user = await checkLoggedUser(req);
 
-    const employee = await this.readOnlyRepository.GetById(user, req.params.id);
+    const employee = await this.readOnlyRepository.GetById(user, paramsId);
 
     if (!employee) {
       throw new Error("Colaborador não existe.");

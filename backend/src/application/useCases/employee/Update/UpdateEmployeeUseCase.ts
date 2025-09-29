@@ -2,10 +2,11 @@ import { inject, injectable } from "tsyringe";
 import type IUpdateEmployeeUseCase from "./IUpdateEmployeeUseCase.js";
 import type IEmployeeUpdateOnlyRepository from "../../../../domain/repositories/Employee/IEmployeeUpdateOnlyRepository.js";
 import EmployeeValidator from "../EmployeeValidator.js";
-import LoggedUser from "../../../../infrastructure/services/LoggedUser.js";
 import type IEmployeeReadOnlyRepository from "../../../../domain/repositories/Employee/IEmployeeReadOnlyRepository.js";
 import type { InputData } from "../../../../shared/communication/types/InputData.js";
 import type RequestEmployeeJson from "../../../../shared/communication/Requests/RequestEmployeeJson.js";
+import { checkParamsId } from "../../../SharedValidators/CheckParamsId.js";
+import { checkLoggedUser } from "../../../SharedValidators/CheckLoggedUser.js";
 
 @injectable()
 export default class UpdateEmployeeUseCase implements IUpdateEmployeeUseCase {
@@ -14,17 +15,13 @@ export default class UpdateEmployeeUseCase implements IUpdateEmployeeUseCase {
     @inject("IEmployeeUpdateOnlyRepository") private readonly updateOnlyRepository: IEmployeeUpdateOnlyRepository
   ) {}
   async Execute(req: InputData<RequestEmployeeJson>): Promise<void> {
-    if (!req.params.id) {
-      throw new Error("Colaborador não existe.");
-    }
+    const paramsId = checkParamsId(req.params.id);
 
     this.Validator(req);
 
-    const loggedUser = new LoggedUser(req);
+    const user = await checkLoggedUser(req);
 
-    const user = await loggedUser.User();
-
-    const employee = await this.readOnlyRepository.GetById(user, req.params.id);
+    const employee = await this.readOnlyRepository.GetById(user, paramsId);
 
     if (!employee) {
       throw new Error("Colaborador não existe.");

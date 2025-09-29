@@ -7,7 +7,7 @@ import type IWorkplace from "../../../../infrastructure/entities/IWorkplace.js";
 import WorkplaceValidator from "../WorkplaceValidator.js";
 import type IWorkplaceReadOnlyRepository from "../../../../domain/repositories/Workplace/IWorkplaceReadOnlyRepository.js";
 import type IWorkplaceWriteOnlyRepository from "../../../../domain/repositories/Workplace/IWorkplaceWriteOnlyRepository.js";
-import LoggedUser from "../../../../infrastructure/services/LoggedUser.js";
+import { checkLoggedUser } from "../../../SharedValidators/CheckLoggedUser.js";
 
 @injectable()
 export default class RegisterWorkplaceUseCase implements IRegisterWorkplaceUseCase {
@@ -19,9 +19,7 @@ export default class RegisterWorkplaceUseCase implements IRegisterWorkplaceUseCa
   async Execute(req: InputData<RequestWorkplaceJson>): Promise<ResponseRegisteredWorkplaceJson> {
     const workplace = await this.Validate(req);
 
-    const loggedUser = new LoggedUser(req);
-
-    const user = await loggedUser.User();
+    const user = await checkLoggedUser(req);
 
     workplace.adm = user._id!;
 
@@ -40,7 +38,7 @@ export default class RegisterWorkplaceUseCase implements IRegisterWorkplaceUseCa
 
     const workplaceExist = await this.readOnlyRepository.ExistActiveWorkplaceWithName(workplace.name);
     if (workplaceExist) {
-      throw new Error("Local de trabalho já cadastrado.");
+      throw new Error("Local de Trabalho já cadastrado.");
     }
 
     return workplace;
