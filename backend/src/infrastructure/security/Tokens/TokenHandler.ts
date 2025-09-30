@@ -17,7 +17,10 @@ export default class TokenHandler implements IAccessTokenGenerator, ITokenProvid
       {
         id: userId.toString(),
       },
-      this.secret
+      this.secret,
+      {
+        expiresIn: "24h",
+      }
     );
 
     return token;
