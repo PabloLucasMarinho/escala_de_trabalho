@@ -86,35 +86,28 @@ export default class BaseValidator {
       .regex(nameRegex, "O nome só pode conter letras, espaços, hífens e apóstrofos.")
   );
 
+  static newPasswordSchema = z.preprocess(
+    (value) => this.checkString(value),
+    z
+      .string()
+      .nonempty({ error: "A senha é obrigatória." })
+      .regex(
+        passwordRegex,
+        "A senha deve conter no mínimo 8 caracteres, uma letra maiúscula, uma minúscula, um número e um caractere especial."
+      )
+  );
+
+  static confirmPasswordSchema = z.preprocess((value) => this.checkString(value), z.string());
+
   static optionalEmailStringSchema = z.preprocess(
     (value) => this.checkString(value),
     z.email({ error: "O e-mail fornecido é inválido." }).optional()
   );
 
   static emailStringSchema = z.preprocess(
-    (value) => this.checkString(value),
+    (value: string) => this.checkString(value),
     z.email({ error: "O e-mail fornecido é inválido." }).nonempty({ error: "O e-mail é obrigatório." })
   );
-
-  static registerPasswordSchema = z
-    .object({
-      password: z.preprocess(
-        (value) => this.checkString(value),
-        z
-          .string()
-          .nonempty({ error: "A senha é obrigatória." })
-          .regex(
-            passwordRegex,
-            "A senha deve conter no mínimo 8 caracteres, uma letra maiúscula, uma minúscula, um número e um caractere especial."
-          )
-      ),
-      confirmPassword: z.preprocess((value) => this.checkString(value), z.string()),
-    })
-    .refine((data) => data.password === data.confirmPassword, {
-      error: "A senha e a confirmação de senha não conferem.",
-      path: ["confirmPassword"],
-    })
-    .transform((data) => data.password);
 
   static changePasswordSchema = z
     .object({

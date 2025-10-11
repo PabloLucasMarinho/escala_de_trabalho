@@ -1,6 +1,66 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --primary-30: #3d2e6b;
+  --primary-50: #664db3;
+  --primary-55: #755eba;
+  --primary-60: #8570c2;
+  --primary-70: #a394d1;
+  --primary-80: #c2b8e0;
+  --primary-90: #e0dbf0;
+
+  --secundary-60: #9088aa;
+
+  --neutral-15: #241f2e;
+  --neutral-20: #30293d;
+  --neutral-25: #3c344c;
+
+  --bg-danger: #ff658455;
+  --prime-danger: #ff1a1a;
+  --pink: #ff6584;
+
+  --max-vw: 100vw;
+  --min-vh: 100vh;
+
+  --25-width: 25%;
+  --50-width: 50%;
+  --75-width: 75%;
+  --full-width: 100%;
+
+  --25-height: 25%;
+  --50-height: 50%;
+  --75-height: 75%;
+  --full-height: 100%;
+}
+
 * {
-  margin: 0;
   padding: 0;
+  margin: 0;
   box-sizing: border-box;
+}
+
+html,
+body,
+main {
+  max-width: var(--max-vw);
+  min-height: var(--min-vh);
+}
+
+html {
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  color: white;
+}
+
+.button {
+  height: 3rem;
+  background-color: var(--primary-50);
+  color: white;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--primary-55);
+  }
 }

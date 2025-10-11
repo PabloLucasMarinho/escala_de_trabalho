@@ -1,9 +1,15 @@
-<img src="login.svg" alt="Desenho de uma pessoa passando por uma porta.">
+<img src="register.svg" alt="Desenho de uma pessoa passando por uma porta.">
 
 <section>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <h1>Login</h1>
+    <h1>Cadastre-se</h1>
     <fieldset>
+      <div>
+        <label for="name">Nome</label><br>
+        <input type="text" name="name" id="name" autocomplete="name" placeholder="Digite seu nome"
+          formControlName="name" [class]="nameIsInvalid ? 'invalid-input' : ''" required />
+      </div>
+
       <div>
         <label for="email">E-mail</label><br>
         <input type="email" name="email" id="email" autocomplete="email" placeholder="Digite seu e-mail"
@@ -16,21 +22,32 @@
           formControlName="password" [class]="passwordIsInvalid ? 'invalid-input' : ''" required />
       </div>
 
+      <div>
+        <label for="confirm-password">Confirmar senha</label><br>
+        <input type="password" name="confirm-password" id="confirm-password" autocomplete="new-password"
+          placeholder="Confirme sua senha" formControlName="confirmPassword"
+          [class]="confirmPasswordIsInvalid ? 'invalid-input' : ''" required />
+      </div>
+
       @if(isFetching() && !error()) {
       <button LoadingButton class="button"></button>
       }@else{
-      <input class="button" type="submit" value="Entrar">
+      <input class="button" type="submit" value="Cadastrar">
       }
     </fieldset>
 
     <small>
-      Não possui conta? <a routerLink="/register">Clique aqui</a>
+      Já possui conta? <a routerLink="/login">Clique aqui</a>
     </small>
   </form>
 
 
-  @if(emailIsInvalid || passwordIsInvalid) {
+  @if(nameIsInvalid || emailIsInvalid || passwordIsInvalid || confirmPasswordIsInvalid) {
   <p>
+    @if(nameIsInvalid) {
+    <small>Nome inválido.</small>
+    }
+
     @if(emailIsInvalid) {
     <small>E-mail inválido.</small>
     }
@@ -38,6 +55,10 @@
     @if(passwordIsInvalid) {
     <small>A senha deve conter no mínimo 8 caracteres, uma letra maiúscula, uma minúscula, um número e um caractere
       especial.</small>
+    }
+
+    @if(confirmPasswordIsInvalid) {
+    <small>As senhas não conferem.</small>
     }
   </p>
   }
