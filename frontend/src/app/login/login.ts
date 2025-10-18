@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -10,6 +10,7 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { RegisteredUserJson } from '../register/register-user/response.model';
+import { AuthService } from '../services/auth.service';
 
 function passwordValidator(control: AbstractControl) {
   const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
@@ -26,7 +27,8 @@ function passwordValidator(control: AbstractControl) {
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class Login {
+export class Login implements OnInit {
+  private authService = inject(AuthService);
   private router = inject(Router);
   private httpClient = inject(HttpClient);
   private destroyRef = inject(DestroyRef);
@@ -72,7 +74,7 @@ export class Login {
       .subscribe({
         next: (resData) => {
           localStorage.setItem('user-name', resData.name);
-          localStorage.setItem('token', resData.token.accessToken);
+          this.authService.setToken(resData.token.accessToken);
 
           this.router.navigate(['/']);
         },
@@ -88,5 +90,11 @@ export class Login {
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
     });
+  }
+
+  ngOnInit(): void {
+    if (localStorage.getItem('token')) {
+      this.router.navigate(['/']);
+    }
   }
 }

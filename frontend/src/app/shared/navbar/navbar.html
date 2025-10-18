@@ -1,0 +1,67 @@
+<header>
+  <a routerLink="/profile">
+    <span class="initial-letters">
+      {{initalLetters}}
+    </span>
+
+    <div class="header-text">
+      <span class="name">{{userName()}}</span>
+    </div>
+  </a>
+
+  <span class="material-symbols-rounded toggle" (click)="event.triggerToggle()">
+    double_arrow
+  </span>
+</header>
+
+<div class="menu-bar">
+  <div class="menu">
+    <ul class="menu-links">
+      <li class="nav-link">
+        <a routerLink="/">
+          <span class="material-symbols-rounded icon">
+            calendar_month
+          </span>
+          <span class="nav-text">Calendário</span>
+        </a>
+      </li>
+
+      <li class="nav-link">
+        <a routerLink="/">
+          <span class="material-symbols-rounded icon">
+            badge
+          </span>
+          <span class="nav-text">Funcionário</span>
+        </a>
+      </li>
+
+      <li class="nav-link">
+        <a routerLink="/">
+          <span class="material-symbols-rounded icon">
+            apartment
+          </span>
+          <span class="nav-text">Local de Trabalho</span>
+        </a>
+      </li>
+
+      <li class="nav-link">
+        <a routerLink="/">
+          <span class="material-symbols-rounded icon">
+            schedule
+          </span>
+          <span class="nav-text">Turnos</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="bottom-content">
+    <li class="nav-link">
+      <a routerLink="/">
+        <span class="material-symbols-rounded icon">
+          logout
+        </span>
+        <span class="nav-text">Sair</span>
+      </a>
+    </li>
+  </div>
+</div>

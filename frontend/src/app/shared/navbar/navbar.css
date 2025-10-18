@@ -1,0 +1,135 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  width: fit-content;
+  background-color: var(--neutral-25);
+  transition: width 0.3s ease;
+
+  header {
+    a {
+      height: 4rem;
+      display: flex;
+      align-items: center;
+      column-gap: 1rem;
+      text-decoration: none;
+      color: white;
+      padding: 0 1.25rem;
+      transition: padding 0.3s ease;
+
+      &:hover {
+        background-color: var(--neutral-20);
+      }
+    }
+
+    .toggle {
+      position: absolute;
+      top: 50%;
+      right: -1rem;
+      transform: translateY(-50%);
+      transform: rotate(180deg);
+      height: 2rem;
+      width: 2rem;
+      background-color: var(--primary-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 10;
+      transition: transform 0.3s ease;
+    }
+
+    .initial-letters {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.5rem;
+      background-color: var(--primary-50);
+    }
+
+    .header-text {
+      transition: display 0.3s ease;
+    }
+
+    .nav-link {
+      transition: display 0.3s ease;
+    }
+  }
+
+  .menu-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .menu-links {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+  }
+
+  .nav-link > a {
+    height: 4rem;
+    list-style: none;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: white;
+    padding: 0 1.25rem;
+    column-gap: 1rem;
+    transition: padding 0.3s ease, background-color 0.2s ease;
+
+    &:hover {
+      background-color: var(--neutral-20);
+    }
+
+    .icon {
+      width: 2.5rem;
+      min-width: 2.5rem;
+      height: 2.5rem;
+      min-height: 2.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &.closed {
+    width: 5rem;
+
+    header {
+      a {
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .header-text {
+          display: none;
+          transition: display 0.3s ease;
+        }
+      }
+
+      .toggle {
+        transform: rotate(0deg);
+        transition: all 0.3s ease;
+      }
+    }
+
+    .nav-link > a {
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .nav-text {
+      display: none;
+      transition: display 0.3s ease;
+    }
+  }
+}

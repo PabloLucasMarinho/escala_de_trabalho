@@ -1,5 +1,5 @@
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {
   AbstractControl,
   FormControl,
@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { RegisteredUserJson } from './response.model';
 import { LoadingButton } from '../../shared/loading-button/loading-button';
+import { AuthService } from '../../services/auth.service';
 
 function nameValidator(control: AbstractControl) {
   const regex = /^[A-Za-zÀ-ÿ\s'-]+$/;
@@ -45,7 +46,9 @@ function passwordsMatchValidators(group: AbstractControl) {
   templateUrl: './register-user.html',
   styleUrl: './register-user.css',
 })
-export class RegisterUser {
+export class RegisterUser implements OnInit {
+  private authService = inject(AuthService);
+  private router = inject(Router);
   private httpClient = inject(HttpClient);
   private destroyRef = inject(DestroyRef);
   private baseUrl = environment.apiUrl;
@@ -110,7 +113,10 @@ export class RegisterUser {
       .post<RegisteredUserJson>(`${this.baseUrl}/user/register`, this.form.value)
       .subscribe({
         next: (resData) => {
-          console.log(resData);
+          localStorage.setItem('user-name', resData.name);
+          this.authService.setToken(resData.token.accessToken);
+
+          this.router.navigate(['/']);
         },
         error: (error) => {
           this.error.set(error);
@@ -124,5 +130,11 @@ export class RegisterUser {
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
     });
+  }
+
+  ngOnInit(): void {
+    if (localStorage.getItem('token')) {
+      this.router.navigate(['/']);
+    }
   }
 }

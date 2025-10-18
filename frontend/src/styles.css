@@ -10,6 +10,7 @@
 
   --secundary-60: #9088aa;
 
+  --neutral-05: #0c0a0f;
   --neutral-15: #241f2e;
   --neutral-20: #30293d;
   --neutral-25: #3c344c;
@@ -36,19 +37,21 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-}
-
-html,
-body,
-main {
-  max-width: var(--max-vw);
-  min-height: var(--min-vh);
+  position: relative;
 }
 
 html {
   font-family: 'Poppins', sans-serif;
   font-style: normal;
   color: white;
+}
+
+body {
+  width: var(--max-vw);
+  max-width: var(--max-vw);
+  height: var(--min-vh);
+  min-height: var(--min-vh);
+  background-color: var(--neutral-15);
 }
 
 .button {

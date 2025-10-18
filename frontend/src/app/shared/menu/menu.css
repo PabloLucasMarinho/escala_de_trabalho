@@ -1,0 +1,16 @@
+:host {
+  background-color: var(--neutral-05);
+  min-height: 100%;
+  width: 0;
+  overflow: hidden;
+  transition: width 0.3s;
+  top: 0;
+  left: 0;
+
+  &.active {
+    display: block;
+    width: 10rem;
+    transition: width 0.3s;
+    border-right: 2px solid var(--primary-50);
+  }
+}

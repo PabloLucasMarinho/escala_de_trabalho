@@ -1,5 +1,5 @@
 :host {
-  min-height: 5vh;
   display: flex;
   justify-content: center;
+  padding: 0.5rem;
 }

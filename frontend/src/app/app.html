@@ -1,4 +1,8 @@
+<!-- @if(hasToken()) {
+<header Navbar></header>
+} -->
+<nav Navbar [class]="isVisible() ? '' : 'closed'"></nav>
 <main>
   <router-outlet />
-  <footer Footer></footer>
 </main>
+<footer Footer></footer>
