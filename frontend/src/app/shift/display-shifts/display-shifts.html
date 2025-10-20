@@ -1,0 +1,8 @@
+<section [class]="!isAddingShift() ? 'center' : ''">
+  @if (!shifts() && !isAddingShift()) {
+  <p>Não há nenhum turno criado.</p><br>
+  <button class="button" (click)="handleAddShift()">Adicionar</button>
+  }@else if(isAddingShift()) {
+  <form-add-shift />
+  }
+</section>

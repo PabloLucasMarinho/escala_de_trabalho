@@ -4,6 +4,8 @@ import { Injectable, signal } from '@angular/core';
 export class EventService {
   toggle = signal(false);
   editToggle = signal(false);
+  addEmployee = signal(false);
+  addWorkplace = signal(false);
 
   triggerToggle() {
     this.toggle.update((value) => !value);
@@ -11,5 +13,15 @@ export class EventService {
 
   triggerEditing() {
     this.editToggle.update((value) => !value);
+  }
+
+  triggerAddEmployee() {
+    this.addEmployee.update((value) => !value);
+    this.addWorkplace.set(false);
+  }
+
+  triggerAddWorkplace() {
+    this.addWorkplace.update((value) => !value);
+    this.addEmployee.set(false);
   }
 }

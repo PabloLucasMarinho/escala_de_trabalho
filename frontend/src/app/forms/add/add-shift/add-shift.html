@@ -1,0 +1,66 @@
+<form>
+  <fieldset>
+    <div>
+      <label for="dateInit">Vigência inicial</label><br>
+      <input type="date" name="dateInit" id="dateInit" formControlName="dateInit" required />
+    </div>
+
+    <div>
+      <label for="dateEnd">Vigência final</label><br>
+      <input type="date" name="dateEnd" id="dateEnd" formControlName="dateEnd" required />
+    </div>
+
+    <div>
+      <label for="weekday">Dia da semana</label><br>
+      <select name="weekday" id="weekday">
+        <option value="">- - -</option>
+        <option value="SUNDAY">Domingo</option>
+        <option value="MONDAY">Segunda-feira</option>
+        <option value="TUESDAY">Terça-feira</option>
+        <option value="WEDNESDAY">Quarta-feira</option>
+        <option value="THURSDAY">Quinta-feira</option>
+        <option value="FRIDAY">Sexta-feira</option>
+        <option value="SATURDAY">Sábado</option>
+        <option value="WORKDAY">Dias de trabalho</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="frequency">Frequência</label><br>
+      <select name="frequency" id="frequency">
+        <option value="">- - -</option>
+        <option value="DAILY">Diário</option>
+        <option value="WEEKLY">Semanal</option>
+        <option value="BIWEEKLY">Quinzenal</option>
+        <option value="MONTHLY">Mensal</option>
+      </select>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <div>
+      <label for="frequency">Colaborador</label><br>
+      <div class="input-add">
+        <select name="frequency" id="frequency">
+          <option value="">---</option>
+        </select>
+        <span class="material-symbols-rounded" (click)="event.triggerAddEmployee()">
+          add_circle
+        </span>
+      </div>
+    </div>
+
+    <div>
+      <label for="frequency">Local de Trabalho</label><br>
+      <div class="input-add">
+        <select name="frequency" id="frequency">
+          <option value="">---</option>
+        </select>
+        <span class="material-symbols-rounded" (click)="event.triggerAddWorkplace()">
+          add_circle
+        </span>
+      </div>
+    </div>
+  </fieldset>
+  <input type="submit" value="Salvar" class="btn">
+</form>

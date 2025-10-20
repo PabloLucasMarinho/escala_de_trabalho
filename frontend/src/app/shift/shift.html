@@ -1,7 +1,7 @@
-<div>
-  <app-display-shifts />
+<app-display-shifts />
 
-  <section>
-    <h1>2</h1>
-  </section>
-</div>
+@if(event.addEmployee()) {
+<form-add-employee />
+}@else if(event.addWorkplace()) {
+<form-add-workplace />
+}

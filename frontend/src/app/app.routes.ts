@@ -9,7 +9,7 @@ import { Shift } from './shift/shift';
 export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'register', component: RegisterUser },
-  { path: '', component: Dashboard, canActivate: [authGuard] },
-  { path: 'profile', component: Profile, canActivate: [authGuard] },
-  { path: 'shift', component: Shift, canActivate: [authGuard] },
+  { path: '', component: Dashboard, canActivate: [authGuard], data: { title: 'Calendário' } },
+  { path: 'profile', component: Profile, canActivate: [authGuard], data: { title: 'Perfil' } },
+  { path: 'shift', component: Shift, canActivate: [authGuard], data: { title: 'Turnos' } },
 ];

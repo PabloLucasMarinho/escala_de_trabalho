@@ -102,8 +102,6 @@ export class RegisterUser implements OnInit {
           } else {
             this.errors.set(['Erro desconhecido.']);
           }
-
-          console.log(this.errors());
         },
         complete: () => {
           this.isFetching.set(false);

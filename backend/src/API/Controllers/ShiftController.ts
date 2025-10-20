@@ -30,7 +30,7 @@ export default class ShiftController {
     res.status(201).json(response);
   }
 
-  async GetAllShifts(res: Response<ResponseGetAllShiftsJson[] | null>): Promise<void> {
+  async GetAllShifts(req: InputData<null>, res: Response<ResponseGetAllShiftsJson[] | null>): Promise<void> {
     const response = await this.getAllShiftsUseCase.Execute();
 
     res.status(200).json(response);
