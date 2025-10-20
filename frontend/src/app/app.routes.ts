@@ -4,16 +4,12 @@ import { Dashboard } from './dashboard/dashboard';
 import { authGuard } from './guards/auth.guard';
 import { RegisterUser } from './register/register-user/register-user';
 import { Profile } from './profile/profile';
+import { Shift } from './shift/shift';
 
 export const routes: Routes = [
-  {
-    path: 'login',
-    component: Login,
-  },
-  {
-    path: 'register',
-    component: RegisterUser,
-  },
+  { path: 'login', component: Login },
+  { path: 'register', component: RegisterUser },
   { path: '', component: Dashboard, canActivate: [authGuard] },
   { path: 'profile', component: Profile, canActivate: [authGuard] },
+  { path: 'shift', component: Shift, canActivate: [authGuard] },
 ];

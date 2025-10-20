@@ -7,8 +7,6 @@ import type IPasswordEncripter from "../domain/security/Cryptography/IPasswordEn
 import BCryptNet from "./security/BCryptNet.js";
 import type IAccessTokenGenerator from "../domain/security/Tokens/IAccessTokenGenerator.js";
 import TokenHandler from "./security/Tokens/TokenHandler.js";
-import type ILoggedUser from "../domain/services/ILoggedUser.js";
-import LoggedUser from "./services/LoggedUser.js";
 import EmployeeRepository from "./repositories/EmployeeRepository.js";
 import type IEmployeeReadOnlyRepository from "../domain/repositories/Employee/IEmployeeReadOnlyRepository.js";
 import type IEmployeeWriteOnlyRepository from "../domain/repositories/Employee/IEmployeeWriteOnlyRepository.js";

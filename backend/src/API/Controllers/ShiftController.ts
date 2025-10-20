@@ -10,11 +10,14 @@ import FilterShiftUseCase from "../../application/useCases/shift/Filter/FilterSh
 import GetByIdShiftUseCase from "../../application/useCases/shift/GetById/GetByIdShiftUseCase.js";
 import UpdateShiftUseCase from "../../application/useCases/shift/Update/UpdateShiftUseCase.js";
 import DeleteShiftUseCase from "../../application/useCases/shift/Delete/DeleteShiftUseCase.js";
+import GetAllShiftsUseCase from "../../application/useCases/shift/GetAllShifts/GetAllShiftsUseCase.js";
+import type ResponseGetAllShiftsJson from "../../shared/communication/Responses/ReponseGetAllShiftsJson.js";
 
 @injectable()
 export default class ShiftController {
   constructor(
     @inject(RegisterShiftUseCase) private registerShiftUseCase: RegisterShiftUseCase,
+    @inject(GetAllShiftsUseCase) private getAllShiftsUseCase: GetAllShiftsUseCase,
     @inject(FilterShiftUseCase) private filterShiftUseCase: FilterShiftUseCase,
     @inject(GetByIdShiftUseCase) private getByIdShiftUseCase: GetByIdShiftUseCase,
     @inject(UpdateShiftUseCase) private updateShiftUseCase: UpdateShiftUseCase,
@@ -25,6 +28,12 @@ export default class ShiftController {
     const response = await this.registerShiftUseCase.Execute(req);
 
     res.status(201).json(response);
+  }
+
+  async GetAllShifts(res: Response<ResponseGetAllShiftsJson[] | null>): Promise<void> {
+    const response = await this.getAllShiftsUseCase.Execute();
+
+    res.status(200).json(response);
   }
 
   async Filter(req: InputData<RequestFilterShiftJson>, res: Response<ResponseShiftJson[] | null>): Promise<void> {

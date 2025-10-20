@@ -19,6 +19,14 @@ export default class ShiftRepository
     return newShift._id;
   }
 
+  async GetAll(): Promise<IShift[]> {
+    const query: any = { active: true };
+
+    const shifts = await Shift.find(query).exec();
+
+    return shifts;
+  }
+
   async GetById(shitId: string): Promise<IShift | null> {
     const shift = await Shift.findOne({ _id: shitId, active: true });
 

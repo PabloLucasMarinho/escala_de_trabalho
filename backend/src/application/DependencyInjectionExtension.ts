@@ -33,6 +33,8 @@ import type IUpdateShiftUseCase from "./useCases/shift/Update/IUpdateShiftUseCas
 import UpdateShiftUseCase from "./useCases/shift/Update/UpdateShiftUseCase.js";
 import type IDeleteShiftUseCase from "./useCases/shift/Delete/IDeleteShiftUseCase.js";
 import DeleteShiftUseCase from "./useCases/shift/Delete/DeleteShiftUseCase.js";
+import type IGetAllShiftsUseCase from "./useCases/shift/GetAllShifts/IGetAllShiftsUseCase.js";
+import GetAllShiftsUseCase from "./useCases/shift/GetAllShifts/GetAllShiftsUseCase.js";
 
 /* AddUseCases */
 // User Use Cases
@@ -83,6 +85,9 @@ container.register<IDeleteEmployeeUseCase>("IDeleteEmployeeUseCase", {
 // Shift Use Case
 container.register<IRegisterShiftUseCase>("IRegisterShiftUseCase", {
   useClass: RegisterShiftUseCase,
+});
+container.register<IGetAllShiftsUseCase>("IGetAllShiftsUseCase", {
+  useClass: GetAllShiftsUseCase,
 });
 container.register<IFilterShiftUseCase>("IFilterShiftUseCase", {
   useClass: FilterShiftUseCase,
