@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import {
   AbstractControl,
@@ -13,33 +13,6 @@ import { RegisteredUserJson } from './response.model';
 import { LoadingButton } from '../../shared/loading-button/loading-button';
 import { AuthService } from '../../services/auth.service';
 
-function nameValidator(control: AbstractControl) {
-  const regex = /^[A-Za-zÀ-ÿ\s'-]+$/;
-  if (regex.test(control.value)) {
-    return null;
-  }
-
-  return { regexTestFailed: true };
-}
-
-function passwordValidator(control: AbstractControl) {
-  const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
-  if (regex.test(control.value)) {
-    return null;
-  }
-
-  return { regexTestFailed: true };
-}
-
-function passwordsMatchValidators(group: AbstractControl) {
-  const password = group.get('password')?.value;
-  const confirmPassword = group.get('confirmPassword')?.value;
-
-  if (!password || !confirmPassword) return null;
-
-  return password === confirmPassword ? null : { passwordsDontMatch: true };
-}
-
 @Component({
   selector: 'app-register-user',
   imports: [RouterLink, ReactiveFormsModule, LoadingButton],
@@ -53,7 +26,7 @@ export class RegisterUser implements OnInit {
   private destroyRef = inject(DestroyRef);
   private baseUrl = environment.apiUrl;
   isFetching = signal(false);
-  error = signal('');
+  errors = signal<string[]>([]);
 
   form = new FormGroup(
     {
@@ -113,14 +86,24 @@ export class RegisterUser implements OnInit {
       .post<RegisteredUserJson>(`${this.baseUrl}/user/register`, this.form.value)
       .subscribe({
         next: (resData) => {
+          localStorage.setItem('id', resData.id);
           localStorage.setItem('user-name', resData.name);
           this.authService.setToken(resData.token.accessToken);
 
           this.router.navigate(['/']);
         },
         error: (error) => {
-          this.error.set(error);
-          console.log(error);
+          const err = error.error?.error;
+
+          if (typeof err === 'string') {
+            this.errors.set([err]);
+          } else if (Array.isArray(err)) {
+            this.errors.set(err);
+          } else {
+            this.errors.set(['Erro desconhecido.']);
+          }
+
+          console.log(this.errors());
         },
         complete: () => {
           this.isFetching.set(false);
@@ -137,4 +120,31 @@ export class RegisterUser implements OnInit {
       this.router.navigate(['/']);
     }
   }
+}
+
+function nameValidator(control: AbstractControl) {
+  const regex = /^[A-Za-zÀ-ÿ\s'-]+$/;
+  if (regex.test(control.value)) {
+    return null;
+  }
+
+  return { regexTestFailed: true };
+}
+
+function passwordValidator(control: AbstractControl) {
+  const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
+  if (regex.test(control.value)) {
+    return null;
+  }
+
+  return { regexTestFailed: true };
+}
+
+function passwordsMatchValidators(group: AbstractControl) {
+  const password = group.get('password')?.value;
+  const confirmPassword = group.get('confirmPassword')?.value;
+
+  if (!password || !confirmPassword) return null;
+
+  return password === confirmPassword ? null : { passwordsDontMatch: true };
 }

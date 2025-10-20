@@ -29,7 +29,7 @@
           [class]="confirmPasswordIsInvalid ? 'invalid-input' : ''" required />
       </div>
 
-      @if(isFetching() && !error()) {
+      @if(isFetching() && errors().length === 0) {
       <button LoadingButton class="button"></button>
       }@else{
       <input class="button" type="submit" value="Cadastrar">
@@ -37,12 +37,12 @@
     </fieldset>
 
     <small>
-      Já possui conta? <a routerLink="/login">Clique aqui</a>
+      Já possui conta? <a routerLink="/login" class="click-here">Clique aqui</a>
     </small>
   </form>
 
 
-  @if(nameIsInvalid || emailIsInvalid || passwordIsInvalid || confirmPasswordIsInvalid) {
+  @if(nameIsInvalid || emailIsInvalid || passwordIsInvalid || confirmPasswordIsInvalid || errors().length > 0) {
   <p>
     @if(nameIsInvalid) {
     <small>Nome inválido.</small>
@@ -59,6 +59,12 @@
 
     @if(confirmPasswordIsInvalid) {
     <small>As senhas não conferem.</small>
+    }
+
+    @if(errors().length > 0) {
+    @for (error of errors(); track error) {
+    <small>{{error}}</small>
+    }
     }
   </p>
   }

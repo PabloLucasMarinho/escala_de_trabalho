@@ -17,7 +17,7 @@
           required />
       </div>
 
-      @if(isFetching() && !error()) {
+      @if(isFetching() && errors().length === 0) {
       <button LoadingButton class="button"></button>
       }@else{
       <input class="button" type="submit" value="Entrar">
@@ -25,12 +25,12 @@
     </fieldset>
 
     <small>
-      Não possui conta? <a routerLink="/register">Clique aqui</a>
+      Não possui conta? <a routerLink="/register" class="click-here">Clique aqui</a>
     </small>
   </form>
 
 
-  @if(emailIsInvalid || passwordIsInvalid) {
+  @if(emailIsInvalid || passwordIsInvalid || errors().length > 0) {
   <p>
     @if(emailIsInvalid) {
     <small>E-mail inválido.</small>
@@ -39,6 +39,12 @@
     @if(passwordIsInvalid) {
     <small>A senha deve conter no mínimo 8 caracteres, uma letra maiúscula, uma minúscula, um número e um caractere
       especial.</small>
+    }
+
+    @if(errors().length > 0) {
+    @for (error of errors(); track error) {
+    <small>{{error}}</small>
+    }
     }
   </p>
   }

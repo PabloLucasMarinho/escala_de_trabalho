@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -14,7 +14,5 @@ export class AuthService {
     this.token.set(null);
   }
 
-  hasToken() {
-    return this.token() !== null;
-  }
+  hasToken = computed(() => this.token() !== null);
 }

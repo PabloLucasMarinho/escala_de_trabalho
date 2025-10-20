@@ -5,7 +5,7 @@ import BaseValidator from "../../../SharedValidators/BaseValidator.js";
 
 export default class RegisterUserValidator extends BaseValidator {
   public static Validate(req: InputData<RequestRegisterUserJson>) {
-    if (this.newPasswordSchema.parse(req.body.password) !== this.confirmPasswordSchema.parse(req.body.confirmPassword)) {
+    if (this.passwordSchema.parse(req.body.password) !== this.confirmPasswordSchema.parse(req.body.confirmPassword)) {
       throw new ZodError([
         {
           code: "custom",
@@ -18,7 +18,7 @@ export default class RegisterUserValidator extends BaseValidator {
       .object({
         name: this.nameStringSchema,
         email: this.emailStringSchema,
-        password: this.newPasswordSchema,
+        password: this.passwordSchema,
       })
       .parse(req.body);
   }

@@ -29,6 +29,7 @@ export default class LoginUserUseCase implements ILoginUserUseCase {
     const response = new ResponseRegisteredUserJson();
     const token = new ResponseTokensJson();
     token.accessToken = this.tokenHandler.Generate(user._id!);
+    response.id = user._id!.toString();
     response.name = user.name;
     response.token = token;
 

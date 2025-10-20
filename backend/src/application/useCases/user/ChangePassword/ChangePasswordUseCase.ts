@@ -32,7 +32,7 @@ export default class ChangePasswordUseCase implements IChangePasswordUseCase {
     ChangePasswordValidator.Validate(req);
 
     if (!this.passwordEncripter.IsValid(req.body.currentPassword, loggedUser.password)) {
-      throw new Error("A senha inserida é diferente da senha atual.");
+      throw new Error("A senha atual inserida não condiz com a senha salva em sistema.");
     }
   }
 }

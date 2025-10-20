@@ -1,36 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
-  --primary-30: #3d2e6b;
-  --primary-50: #664db3;
-  --primary-55: #755eba;
-  --primary-60: #8570c2;
-  --primary-70: #a394d1;
-  --primary-80: #c2b8e0;
-  --primary-90: #e0dbf0;
+  --body-color: #241f2e;
+  --sidebar-color: #3c344c;
+  --primary-color: #664db3;
+  --primary-color-light: #c2b8e0;
+  --secundary-color: #9088aa;
+  --danger-color: #ff1a1a;
+  --danger-color-light: #ff658455;
+  --success-color-light: #66ff6655;
 
-  --secundary-60: #9088aa;
-
-  --neutral-05: #0c0a0f;
-  --neutral-15: #241f2e;
-  --neutral-20: #30293d;
-  --neutral-25: #3c344c;
-
-  --bg-danger: #ff658455;
-  --prime-danger: #ff1a1a;
-  --pink: #ff6584;
-
-  --max-vw: 100vw;
-  --min-vh: 100vh;
-
-  --25-width: 25%;
-  --50-width: 50%;
-  --75-width: 75%;
-  --full-width: 100%;
-
-  --25-height: 25%;
-  --50-height: 50%;
-  --75-height: 75%;
-  --full-height: 100%;
+  --tran-01: all 0.1s ease;
+  --tran-02: all 0.2s ease;
+  --tran-03: all 0.3s ease;
+  --tran-04: all 0.4s ease;
+  --tran-05: all 0.5s ease;
 }
 
 * {
@@ -40,6 +23,14 @@
   position: relative;
 }
 
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+}
+
 html {
   font-family: 'Poppins', sans-serif;
   font-style: normal;
@@ -47,23 +38,24 @@ html {
 }
 
 body {
-  width: var(--max-vw);
-  max-width: var(--max-vw);
-  height: var(--min-vh);
-  min-height: var(--min-vh);
-  background-color: var(--neutral-15);
+  background-color: var(--body-color);
 }
 
 .button {
   height: 3rem;
-  background-color: var(--primary-50);
+  background-color: var(--primary-color);
   color: white;
   font-size: 1rem;
+  font-weight: 700;
   border-radius: 0.25rem;
   border: none;
   cursor: pointer;
+  padding: 0 3rem;
+  transition: var(--tran-03);
 
   &:hover {
-    background-color: var(--primary-55);
+    background-color: var(--primary-color-light);
+    color: var(--body-color);
+    transition: var(--tran-03);
   }
 }

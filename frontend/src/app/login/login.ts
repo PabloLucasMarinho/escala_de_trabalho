@@ -34,7 +34,7 @@ export class Login implements OnInit {
   private destroyRef = inject(DestroyRef);
   private baseUrl = environment.apiUrl;
   isFetching = signal(false);
-  error = signal('');
+  errors = signal<string[]>([]);
 
   form = new FormGroup({
     email: new FormControl('', {
@@ -73,14 +73,24 @@ export class Login implements OnInit {
       .post<RegisteredUserJson>(`${this.baseUrl}/user/login`, this.form.value)
       .subscribe({
         next: (resData) => {
+          localStorage.setItem('id', resData.id);
           localStorage.setItem('user-name', resData.name);
           this.authService.setToken(resData.token.accessToken);
 
           this.router.navigate(['/']);
         },
         error: (error) => {
-          this.error.set(error);
-          console.log(error);
+          const err = error.error?.error;
+
+          if (typeof err === 'string') {
+            this.errors.set([err]);
+          } else if (Array.isArray(err)) {
+            this.errors.set(err);
+          } else {
+            this.errors.set(['Erro desconhecido.']);
+          }
+
+          console.log(this.errors());
         },
         complete: () => {
           this.isFetching.set(false);

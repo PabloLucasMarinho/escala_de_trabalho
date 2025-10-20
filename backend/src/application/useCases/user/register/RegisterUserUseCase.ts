@@ -38,6 +38,7 @@ export default class RegisterUserUseCase implements IRegisterUserUseCase {
     const token = new ResponseTokensJson();
     token.accessToken = this.accessTokenGenerator.Generate(userId);
 
+    response.id = userId.toString();
     response.name = req.body.name.toUpperCase();
     response.token = token;
 

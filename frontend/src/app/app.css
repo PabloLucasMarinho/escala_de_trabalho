@@ -12,12 +12,10 @@
 
 :host > main {
   grid-column: 2 / -1;
+  width: 100%;
+  height: 100%;
 }
 
 :host > footer {
   grid-column: 2 / -1;
-}
-
-main {
-  position: relative;
 }

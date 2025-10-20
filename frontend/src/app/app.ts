@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Footer } from './footer/footer';
 import { Navbar } from './shared/navbar/navbar';
@@ -14,6 +14,6 @@ import { EventService } from './services/event.service';
 export class App {
   private auth = inject(AuthService);
   private event = inject(EventService);
-  hasToken = computed(() => this.auth.hasToken());
+  hasToken = this.auth.hasToken;
   isVisible = computed(() => this.event.toggle());
 }
