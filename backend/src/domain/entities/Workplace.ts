@@ -9,14 +9,19 @@ const worplaceSchema = new Schema<IWorkplace>(
       required: true,
       set: (value: string) => value.toUpperCase(),
     },
-    adm: {
+    active: {
+      type: Boolean,
+      default: true,
+    },
+    createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       required: false,
       ref: "User",
     },
-    active: {
-      type: Boolean,
-      default: true,
+    updatedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: false,
+      ref: "User",
     },
   },
   { timestamps: true }

@@ -5,6 +5,8 @@ import { environment } from '../../environments/environment';
 import { GetUserJson } from './response.model';
 import { NameEmail } from '../forms/edit/name-email/name-email';
 import { Password } from '../forms/edit/password/password';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -15,6 +17,8 @@ import { Password } from '../forms/edit/password/password';
 export class Profile implements OnInit {
   private httpClient = inject(HttpClient);
   private destroyRef = inject(DestroyRef);
+  private router = inject(Router);
+  private auth = inject(AuthService);
   private baseUrl = environment.apiUrl;
   name = signal('');
   email = signal('');
@@ -30,6 +34,13 @@ export class Profile implements OnInit {
         next: (resData) => {
           this.name.set(resData.name);
           this.email.set(resData.email);
+        },
+        error: (error) => {
+          console.log(error.error.error);
+          if (error.error.error == 'Token inválido.') {
+            this.auth.clearToken();
+            this.router.navigate(['/login']);
+          }
         },
       });
 

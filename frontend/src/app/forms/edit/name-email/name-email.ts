@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, DestroyRef, effect, inject, input, output, signal } from '@angular/core';
+import { Component, DestroyRef, effect, inject, input, signal } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -21,7 +21,6 @@ export class NameEmail {
   private destroyRef = inject(DestroyRef);
   private baseUrl = environment.apiUrl;
   errors = signal<string[]>([]);
-  profileUpdated = output<void>();
   name = input<string>('');
   email = input<string>('');
 
@@ -75,7 +74,7 @@ export class NameEmail {
       .put<null>(`${this.baseUrl}/user/edit/${id}`, this.form.value)
       .subscribe({
         next: () => {
-          this.profileUpdated.emit();
+          // this.profileUpdated.emit();
           this.errors.set([]);
         },
         error: (error) => {

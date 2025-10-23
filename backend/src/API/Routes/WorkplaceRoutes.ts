@@ -9,6 +9,7 @@ const router = Router();
 const workplaceController = container.resolve(WorkplaceController);
 
 router.post("/register", VerifyToken, workplaceController.Register.bind(workplaceController));
+router.get("/getall", VerifyToken, workplaceController.GetAll.bind(workplaceController));
 router.get("/:id", VerifyToken, workplaceController.GetById.bind(workplaceController));
 router.put("/:id", VerifyToken, workplaceController.Update.bind(workplaceController));
 router.delete("/:id", VerifyToken, workplaceController.Delete.bind(workplaceController));

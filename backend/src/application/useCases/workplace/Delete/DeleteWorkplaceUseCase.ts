@@ -18,7 +18,7 @@ export default class DeleteWorkplaceUseCase implements IDeleteWorkplaceUseCase {
 
     const user = await checkLoggedUser(req);
 
-    const workplace = await this.readOnlyRepsitory.GetById(user, paramsId);
+    const workplace = await this.readOnlyRepsitory.GetById(paramsId);
 
     if (!workplace) {
       throw new Error("Colaborador não existe.");

@@ -27,8 +27,18 @@ export default class EmployeeRepository
     return employee ? true : false;
   }
 
-  async GetById(user: IUser, employeeId: string): Promise<IEmployee | null> {
-    const employee = await Employee.findOne({ _id: employeeId, adm: user._id });
+  async GetAll(): Promise<IEmployee[] | null> {
+    const query: any = { active: true };
+
+    const employees = await Employee.find(query).exec();
+
+    return employees;
+  }
+
+  async GetById(employeeId: string): Promise<IEmployee | null> {
+    const query = { _id: employeeId };
+
+    const employee = await Employee.findOne(query);
 
     return employee;
   }

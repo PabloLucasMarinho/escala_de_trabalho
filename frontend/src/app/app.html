@@ -1,8 +1,17 @@
 @if (hasToken()) {
-<nav Navbar [class]="isVisible() ? '' : 'closed'"></nav>
+<nav Navbar></nav>
 }
 <main>
-  <h1>{{pageTitle()}}</h1>
-  <router-outlet />
+  <section class="container">
+    <div class="container-title-bar">
+      <span>{{pageTitle()}}</span>
+      @if(!isInHomePage()) {
+      <span class="material-symbols-sharp" (click)="closeTab()">
+        close
+      </span>
+      }
+    </div>
+    <router-outlet />
+  </section>
 </main>
 <footer Footer></footer>

@@ -1,19 +1,23 @@
 import { inject, injectable } from "tsyringe";
 import type IGetAllShiftsUseCase from "./IGetAllShiftsUseCase.js";
 import type IShiftReadOnlyRepository from "../../../../domain/repositories/Shift/IShiftReadOnlyRepository.js";
-import ResponseGetAllShiftsJson from "../../../../shared/communication/Responses/ReponseGetAllShiftsJson.js";
+import ResponseShiftJson from "../../../../shared/communication/Responses/ResponseShiftJson.js";
 
 @injectable()
 export default class GetAllShiftsUseCase implements IGetAllShiftsUseCase {
   constructor(@inject("IShiftReadOnlyRepository") private readonly readOnlyRepository: IShiftReadOnlyRepository) {}
 
-  async Execute(): Promise<ResponseGetAllShiftsJson[] | null> {
+  async Execute(): Promise<ResponseShiftJson[] | null> {
     const shifts = await this.readOnlyRepository.GetAll();
+    if (!shifts) return null;
 
-    const responses: ResponseGetAllShiftsJson[] = shifts.map((shift) => {
-      const response = new ResponseGetAllShiftsJson();
+    const responses: ResponseShiftJson[] = shifts.map((shift) => {
+      const response = new ResponseShiftJson();
+      if (!shift._id) {
+        throw new Error("ID do turno inválido.");
+      }
 
-      response.id = shift._id!.toString();
+      response.id = shift._id.toString();
       response.dateInit = shift.dateInit;
       response.dateEnd = shift.dateEnd;
       response.weekday = shift.weekday;

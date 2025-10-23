@@ -6,6 +6,7 @@ import UpdateShiftValidator from "./UpdateShiftValidator.js";
 import type IShiftReadOnlyRepository from "../../../../domain/repositories/Shift/IShiftReadOnlyRepository.js";
 import { checkParamsId } from "../../../SharedValidators/CheckParamsId.js";
 import type IShiftUpdateOnlyRepository from "../../../../domain/repositories/Shift/IShiftUpdateOnlyRepository.js";
+import { checkLoggedUser } from "../../../SharedValidators/CheckLoggedUser.js";
 
 @injectable()
 export default class UpdateShiftUseCase implements IUpdateShiftUseCase {
@@ -18,6 +19,11 @@ export default class UpdateShiftUseCase implements IUpdateShiftUseCase {
     const paramsId = checkParamsId(req.params.id);
 
     const inputData = this.Validate(req);
+
+    const user = await checkLoggedUser(req);
+    if (!user || !user._id) {
+      throw new Error("Você precisa estar logado para atualizar um turno.");
+    }
 
     const shift = await this.readOnlyRepository.GetById(paramsId);
 
@@ -43,6 +49,8 @@ export default class UpdateShiftUseCase implements IUpdateShiftUseCase {
     if (inputData.employee) {
       shift.employee = inputData.employee;
     }
+
+    shift.updatedBy = user._id;
 
     await this.updateOnlyRepository.Update(shift);
   }

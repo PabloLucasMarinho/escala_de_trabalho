@@ -35,6 +35,8 @@ import type IDeleteShiftUseCase from "./useCases/shift/Delete/IDeleteShiftUseCas
 import DeleteShiftUseCase from "./useCases/shift/Delete/DeleteShiftUseCase.js";
 import type IGetAllShiftsUseCase from "./useCases/shift/GetAllShifts/IGetAllShiftsUseCase.js";
 import GetAllShiftsUseCase from "./useCases/shift/GetAllShifts/GetAllShiftsUseCase.js";
+import type IGetAllWorkplaceUseCase from "./useCases/workplace/GetAll/IGetAllWokplaceUseCase.js";
+import GetAllWorkplaceUseCase from "./useCases/workplace/GetAll/GetAllWokplaceUseCase.js";
 
 /* AddUseCases */
 // User Use Cases
@@ -58,6 +60,9 @@ container.register<IChangePasswordUseCase>("IChangePasswordUseCase", {
 container.register<IRegisterEmployeeUseCase>("IRegisterEmployeeUseCase", {
   useClass: RegisterEmployeeUseCase,
 });
+container.register<IGetAllShiftsUseCase>("IGetAllShiftsUseCase", {
+  useClass: GetAllShiftsUseCase,
+});
 container.register<IGetByIdEmployeeUseCase>("IGetByIdEmployeeUseCase", {
   useClass: GetByIdEmployeeUseCase,
 });
@@ -71,6 +76,9 @@ container.register<IDeleteEmployeeUseCase>("IDeleteEmployeeUseCase", {
 // Workplace Use Cases
 container.register<IRegisterWorkplaceUseCase>("IRegisterWorkplaceUseCase", {
   useClass: RegisterWorkplaceUseCase,
+});
+container.register<IGetAllWorkplaceUseCase>("IGetAllWorkplaceUseCase", {
+  useClass: GetAllWorkplaceUseCase,
 });
 container.register<IGetByIdWorkplaceUseCase>("IGetByIdWorkplaceUseCase", {
   useClass: GetByIdWorkplaceUseCase,

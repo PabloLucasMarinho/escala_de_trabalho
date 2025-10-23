@@ -1,9 +1,8 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { Footer } from './footer/footer';
+import { Footer } from './shared/footer/footer';
 import { Navbar } from './shared/navbar/navbar';
 import { AuthService } from './services/auth.service';
-import { EventService } from './services/event.service';
 import { filter } from 'rxjs';
 
 @Component({
@@ -14,16 +13,23 @@ import { filter } from 'rxjs';
 })
 export class App {
   private auth = inject(AuthService);
-  private event = inject(EventService);
+  private router = inject(Router);
   hasToken = this.auth.hasToken;
-  isVisible = computed(() => this.event.toggle());
   pageTitle = signal('');
 
-  constructor(private router: Router) {
+  constructor() {
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
       const currentRoute = this.router.routerState.root;
       this.setPageTitleFromRoute(currentRoute);
     });
+  }
+
+  closeTab() {
+    this.router.navigate(['/']);
+  }
+
+  isInHomePage() {
+    return this.router.url === '/';
   }
 
   private setPageTitleFromRoute(route: ActivatedRoute) {

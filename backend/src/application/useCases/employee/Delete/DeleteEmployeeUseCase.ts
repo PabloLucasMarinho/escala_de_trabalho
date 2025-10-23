@@ -18,7 +18,7 @@ export default class DeleteEmployeeUseCase implements IDeleteEmployeeUseCase {
 
     const user = await checkLoggedUser(req);
 
-    const employee = await this.readOnlyRepository.GetById(user, paramsId);
+    const employee = await this.readOnlyRepository.GetById(paramsId);
 
     if (!employee) {
       throw new Error("Colaborador não existe.");

@@ -6,7 +6,6 @@ import FilterShiftValidator from "./FilterShiftValidator.js";
 import type IFilterShiftUseCase from "./IFilterShiftUseCase.js";
 import type IShiftReadOnlyRepository from "../../../../domain/repositories/Shift/IShiftReadOnlyRepository.js";
 import ResponseShiftJson from "../../../../shared/communication/Responses/ResponseShiftJson.js";
-import { response } from "express";
 
 @injectable()
 export default class FilterShiftUseCase implements IFilterShiftUseCase {
@@ -16,21 +15,23 @@ export default class FilterShiftUseCase implements IFilterShiftUseCase {
     const filters = this.Validate(req);
 
     const shifts = await this.readOnlyRepository.Filter(filters);
-
-    if (shifts.length === 0) {
-      return null;
-    }
+    if (!shifts) return null;
 
     const responses: ResponseShiftJson[] = shifts.map((shift) => {
       const response = new ResponseShiftJson();
+      if (!shift._id) {
+        throw new Error("ID do turno inválido.");
+      }
 
-      response.id = shift._id!;
+      response.id = shift._id.toString();
       response.dateInit = shift.dateInit;
       response.dateEnd = shift.dateEnd;
       response.weekday = shift.weekday;
       response.frequency = shift.frequency;
-      response.workplace = shift.workplace;
-      response.employee = shift.employee;
+      response.workplace = shift.workplace.toString();
+      response.employee = shift.employee.toString();
+      response.createdBy = shift.createdBy?.toString();
+      response.updatedBy = shift.updatedBy?.toString();
 
       return response;
     });

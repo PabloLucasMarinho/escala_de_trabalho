@@ -3,5 +3,5 @@ import type ResponseRegisteredShiftJson from "../../../../shared/communication/R
 import type { InputData } from "../../../../shared/communication/types/InputData.js";
 
 export default interface IRegisterShiftUseCase {
-  Execute(req: InputData<RequestShiftJson>): Promise<ResponseRegisteredShiftJson>;
+  Execute(req: InputData<RequestShiftJson>): Promise<void>;
 }

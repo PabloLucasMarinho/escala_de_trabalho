@@ -2,7 +2,6 @@ import { inject, injectable } from "tsyringe";
 import type { Response } from "express";
 import type { InputData } from "../../shared/communication/types/InputData.js";
 import type RequestShiftJson from "../../shared/communication/Requests/RequestShiftJson.js";
-import type ResponseRegisteredShiftJson from "../../shared/communication/Responses/ResponseRegisteredShiftJson.js";
 import RegisterShiftUseCase from "../../application/useCases/shift/Register/RegisterShiftUseCase.js";
 import type RequestFilterShiftJson from "../../shared/communication/Requests/RequestFilterShiftJson.js";
 import type ResponseShiftJson from "../../shared/communication/Responses/ResponseShiftJson.js";
@@ -11,7 +10,6 @@ import GetByIdShiftUseCase from "../../application/useCases/shift/GetById/GetByI
 import UpdateShiftUseCase from "../../application/useCases/shift/Update/UpdateShiftUseCase.js";
 import DeleteShiftUseCase from "../../application/useCases/shift/Delete/DeleteShiftUseCase.js";
 import GetAllShiftsUseCase from "../../application/useCases/shift/GetAllShifts/GetAllShiftsUseCase.js";
-import type ResponseGetAllShiftsJson from "../../shared/communication/Responses/ReponseGetAllShiftsJson.js";
 
 @injectable()
 export default class ShiftController {
@@ -24,13 +22,13 @@ export default class ShiftController {
     @inject(DeleteShiftUseCase) private deleteShiftUseCase: DeleteShiftUseCase
   ) {}
 
-  async Register(req: InputData<RequestShiftJson>, res: Response<ResponseRegisteredShiftJson>): Promise<void> {
-    const response = await this.registerShiftUseCase.Execute(req);
+  async Register(req: InputData<RequestShiftJson>, res: Response<string>): Promise<void> {
+    await this.registerShiftUseCase.Execute(req);
 
-    res.status(201).json(response);
+    res.status(201).json("Cadastro realizado com sucesso.");
   }
 
-  async GetAllShifts(req: InputData<null>, res: Response<ResponseGetAllShiftsJson[] | null>): Promise<void> {
+  async GetAll(_req: InputData<null>, res: Response<ResponseShiftJson[] | null>): Promise<void> {
     const response = await this.getAllShiftsUseCase.Execute();
 
     res.status(200).json(response);

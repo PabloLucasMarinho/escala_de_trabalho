@@ -21,14 +21,18 @@ export default class UpdateWorkplaceUseCase implements IUpdateWorkplaceUseCase {
     this.Validator(req);
 
     const user = await checkLoggedUser(req);
+    if (!user || !user._id) {
+      throw new Error("Você precisa estar logado para atualizar um local de trabalho.");
+    }
 
-    const workplace = await this.readOnlyRepository.GetById(user, paramsId);
+    const workplace = await this.readOnlyRepository.GetById(paramsId);
 
     if (!workplace) {
       throw new Error("Local de Trabalho não existe");
     }
 
     workplace.name = req.body.name;
+    workplace.updatedBy = user._id;
 
     await this.updateOnlyRepository.Update(workplace);
   }

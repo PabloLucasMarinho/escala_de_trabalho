@@ -1,65 +1,13 @@
-<header>
-  <li>
-    <a routerLink="/profile">
-      <span class="initial-letters icon">
-        {{initials()}}
-      </span>
-      <span>{{firstAndLastName()}}</span>
-    </a>
-  </li>
-</header>
+<section>
+  <button>
+    <span>{{firstAndLastName()}}</span>
+    <span class="material-symbols-sharp">
+      arrow_drop_down
+    </span>
+  </button>
 
-<span class="material-symbols-rounded toggle" (click)="event.triggerToggle()">
-  double_arrow
-</span>
-
-<div class="menu-bar">
-  <ul>
-    <li>
-      <a routerLink="/">
-        <span class="material-symbols-rounded icon">
-          calendar_month
-        </span>
-        <span>Calendário</span>
-      </a>
-    </li>
-
-    <li>
-      <a routerLink="/">
-        <span class="material-symbols-rounded icon">
-          badge
-        </span>
-        <span>Funcionários</span>
-      </a>
-    </li>
-
-    <li>
-      <a routerLink="/">
-        <span class="material-symbols-rounded icon">
-          apartment
-        </span>
-        <span>Locais de Trabalho</span>
-      </a>
-    </li>
-
-    <li>
-      <a routerLink="/shift">
-        <span class="material-symbols-rounded icon">
-          schedule
-        </span>
-        <span>Turnos</span>
-      </a>
-    </li>
-  </ul>
-
-  <ul class="menu-links">
-    <li (click)="exit()">
-      <a>
-        <span class="material-symbols-rounded icon">
-          logout
-        </span>
-        <span>Sair</span>
-      </a>
-    </li>
-  </ul>
-</div>
+  <menu>
+    <li><a routerLink="/profile">Perfil</a></li>
+    <li><a routerLink="/logout">Sair</a></li>
+  </menu>
+</section>

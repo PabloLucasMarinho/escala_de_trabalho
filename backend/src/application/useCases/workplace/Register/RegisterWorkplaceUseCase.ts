@@ -2,7 +2,6 @@ import { inject, injectable } from "tsyringe";
 import type { InputData } from "../../../../shared/communication/types/InputData.js";
 import type IRegisterWorkplaceUseCase from "./IRegisterWorkplaceUseCase.js";
 import type RequestWorkplaceJson from "../../../../shared/communication/Requests/RequestWorkplaceJson.js";
-import ResponseRegisteredWorkplaceJson from "../../../../shared/communication/Responses/ResponseRegisteredWorkplaceJson.js";
 import type IWorkplace from "../../../../infrastructure/entities/IWorkplace.js";
 import WorkplaceValidator from "../WorkplaceValidator.js";
 import type IWorkplaceReadOnlyRepository from "../../../../domain/repositories/Workplace/IWorkplaceReadOnlyRepository.js";
@@ -16,21 +15,18 @@ export default class RegisterWorkplaceUseCase implements IRegisterWorkplaceUseCa
     @inject("IWorkplaceWriteOnlyRepository") private readonly writeOnlyRepository: IWorkplaceWriteOnlyRepository
   ) {}
 
-  async Execute(req: InputData<RequestWorkplaceJson>): Promise<ResponseRegisteredWorkplaceJson> {
+  async Execute(req: InputData<RequestWorkplaceJson>): Promise<void> {
     const workplace = await this.Validate(req);
 
     const user = await checkLoggedUser(req);
+    if (!user || !user._id) {
+      throw new Error("Você precisa estar logado para cadastrar um local de trabalho.");
+    }
 
-    workplace.adm = user._id!;
+    workplace.createdBy = user._id;
+    workplace.updatedBy = user._id;
 
-    const newWorkplace = await this.writeOnlyRepository.Add(workplace);
-
-    const response = new ResponseRegisteredWorkplaceJson();
-
-    response.id = newWorkplace._id!.toString();
-    response.name = newWorkplace.name;
-
-    return response;
+    await this.writeOnlyRepository.Add(workplace);
   }
 
   private async Validate(req: InputData<RequestWorkplaceJson>): Promise<IWorkplace> {

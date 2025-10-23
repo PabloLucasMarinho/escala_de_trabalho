@@ -20,14 +20,18 @@ export default class UpdateEmployeeUseCase implements IUpdateEmployeeUseCase {
     this.Validator(req);
 
     const user = await checkLoggedUser(req);
+    if (!user || !user._id) {
+      throw new Error("Você precisa estar logado para atualizar um funcionário.");
+    }
 
-    const employee = await this.readOnlyRepository.GetById(user, paramsId);
+    const employee = await this.readOnlyRepository.GetById(paramsId);
 
     if (!employee) {
       throw new Error("Colaborador não existe.");
     }
 
     employee.name = req.body.name;
+    employee.updatedBy = user._id;
 
     await this.updateOnlyRepository.Update(employee);
   }

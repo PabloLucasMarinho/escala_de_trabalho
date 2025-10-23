@@ -1,6 +1,5 @@
 import { inject, injectable } from "tsyringe";
 import type RequestEmployeeJson from "../../../../shared/communication/Requests/RequestEmployeeJson.js";
-import ResponseRegisteredEmployeeJson from "../../../../shared/communication/Responses/ResponseRegisteredEmployeeJson.js";
 import type { InputData } from "../../../../shared/communication/types/InputData.js";
 import type IRegisterEmployeeUseCase from "./IRegisterEmployeeUseCase.js";
 import type IEmployeeReadOnlyRepository from "../../../../domain/repositories/Employee/IEmployeeReadOnlyRepository.js";
@@ -16,23 +15,19 @@ export default class RegisterEmployeeUseCase implements IRegisterEmployeeUseCase
     @inject("IEmployeeWriteOnlyRepository") private readonly writeOnlyRepository: IEmployeeWriteOnlyRepository
   ) {}
 
-  async Execute(req: InputData<RequestEmployeeJson>): Promise<ResponseRegisteredEmployeeJson> {
+  async Execute(req: InputData<RequestEmployeeJson>): Promise<void> {
     // Valida os dados enviados
     const employee = await this.Validate(req);
 
     const user = await checkLoggedUser(req);
+    if (!user || !user._id) {
+      throw new Error("Você precisa estar logado para cadastrar um funcionário.");
+    }
 
-    employee.adm = user._id!;
+    employee.createdBy = user._id;
+    employee.updatedBy = user._id;
 
-    // Cria o funcionário no banco de dados
-    const newEmployee = await this.writeOnlyRepository.Add(employee);
-
-    const response = new ResponseRegisteredEmployeeJson();
-
-    response.id = newEmployee._id!.toString();
-    response.name = newEmployee.name;
-
-    return response;
+    await this.writeOnlyRepository.Add(employee);
   }
 
   private async Validate(req: InputData<RequestEmployeeJson>): Promise<IEmployee> {

@@ -5,7 +5,6 @@ import type IShiftReadOnlyRepository from "../../domain/repositories/Shift/IShif
 import type IShiftUpdateOnlyRepository from "../../domain/repositories/Shift/IShiftUpdateOnlyRepository.js";
 import type IShiftWriteOnlyRepository from "../../domain/repositories/Shift/IShiftWriteOnlyRepository.js";
 import type IShift from "../entities/IShift.js";
-import type { Types } from "mongoose";
 import type FilterShiftDTO from "../../domain/Dtos/FilterShiftDTO.js";
 import mongoose from "mongoose";
 
@@ -13,13 +12,13 @@ import mongoose from "mongoose";
 export default class ShiftRepository
   implements IShiftWriteOnlyRepository, IShiftReadOnlyRepository, IShiftUpdateOnlyRepository, IShiftDeleteOnlyRepository
 {
-  async Add(shift: IShift): Promise<Types.ObjectId> {
+  async Add(shift: IShift): Promise<IShift> {
     const newShift = await new Shift(shift).save();
 
-    return newShift._id;
+    return newShift;
   }
 
-  async GetAll(): Promise<IShift[]> {
+  async GetAll(): Promise<IShift[] | null> {
     const query: any = { active: true };
 
     const shifts = await Shift.find(query).exec();
@@ -27,13 +26,15 @@ export default class ShiftRepository
     return shifts;
   }
 
-  async GetById(shitId: string): Promise<IShift | null> {
-    const shift = await Shift.findOne({ _id: shitId, active: true });
+  async GetById(shiftId: string): Promise<IShift | null> {
+    const query: any = { _id: shiftId, active: true };
+
+    const shift = await Shift.findOne(query);
 
     return shift;
   }
 
-  async Filter(filters: FilterShiftDTO): Promise<IShift[]> {
+  async Filter(filters: FilterShiftDTO): Promise<IShift[] | null> {
     const query: any = { active: true };
 
     if (filters.weekday && filters.weekday.length > 0) {
@@ -58,7 +59,7 @@ export default class ShiftRepository
 
     const shifts = await Shift.find(query).exec();
 
-    return shifts;
+    return shifts.length === 0 ? null : shifts;
   }
 
   async Update(shift: IShift): Promise<void> {

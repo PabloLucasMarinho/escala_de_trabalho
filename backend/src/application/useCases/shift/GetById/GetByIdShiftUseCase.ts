@@ -14,19 +14,21 @@ export default class GetByIdShiftUseCase implements IGetByIdShiftUseCase {
 
     const shift = await this.readOnlyRepository.GetById(req.params.id);
 
-    if (!shift) {
+    if (!shift || !shift._id) {
       throw new Error("O turno informado não existe.");
     }
 
     const response = new ResponseShiftJson();
 
-    response.id = shift._id!;
+    response.id = shift._id.toString();
     response.dateInit = shift.dateInit;
     response.dateEnd = shift.dateEnd;
     response.weekday = shift.weekday;
     response.frequency = shift.frequency;
-    response.workplace = shift.workplace;
-    response.employee = shift.employee;
+    response.workplace = shift.workplace.toString();
+    response.employee = shift.employee.toString();
+    response.createdBy = shift.createdBy?.toString();
+    response.updatedBy = shift.updatedBy?.toString();
 
     return response;
   }

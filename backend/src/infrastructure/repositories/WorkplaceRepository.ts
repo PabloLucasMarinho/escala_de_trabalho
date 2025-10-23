@@ -27,8 +27,18 @@ export default class WorkplaceRepository
     return workplace ? true : false;
   }
 
-  async GetById(user: IUser, workplaceId: string): Promise<IWorkplace | null> {
-    const workplace = await Workplace.findOne({ _id: workplaceId, adm: user._id });
+  async GetAll(): Promise<IWorkplace[] | null> {
+    const query: any = { active: true };
+
+    const workplaces = await Workplace.find(query);
+
+    return workplaces;
+  }
+
+  async GetById(workplaceId: string): Promise<IWorkplace | null> {
+    const query: any = { _id: workplaceId };
+
+    const workplace = await Workplace.findOne(query);
 
     return workplace;
   }

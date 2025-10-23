@@ -1,12 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
-  --body-color: #241f2e;
-  --sidebar-color: #3c344c;
-  --primary-color: #664db3;
-  --primary-color-light: #c2b8e0;
+  --primary-color: #660066;
   --secundary-color: #9088aa;
+
   --danger-color: #ff1a1a;
-  --danger-color-light: #ff658455;
+  --danger-color-light: #ff1a1a55;
+  --success-color: #66ff66;
   --success-color-light: #66ff6655;
 
   --tran-01: all 0.1s ease;
@@ -32,16 +31,40 @@ body {
 }
 
 html {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  font-optical-sizing: auto;
   font-style: normal;
-  color: white;
+  color: black;
 }
 
 body {
-  background-color: var(--body-color);
+  background: linear-gradient(to bottom right, #660066 0%, #ffcccc 100%);
 }
 
-fieldset {
+form {
+  fieldset {
+    border: none;
+    display: grid;
+    gap: 1rem;
+  }
+
+  input {
+    height: 2.5rem;
+    width: 100%;
+    padding: 0 0.25rem;
+  }
+
+  input[type='submit'] {
+    width: fit-content;
+    padding: 0 2rem;
+    background-color: var(--primary-color);
+    border: none;
+    color: white;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+  }
+}
+/* fieldset {
   border: none;
 }
 
@@ -108,4 +131,4 @@ input:not([type='button'], [type='submit']) {
     color: var(--body-color);
     transition: var(--tran-03);
   }
-}
+} */

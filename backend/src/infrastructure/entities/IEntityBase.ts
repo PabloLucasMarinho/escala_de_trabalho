@@ -5,4 +5,6 @@ export default interface IEntityBase {
   active?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
+  createdBy?: Types.ObjectId;
+  updatedBy?: Types.ObjectId;
 }
