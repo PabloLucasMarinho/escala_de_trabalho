@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, DestroyRef, effect, inject, input, signal } from '@angular/core';
+import { Component, DestroyRef, effect, inject, input, OnInit, signal } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -16,22 +16,12 @@ import { environment } from '../../../../environments/environment';
   templateUrl: './name-email.html',
   styleUrl: './name-email.css',
 })
-export class NameEmail {
+export class NameEmail implements OnInit {
   private httpClient = inject(HttpClient);
   private destroyRef = inject(DestroyRef);
   private baseUrl = environment.apiUrl;
   errors = signal<string[]>([]);
-  name = input<string>('');
-  email = input<string>('');
-
-  constructor() {
-    effect(() => {
-      this.form.patchValue({
-        name: this.name(),
-        email: this.email(),
-      });
-    });
-  }
+  success = signal<boolean>(false);
 
   form = new FormGroup({
     name: new FormControl('', { validators: [nameValidator] }),
@@ -54,6 +44,19 @@ export class NameEmail {
     );
   }
 
+  ngOnInit(): void {
+    const subscription = this.httpClient
+      .get<{ name: string; email: string }>(`${this.baseUrl}/user/getuser`)
+      .subscribe({
+        next: (resData) => {
+          this.form.patchValue({
+            name: resData.name,
+            email: resData.email,
+          });
+        },
+      });
+  }
+
   onSubmit() {
     if (this.form.invalid && this.form.controls.name.invalid) {
       this.form.controls.name.markAsTouched();
@@ -74,8 +77,8 @@ export class NameEmail {
       .put<null>(`${this.baseUrl}/user/edit/${id}`, this.form.value)
       .subscribe({
         next: () => {
-          // this.profileUpdated.emit();
           this.errors.set([]);
+          this.success.update((value) => !value);
         },
         error: (error) => {
           const err = error.error?.error;

@@ -4,10 +4,11 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { Calendar } from '../calendar/calendar';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  imports: [Calendar],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
