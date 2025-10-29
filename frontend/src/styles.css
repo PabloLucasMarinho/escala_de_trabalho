@@ -1,15 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
-  --body-color: #e6e6e6;
-  --primary-color: #664db3;
-  --primary-color-dark: #47367d;
-  --secundary-color: #9088aa;
-
-  --danger-color: #ff1a1a;
-  --danger-color-light: #ff1a1a55;
-  --success-color: #66ff66;
-  --success-color-light: #66ff6655;
-  --dark-color: #333333;
+  --bg-dark: hsl(264 100% 5%);
+  --bg: hsl(269 100% 8%);
+  --bg-light: hsl(270 92% 12%);
+  --text: hsl(260 100% 100%);
+  --text-muted: hsl(261 59% 77%);
+  --highlight: hsl(267 54% 49%);
+  --border: hsl(271 80% 35%);
+  --border-muted: hsl(276 100% 20%);
+  --primary: hsl(264 100% 83%);
+  --secondary: hsl(68 100% 28%);
+  --danger: hsl(7 100% 66%);
+  --warning: hsl(53 100% 21%);
+  --success: hsl(162 100% 22%);
+  --info: hsl(217 100% 70%);
 
   --tran-01: all 0.1s ease;
   --tran-02: all 0.2s ease;
@@ -37,11 +41,11 @@ html {
   font-family: 'Montserrat', sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
-  color: black;
+  color: var(--text);
 }
 
 body {
-  background: linear-gradient(to bottom right, #664db3 0%, #c2b8e0 100%);
+  background: var(--bg-dark);
 }
 
 input,
@@ -54,9 +58,17 @@ textarea {
 form {
   display: grid;
   gap: 0.5rem;
+  background-color: var(--bg);
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
 
   div {
     display: grid;
+  }
+
+  label {
+    color: var(--text-muted);
   }
 
   input {
@@ -64,33 +76,35 @@ form {
     width: 100%;
     padding: 0 0.25rem;
     outline: none;
-    border: 1px solid var(--dark-color);
+    border: 1px solid var(--border-muted);
     border-radius: 0.25rem;
-    background-color: #3c344c;
-    color: white;
-    transition: border 0.5s ease;
+    background-color: var(--bg-light);
+    color: var(--text-muted);
+    transition: var(--tran-03);
 
     &:focus {
-      border-color: var(--primary-color);
+      border-color: var(--highlight);
+      color: var(--text);
     }
 
     &::placeholder {
-      color: #bfbfbf;
+      color: var(--text-muted);
     }
   }
 
   input[type='submit'] {
     width: fit-content;
     padding: 0 1.5rem;
-    background-color: var(--primary-color);
+    background-color: var(--highlight);
     border: none;
-    color: white;
+    color: var(--text);
     border-radius: 0.25rem;
     cursor: pointer;
     transition: var(--tran-03);
 
     &:hover {
-      background-color: var(--primary-color-dark);
+      background-color: var(--primary);
+      color: var(--bg-dark);
     }
   }
 }
@@ -98,7 +112,7 @@ form {
 .error {
   display: grid;
   row-gap: 0.5rem;
-  background-color: var(--danger-color-light);
+  background-color: var(--danger);
   padding: 0.5rem;
   border-radius: 0.25rem;
   font-weight: 700;
@@ -107,86 +121,12 @@ form {
 .success {
   display: grid;
   row-gap: 0.5rem;
-  background-color: var(--success-color-light);
+  background-color: var(--success);
   padding: 0.5rem;
   border-radius: 0.25rem;
   font-weight: 700;
 }
 
 .invalid-input {
-  border-color: var(--danger-color);
-  background-color: var(--danger-color-light);
-
-  &::placeholder {
-    color: black;
-  }
+  border-color: var(--danger);
 }
-
-/* fieldset {
-  border: none;
-}
-
-input:not([type='button'], [type='submit']) {
-  width: 100%;
-  padding: 0.5rem 0.5rem;
-  border-radius: 0.25rem;
-  background-color: var(--sidebar-color);
-  border: 2px solid var(--body-color);
-  outline: none;
-  color: white;
-  font-size: 1rem;
-  transition: var(--tran-03);
-}
-
-.error {
-  font-weight: 700;
-  font-size: 1rem;
-  background-color: var(--danger-color-light);
-  width: 100%;
-  padding: 1rem;
-  border-radius: 1rem;
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  row-gap: 1rem;
-  color: var(--body-color);
-}
-
-.small-button {
-  justify-self: end;
-  height: 3rem;
-  width: fit-content;
-  background-color: var(--primary-color);
-  color: white;
-  font-size: 1rem;
-  font-weight: 700;
-  border-radius: 0.25rem;
-  border: none;
-  cursor: pointer;
-  padding: 0 3rem;
-  transition: var(--tran-03);
-
-  &:hover {
-    background-color: var(--primary-color-light);
-    color: var(--body-color);
-  }
-}
-
-.button {
-  height: 3rem;
-  background-color: var(--primary-color);
-  color: white;
-  font-size: 1rem;
-  font-weight: 700;
-  border-radius: 0.25rem;
-  border: none;
-  cursor: pointer;
-  padding: 0 3rem;
-  transition: var(--tran-03);
-
-  &:hover {
-    background-color: var(--primary-color-light);
-    color: var(--body-color);
-    transition: var(--tran-03);
-  }
-} */

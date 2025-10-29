@@ -7,6 +7,7 @@ import UserRoutes from "./Routes/UserRoutes.js";
 import EmployeeRoutes from "./Routes/EmployeeRoutes.js";
 import WorkplaceRoutes from "./Routes/WorkplaceRoutes.js";
 import ShiftRoutes from "./Routes/ShiftRoutes.js";
+import TokenRoutes from "./Routes/TokenRoutes.js";
 import { ErrorHandler } from "./Middlewares/ErrorHandler.js";
 
 const app = express();
@@ -22,6 +23,7 @@ app.use("/user", UserRoutes);
 app.use("/employee", EmployeeRoutes);
 app.use("/workplace", WorkplaceRoutes);
 app.use("/shift", ShiftRoutes);
+app.use("/token", TokenRoutes);
 
 // Middleware de erros
 app.use(ErrorHandler);

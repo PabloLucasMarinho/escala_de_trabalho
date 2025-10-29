@@ -7,6 +7,7 @@ import WorkplaceValidator from "../WorkplaceValidator.js";
 import type IWorkplaceReadOnlyRepository from "../../../../domain/repositories/Workplace/IWorkplaceReadOnlyRepository.js";
 import type IWorkplaceWriteOnlyRepository from "../../../../domain/repositories/Workplace/IWorkplaceWriteOnlyRepository.js";
 import { checkLoggedUser } from "../../../SharedValidators/CheckLoggedUser.js";
+import { NameFormatter } from "../../../Services/NameFormatter.js";
 
 @injectable()
 export default class RegisterWorkplaceUseCase implements IRegisterWorkplaceUseCase {

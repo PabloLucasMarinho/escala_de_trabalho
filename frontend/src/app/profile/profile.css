@@ -6,7 +6,11 @@
   row-gap: 1rem;
   padding: 0.5rem;
 
-  & > :first-child {
+  & > section:first-child {
     grid-column: span 2;
+
+    p {
+      color: var(--text-muted);
+    }
   }
 }

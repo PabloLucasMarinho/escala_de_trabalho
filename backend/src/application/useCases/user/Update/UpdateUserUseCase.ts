@@ -7,6 +7,7 @@ import type { InputData } from "../../../../shared/communication/types/InputData
 import type RequestUpdateUserJson from "../../../../shared/communication/Requests/RequestUpdateUserJson.js";
 import { checkParamsId } from "../../../SharedValidators/CheckParamsId.js";
 import { checkLoggedUser } from "../../../SharedValidators/CheckLoggedUser.js";
+import { NameFormatter } from "../../../Services/NameFormatter.js";
 
 @injectable()
 export default class UpdateUserUseCase implements IUpdateUserUseCase {
@@ -21,6 +22,9 @@ export default class UpdateUserUseCase implements IUpdateUserUseCase {
     const paramsId = checkParamsId(req.params.id);
 
     const user = await checkLoggedUser(req);
+    if (!user || !user._id) {
+      throw new Error("Você precisa estar logado para atualizar seu usuário.");
+    }
 
     // Valida os dados enviados
     await this.Validate(req, user.email);
@@ -28,14 +32,14 @@ export default class UpdateUserUseCase implements IUpdateUserUseCase {
     const dbUser = await this.updateOnlyRepository.GetById(paramsId);
 
     if (req.body.name && req.body.name.length > 0) {
-      dbUser.name = req.body.name;
+      dbUser.name = NameFormatter(req.body.name);
     }
 
     if (req.body.email && req.body.email.length > 0) {
       dbUser.email = req.body.email;
     }
 
-    this.updateOnlyRepository.Update(dbUser, user._id!.toString());
+    this.updateOnlyRepository.Update(dbUser, user._id.toString());
   }
 
   private async Validate(req: InputData<RequestUpdateUserJson>, currentEmail: string): Promise<void> {

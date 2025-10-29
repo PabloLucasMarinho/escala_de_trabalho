@@ -7,6 +7,7 @@ import type IEmployeeWriteOnlyRepository from "../../../../domain/repositories/E
 import type IEmployee from "../../../../infrastructure/entities/IEmployee.js";
 import EmployeeValidator from "../EmployeeValidator.js";
 import { checkLoggedUser } from "../../../SharedValidators/CheckLoggedUser.js";
+import { NameFormatter } from "../../../Services/NameFormatter.js";
 
 @injectable()
 export default class RegisterEmployeeUseCase implements IRegisterEmployeeUseCase {
@@ -24,6 +25,7 @@ export default class RegisterEmployeeUseCase implements IRegisterEmployeeUseCase
       throw new Error("Você precisa estar logado para cadastrar um funcionário.");
     }
 
+    employee.name = NameFormatter(employee.name);
     employee.createdBy = user._id;
     employee.updatedBy = user._id;
 

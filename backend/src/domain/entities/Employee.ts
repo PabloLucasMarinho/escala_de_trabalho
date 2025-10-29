@@ -1,13 +1,14 @@
 import { Schema } from "mongoose";
 import mongoose from "../../infrastructure/db/conn.js";
 import type IEmployee from "../../infrastructure/entities/IEmployee.js";
+import { NameFormatter } from "../../application/Services/NameFormatter.js";
 
 const employeeSchema = new Schema<IEmployee>(
   {
     name: {
       type: String,
       required: true,
-      set: (value: string) => value.toUpperCase(),
+      set: (value: string) => NameFormatter(value),
     },
     active: {
       type: Boolean,

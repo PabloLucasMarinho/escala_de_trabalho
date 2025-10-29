@@ -6,12 +6,25 @@ const tokenHandler = new TokenHandler();
 
 // Middleware para validar o token
 const VerifyToken = (req: Request, res: Response, next: NextFunction) => {
-  const token = tokenHandler.Value(req);
+  try {
+    const token = tokenHandler.Value(req);
 
-  const verifiedToken = tokenHandler.Verify(token);
+    if (!token) {
+      return res.status(401).json({ error: "Token não fornecido." });
+    }
 
-  req.id = verifiedToken.id;
-  next();
+    const verifiedToken = tokenHandler.Verify(token);
+
+    if (!verifiedToken || !verifiedToken.id) {
+      return res.status(401).json({ error: "Token inválido." });
+    }
+
+    req.id = verifiedToken.id;
+    next();
+  } catch (error) {
+    console.error("Erro ao verificar token:", error);
+    return res.status(401).json({ message: "Token inválido ou expirado." });
+  }
 };
 
 export default VerifyToken;

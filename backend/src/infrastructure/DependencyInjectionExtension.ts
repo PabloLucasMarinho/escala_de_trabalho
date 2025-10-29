@@ -5,8 +5,9 @@ import type IUserWriteOnlyRepository from "../domain/repositories/user/IUserWrit
 import type IUserUpdateOnlyRepository from "../domain/repositories/user/IUserUpdateOnlyRepository.js";
 import type IPasswordEncripter from "../domain/security/Cryptography/IPasswordEncripter.js";
 import BCryptNet from "./security/BCryptNet.js";
-import type IAccessTokenGenerator from "../domain/security/Tokens/IAccessTokenGenerator.js";
 import TokenHandler from "./security/Tokens/TokenHandler.js";
+import type IAccessTokenGenerator from "../domain/security/Tokens/IAccessTokenGenerator.js";
+import type IRefreshTokenGenerator from "../domain/security/Tokens/IRefreshTokenGenerator.js";
 import EmployeeRepository from "./repositories/EmployeeRepository.js";
 import type IEmployeeReadOnlyRepository from "../domain/repositories/Employee/IEmployeeReadOnlyRepository.js";
 import type IEmployeeWriteOnlyRepository from "../domain/repositories/Employee/IEmployeeWriteOnlyRepository.js";
@@ -22,6 +23,8 @@ import ShiftRepository from "./repositories/ShiftRepository.js";
 import type IShiftReadOnlyRepository from "../domain/repositories/Shift/IShiftReadOnlyRepository.js";
 import type IShiftUpdateOnlyRepository from "../domain/repositories/Shift/IShiftUpdateOnlyRepository.js";
 import type IShiftDeleteOnlyRepository from "../domain/repositories/Shift/IShiftDeleteOnlyRepository.js";
+import TokenRepository from "./repositories/TokenRepository.js";
+import type ITokenRepository from "../domain/repositories/Token/ITokenRepository.js";
 
 /* AddRepositories */
 // User Repository
@@ -77,6 +80,11 @@ container.register<IShiftDeleteOnlyRepository>("IShiftDeleteOnlyRepository", {
   useClass: ShiftRepository,
 });
 
+// Token Repository
+container.register<ITokenRepository>("ITokenRepository", {
+  useClass: TokenRepository,
+});
+
 // AddPasswordEncripter
 container.register<IPasswordEncripter>("IPasswordEncripter", {
   useClass: BCryptNet,
@@ -84,5 +92,8 @@ container.register<IPasswordEncripter>("IPasswordEncripter", {
 
 // AddTokenHandler
 container.register<IAccessTokenGenerator>("IAccessTokenGenerator", {
+  useClass: TokenHandler,
+});
+container.register<IRefreshTokenGenerator>("IRefreshTokenGenerator", {
   useClass: TokenHandler,
 });

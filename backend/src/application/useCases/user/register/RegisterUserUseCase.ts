@@ -10,6 +10,10 @@ import type IUserWriteOnlyRepository from "../../../../domain/repositories/user/
 import ResponseRegisteredUserJson from "../../../../shared/communication/Responses/ResponseRegisteredUserJson.js";
 import ResponseTokensJson from "../../../../shared/communication/Responses/ResponseTokensJson.js";
 import type IAccessTokenGenerator from "../../../../domain/security/Tokens/IAccessTokenGenerator.js";
+import { NameFormatter } from "../../../Services/NameFormatter.js";
+import RefreshToken from "../../../../domain/entities/RefreshToken.js";
+import type IRefreshTokenGenerator from "../../../../domain/security/Tokens/IRefreshTokenGenerator.js";
+import type ITokenRepository from "../../../../domain/repositories/Token/ITokenRepository.js";
 
 @injectable()
 export default class RegisterUserUseCase implements IRegisterUserUseCase {
@@ -18,8 +22,12 @@ export default class RegisterUserUseCase implements IRegisterUserUseCase {
     private readonly readOnlyRepository: IUserReadOnlyRepository,
     @inject("IUserWriteOnlyRepository")
     private readonly writeOnlyRepository: IUserWriteOnlyRepository,
+    @inject("ITokenRepository")
+    private readonly tokenRepository: ITokenRepository,
     @inject("IAccessTokenGenerator")
     private readonly accessTokenGenerator: IAccessTokenGenerator,
+    @inject("IRefreshTokenGenerator")
+    private readonly refreshTokenGenerator: IRefreshTokenGenerator,
     @inject("IPasswordEncripter")
     private readonly passwordEncripter: IPasswordEncripter
   ) {}
@@ -36,10 +44,13 @@ export default class RegisterUserUseCase implements IRegisterUserUseCase {
 
     const response = new ResponseRegisteredUserJson();
     const token = new ResponseTokensJson();
+    const refreshToken = await this.CreateAndSaveRefreshToken(userId.toString());
+
     token.accessToken = this.accessTokenGenerator.Generate(userId);
+    token.refreshToken = refreshToken;
 
     response.id = userId.toString();
-    response.name = req.body.name.toUpperCase();
+    response.name = NameFormatter(user.name);
     response.token = token;
 
     return response;
@@ -54,5 +65,16 @@ export default class RegisterUserUseCase implements IRegisterUserUseCase {
     }
 
     return user;
+  }
+
+  private async CreateAndSaveRefreshToken(userId: string) {
+    const refreshToken = new RefreshToken({
+      value: this.refreshTokenGenerator.GenerateRefreshToken(),
+      userId: userId,
+    });
+
+    await this.tokenRepository.SaveNewRefreshToken(refreshToken);
+
+    return refreshToken.value;
   }
 }

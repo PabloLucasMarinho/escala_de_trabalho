@@ -2,16 +2,6 @@
 <nav Navbar></nav>
 }
 <main>
-  <section class="container">
-    <div class="container-title-bar">
-      <span>{{pageTitle()}}</span>
-      @if(!isInHomePage()) {
-      <span class="material-symbols-sharp close" (click)="closeTab()">
-        close
-      </span>
-      }
-    </div>
-    <router-outlet />
-  </section>
+  <router-outlet />
 </main>
 <footer Footer></footer>

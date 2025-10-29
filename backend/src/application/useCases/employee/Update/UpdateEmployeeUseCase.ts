@@ -7,6 +7,7 @@ import type { InputData } from "../../../../shared/communication/types/InputData
 import type RequestEmployeeJson from "../../../../shared/communication/Requests/RequestEmployeeJson.js";
 import { checkParamsId } from "../../../SharedValidators/CheckParamsId.js";
 import { checkLoggedUser } from "../../../SharedValidators/CheckLoggedUser.js";
+import { NameFormatter } from "../../../Services/NameFormatter.js";
 
 @injectable()
 export default class UpdateEmployeeUseCase implements IUpdateEmployeeUseCase {
@@ -30,7 +31,7 @@ export default class UpdateEmployeeUseCase implements IUpdateEmployeeUseCase {
       throw new Error("Colaborador não existe.");
     }
 
-    employee.name = req.body.name;
+    employee.name = NameFormatter(req.body.name);
     employee.updatedBy = user._id;
 
     await this.updateOnlyRepository.Update(employee);

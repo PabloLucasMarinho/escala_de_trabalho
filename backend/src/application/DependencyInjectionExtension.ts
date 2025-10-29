@@ -37,6 +37,8 @@ import type IGetAllShiftsUseCase from "./useCases/shift/GetAllShifts/IGetAllShif
 import GetAllShiftsUseCase from "./useCases/shift/GetAllShifts/GetAllShiftsUseCase.js";
 import type IGetAllWorkplaceUseCase from "./useCases/workplace/GetAll/IGetAllWokplaceUseCase.js";
 import GetAllWorkplaceUseCase from "./useCases/workplace/GetAll/GetAllWokplaceUseCase.js";
+import type IUserRefreshTokenUseCase from "./useCases/token/RefreshToken/IUserRefreshTokenUseCase.js";
+import UserRefreshTokenUseCase from "./useCases/token/RefreshToken/UserRefreshTokenUseCase.js";
 
 /* AddUseCases */
 // User Use Cases
@@ -108,4 +110,9 @@ container.register<IUpdateShiftUseCase>("IUpdateShiftUseCase", {
 });
 container.register<IDeleteShiftUseCase>("IDeleteShiftUseCase", {
   useClass: DeleteShiftUseCase,
+});
+
+// Refresh Token Use Case
+container.register<IUserRefreshTokenUseCase>("IUserRefreshTokenUseCase", {
+  useClass: UserRefreshTokenUseCase,
 });
