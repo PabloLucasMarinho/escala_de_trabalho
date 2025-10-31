@@ -8,18 +8,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { environment } from '../../environments/environment';
-import { RegisteredUserJson } from '../register/register-user/response.model';
-import { AuthService } from '../services/auth.service';
-
-function passwordValidator(control: AbstractControl) {
-  const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
-  if (regex.test(control.value)) {
-    return null;
-  }
-
-  return { regexTestFailed: true };
-}
+import { AuthService } from '../../services/auth.service';
+import { environment } from '../../../environments/environment';
+import { RegisteredUserJson } from '../create/register-user/response.model';
 
 @Component({
   selector: 'app-login',
@@ -75,7 +66,7 @@ export class Login implements OnInit {
         next: (resData) => {
           localStorage.setItem('id', resData.id);
           localStorage.setItem('user-name', resData.name);
-          this.authService.setToken(resData.token.accessToken);
+          this.authService.setToken(resData.token.accessToken, resData.token.refreshToken);
 
           this.router.navigate(['/']);
         },
@@ -107,4 +98,13 @@ export class Login implements OnInit {
       this.router.navigate(['/']);
     }
   }
+}
+
+function passwordValidator(control: AbstractControl) {
+  const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
+  if (regex.test(control.value)) {
+    return null;
+  }
+
+  return { regexTestFailed: true };
 }

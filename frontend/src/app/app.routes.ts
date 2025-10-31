@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { Login } from './login/login';
 import { Dashboard } from './dashboard/dashboard';
 import { authGuard } from './guards/auth.guard';
-import { RegisterUser } from './register/register-user/register-user';
 import { Profile } from './profile/profile';
 import { Shift } from './shift/shift';
 import { LogoutComponent } from './shared/logout-component/logout-component';
+import { Login } from './forms/login/login';
+import { RegisterUser } from './forms/create/register-user/register-user';
 
 export const routes: Routes = [
   { path: 'login', component: Login },

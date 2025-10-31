@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import {
   AbstractControl,
@@ -8,10 +8,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { LoadingButton } from '../../../shared/loading-button/loading-button';
+import { AuthService } from '../../../services/auth.service';
+import { environment } from '../../../../environments/environment';
 import { RegisteredUserJson } from './response.model';
-import { LoadingButton } from '../../shared/loading-button/loading-button';
-import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register-user',
@@ -88,7 +88,7 @@ export class RegisterUser implements OnInit {
         next: (resData) => {
           localStorage.setItem('id', resData.id);
           localStorage.setItem('user-name', resData.name);
-          this.authService.setToken(resData.token.accessToken);
+          this.authService.setToken(resData.token.accessToken, resData.token.refreshToken);
 
           this.router.navigate(['/']);
         },

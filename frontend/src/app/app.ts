@@ -12,9 +12,9 @@ import { filter } from 'rxjs';
   styleUrl: './app.css',
 })
 export class App {
-  private auth = inject(AuthService);
+  private authService = inject(AuthService);
   private router = inject(Router);
-  hasToken = this.auth.hasToken;
+  hasToken = this.authService.hasToken;
   pageTitle = signal('');
 
   constructor() {

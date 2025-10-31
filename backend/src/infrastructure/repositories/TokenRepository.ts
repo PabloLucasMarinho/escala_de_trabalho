@@ -6,9 +6,9 @@ import RefreshToken from "../../domain/entities/RefreshToken.js";
 @injectable()
 export default class TokenRepository implements ITokenRepository {
   async Get(refreshToken: string): Promise<IRefreshToken | null> {
-    const query = { value: refreshToken, active: true };
+    const query: any = { value: refreshToken, active: true };
 
-    const token = await RefreshToken.findOne(query);
+    const token = await RefreshToken.findOne(query).exec();
 
     return token;
   }
