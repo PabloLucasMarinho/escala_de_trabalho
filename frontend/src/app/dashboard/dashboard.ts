@@ -5,10 +5,11 @@ import { environment } from '../../environments/environment';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { Calendar } from '../calendar/calendar';
+import { ShiftFilter } from '../forms/filter/shift-filter/shift-filter';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [Calendar],
+  imports: [ShiftFilter],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })

@@ -25,6 +25,7 @@ export class Login implements OnInit {
   private destroyRef = inject(DestroyRef);
   private baseUrl = environment.apiUrl;
   isFetching = signal(false);
+  isShowingPassword = signal(false);
   errors = signal<string[]>([]);
 
   form = new FormGroup({
@@ -53,6 +54,8 @@ export class Login implements OnInit {
   }
 
   onSubmit() {
+    this.isShowingPassword.set(false);
+
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       this.form.markAllAsDirty();
@@ -91,6 +94,10 @@ export class Login implements OnInit {
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
     });
+  }
+
+  showPassword() {
+    this.isShowingPassword.update((value) => !value);
   }
 
   ngOnInit(): void {

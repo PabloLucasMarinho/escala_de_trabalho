@@ -13,6 +13,14 @@
         <input type="email" name="email" id="email" autocomplete="email" placeholder="Digite seu e-mail"
           formControlName="email" [class]="emailIsInvalid ? 'invalid-input' : ''" required />
       </div>
+      @if(emailIsInvalid) {
+      <small>
+        <span class="material-symbols-rounded">
+          error
+        </span>
+        E-mail inválido
+      </small>
+      }
     </div>
 
     <div class="input-container">
@@ -21,11 +29,20 @@
         <span class="material-symbols-rounded">
           lock
         </span>
-        <input type="password" name="password" id="password" autocomplete="current-password"
-          placeholder="Digite sua senha" formControlName="password" [class]="passwordIsInvalid ? 'invalid-input' : ''"
-          required />
-        <span>Mostrar</span>
+
+        <input [type]="isShowingPassword() ? 'text' : 'password'" name="password" id="password"
+          autocomplete="current-password" placeholder="Digite sua senha" formControlName="password"
+          [class]="passwordIsInvalid ? 'invalid-input' : ''" required />
+        <span (click)="showPassword()">Mostrar</span>
       </div>
+      @if(passwordIsInvalid) {
+      <small>
+        <span class="material-symbols-rounded">
+          error
+        </span>
+        Senha inválida
+      </small>
+      }
     </div>
 
     <div class="remember-me">

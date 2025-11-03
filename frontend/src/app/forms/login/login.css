@@ -21,7 +21,7 @@ section {
       font-size: 2rem;
     }
 
-    .input-container {
+    div.input-container {
       display: grid;
       row-gap: 0.25rem;
 
@@ -76,6 +76,23 @@ section {
 
         &::placeholder {
           color: var(--text-muted);
+        }
+
+        &.invalid-input {
+          border-color: var(--danger);
+        }
+      }
+
+      small {
+        display: flex;
+        align-items: center;
+        column-gap: 0.5ch;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--danger);
+
+        span {
+          font-size: 1rem;
         }
       }
     }

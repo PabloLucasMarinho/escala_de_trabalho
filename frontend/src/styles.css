@@ -4,8 +4,6 @@
   --bg: hsl(0 0% 95%);
   --bg-light: hsl(0 0% 100%);
 
-  /* --text: hsl(56.67, 90%, 96.08%);
-  --text-muted: hsl(297, 94.34%, 79.22%); */
   --text: hsl(0 0% 5%);
   --text-muted: hsl(0 0% 30%);
 
@@ -46,6 +44,7 @@ body {
   width: 100%;
   max-width: 100%;
   min-height: 100vh;
+  height: 100%;
 }
 
 html {
@@ -74,60 +73,6 @@ input[type='radio'] {
   accent-color: var(--primary);
 }
 
-/* form {
-  display: grid;
-  gap: 0.5rem;
-  background-color: var(--bg);
-  padding: 1rem;
-  border-radius: 1rem;
-  border: 1px solid var(--border);
-
-  div {
-    display: grid;
-  }
-
-  label {
-    color: var(--text-muted);
-  }
-
-  input {
-    height: 2rem;
-    width: 100%;
-    padding: 0 0.25rem;
-    outline: none;
-    border: 1px solid var(--border-muted);
-    border-radius: 0.25rem;
-    background-color: var(--primary);
-    color: var(--bg-dark);
-    transition: var(--tran-03);
-
-    &:focus {
-      border-color: var(--highlight);
-      color: var(--bg-dark);
-    }
-
-    &::placeholder {
-      color: var(--bg-dark);
-    }
-  }
-
-  input[type='submit'] {
-    width: fit-content;
-    padding: 0 1.5rem;
-    background-color: var(--bg-light);
-    border: 1px solid var(--border);
-    color: var(--text);
-    border-radius: 0.25rem;
-    cursor: pointer;
-    transition: var(--tran-03);
-
-    &:hover {
-      background-color: var(--primary);
-      color: var(--bg-dark);
-    }
-  }
-} */
-
 .container {
   height: 100%;
   width: 50rem;
@@ -154,8 +99,4 @@ input[type='radio'] {
   padding: 0.5rem;
   border-radius: 0.25rem;
   font-weight: 700;
-}
-
-.invalid-input {
-  border-color: var(--danger);
 }
