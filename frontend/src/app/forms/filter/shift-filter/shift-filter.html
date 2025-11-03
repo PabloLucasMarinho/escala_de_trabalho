@@ -1,1 +1,42 @@
-<p>shift-filter works!</p>
+<form action="">
+  <div class="input-container">
+    <label for="weekdays">Dia da Semana</label>
+    <select name="weekdays" id="weekdays">
+      <option value=""> --- </option>
+      @for (day of days; track $index) {
+      <option [value]="day">{{weekday[day]}}</option>
+      }
+    </select>
+  </div>
+
+  <div class="input-container">
+    <label for="frequency">Frequência</label>
+    <select name="frequency" id="frequency">
+      <option value=""> --- </option>
+      @for (freq of frequencies; track $index) {
+      <option [value]="freq">{{frequency[freq]}}</option>
+      }
+    </select>
+  </div>
+
+  <div class="input-container">
+    <label for="workplace">Local de trabalho</label>
+    <select name="workplace" id="workplace">
+      <option value=""> --- </option>
+      @for (workplace of workplaces(); track $index) {
+      <option [value]="workplace.id">{{workplace.name}}</option>
+      }
+    </select>
+  </div>
+
+  <div class="input-container">
+    <label for="employee">Colaborador</label>
+    <select name="employee" id="employee">
+      <option value=""> --- </option>
+      @for (employee of employees(); track $index) {
+      <option [value]="employee.id">{{employee.name}}</option>
+      }
+    </select>
+  </div>
+  <input type="submit" value="Filtrar" class="button">
+</form>

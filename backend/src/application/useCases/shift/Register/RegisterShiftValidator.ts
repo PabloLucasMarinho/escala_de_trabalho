@@ -11,8 +11,8 @@ export default class RegisterShiftValidator extends BaseValidator {
       .object({
         dateInit: this.dateSchema("Vigência Inicial"),
         dateEnd: this.dateSchema("Vigência Final"),
-        weekday: this.enumSchema(Object.values(Weekday), "Dia da Semana"),
-        frequency: this.enumSchema(Object.values(Frequency), "Frequência"),
+        weekday: this.enumSchema(Object.keys(Weekday), "Dia da Semana"),
+        frequency: this.enumSchema(Object.keys(Frequency), "Frequência"),
         workplace: this.objectIdSchema("Local de Trabalho"),
         employee: this.objectIdSchema("Colaborador"),
       })

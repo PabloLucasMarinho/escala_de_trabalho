@@ -1,6 +1,6 @@
 export enum Frequency {
-  DAILY = "Diário",
-  WEEKLY = "Semanal",
-  BIWEEKLY = "Quinzenal",
-  MONTHLY = "Mensal",
+  daily = "Diário",
+  weekly = "Semanal",
+  biweekly = "Quinzenal",
+  monthly = "Mensal",
 }

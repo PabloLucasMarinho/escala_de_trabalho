@@ -1,10 +1,16 @@
 :host {
   display: flex;
-  justify-content: space-between;
-  color: var(--text);
+  justify-content: center;
+  width: 100%;
   background-color: var(--bg);
   border-bottom: 1px var(--border) solid;
-  padding: 0 1rem;
+}
+
+div.nav-container {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  color: var(--text);
   height: 4rem;
 
   h1 {
@@ -24,7 +30,6 @@
       display: flex;
       align-items: center;
       padding: 0 0.5rem;
-      border-bottom: 1px solid var(--border);
       transition: var(--tran-03);
 
       &:hover {

@@ -1,20 +1,22 @@
-<h1 routerLink="/">Escala de Trabalho</h1>
+<div class="nav-container">
+  <h1 routerLink="/">Escala de Trabalho</h1>
 
-<ul>
-  <li>
-    <a routerLink="/profile">
-      <span class="material-symbols-rounded">
-        account_circle
-      </span>
-      {{firstAndLastName()}}
-    </a>
-  </li>
-  <li>
-    <a (click)="exit()">
-      <span class="material-symbols-rounded">
-        logout
-      </span>
-      Sair
-    </a>
-  </li>
-</ul>
+  <ul>
+    <li>
+      <a routerLink="/profile">
+        <span class="material-symbols-rounded">
+          account_circle
+        </span>
+        {{firstAndLastName()}}
+      </a>
+    </li>
+    <li>
+      <a (click)="exit()">
+        <span class="material-symbols-rounded">
+          logout
+        </span>
+        Sair
+      </a>
+    </li>
+  </ul>
+</div>
