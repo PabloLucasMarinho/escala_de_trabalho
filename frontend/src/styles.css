@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import './custom-theme.scss';
+
 :root {
   --bg-dark: hsl(0 0% 90%);
   --bg: hsl(0 0% 95%);
@@ -15,10 +17,13 @@
   --primary-muted: hsl(283, 100%, 30%);
   --secondary: hsl(40, 100%, 47.06%);
 
-  --danger: hsl(7 100% 66%);
+  --danger: hsl(7 100% 50%);
+  --danger-muted: hsl(7 100% 65%);
   --warning: hsl(53 100% 21%);
-  --success: hsl(162 100% 22%);
-  --info: hsl(217 100% 70%);
+  --success: hsl(162 100% 20%);
+  --success-muted: hsl(162 100% 30%);
+  --info: hsl(217 100% 40%);
+  --info-muted: hsl(217 100% 55%);
 
   --tran-01: all 0.1s ease;
   --tran-02: all 0.2s ease;
@@ -74,13 +79,9 @@ input[type='radio'] {
 }
 
 .container {
-  height: 100%;
-  width: 50rem;
   background-color: var(--bg);
-  margin: 0 auto;
-  display: grid;
-  justify-content: center;
-  align-content: center;
+  width: 90%;
+  overflow: hidden;
 }
 
 .error {
@@ -99,4 +100,9 @@ input[type='radio'] {
   padding: 0.5rem;
   border-radius: 0.25rem;
   font-weight: 700;
+}
+
+.mat-mdc-text-field-wrapper,
+.mat-mdc-form-field .mat-mdc-text-field-wrapper {
+  padding: 0 !important;
 }

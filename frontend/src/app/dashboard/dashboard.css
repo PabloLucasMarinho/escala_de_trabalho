@@ -2,10 +2,3 @@
   display: flex;
   justify-content: center;
 }
-
-section.main-container {
-  background-color: var(--bg);
-  width: 90%;
-  /* border-radius: 1rem; */
-  overflow: hidden;
-}

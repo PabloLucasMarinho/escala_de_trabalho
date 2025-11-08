@@ -12,6 +12,7 @@ div.nav-container {
   justify-content: space-between;
   color: var(--text);
   height: 4rem;
+  padding: 0 0.5rem;
 
   h1 {
     font-size: 1.75rem;

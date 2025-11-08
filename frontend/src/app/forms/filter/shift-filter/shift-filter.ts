@@ -5,10 +5,11 @@ import GetWorkplaceJson from './workplace.model';
 import GetEmployeeJson from './employee.model';
 import { Weekday } from '../../../enums/Weekday';
 import { Frequency } from '../../../enums/Frequency';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-shift-filter',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './shift-filter.html',
   styleUrl: './shift-filter.css',
 })

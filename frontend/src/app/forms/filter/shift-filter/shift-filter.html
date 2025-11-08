@@ -29,7 +29,7 @@
     </select>
   </div>
 
-  <div class="input-container">
+  <div class="input-container grid-col-span-2">
     <label for="employee">Colaborador</label>
     <select name="employee" id="employee">
       <option value=""> --- </option>
@@ -38,5 +38,8 @@
       }
     </select>
   </div>
-  <input type="submit" value="Filtrar" class="button">
+  <div class="button-wrap">
+    <input type="submit" value="Filtrar" class="button">
+    <button routerLink="/shift/register">Adicionar novo turno</button>
+  </div>
 </form>

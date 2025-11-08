@@ -1,9 +1,0 @@
-form {
-  height: 100%;
-  display: grid;
-  padding: 1rem;
-}
-
-.small-button {
-  align-self: flex-end;
-}
