@@ -1,0 +1,20 @@
+form {
+  display: grid;
+  width: 400px;
+  background-color: var(--mat-sys-secondary-container);
+  padding: 20px;
+  border-radius: 0.5rem;
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  input[type='submit'] {
+    background-color: var(--mat-sys-primary-container);
+    border: none;
+    height: 2rem;
+    border-radius: 0.25rem;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+}

@@ -22,25 +22,31 @@
   },
   "private": true,
   "dependencies": {
+<<<<<<< Updated upstream
     "@angular/cdk": "^20.2.11",
+=======
+    "@angular/cdk": "^20.2.13",
+>>>>>>> Stashed changes
     "@angular/common": "^20.3.0",
     "@angular/compiler": "^20.3.0",
     "@angular/core": "^20.3.0",
     "@angular/forms": "^20.3.0",
+<<<<<<< Updated upstream
     "@angular/material": "^20.2.11",
+=======
+    "@angular/material": "^20.2.13",
+>>>>>>> Stashed changes
     "@angular/platform-browser": "^20.3.0",
     "@angular/router": "^20.3.0",
-    "luxon": "^3.7.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular/build": "^20.3.3",
-    "@angular/cli": "^20.3.3",
+    "@angular/build": "^20.3.8",
+    "@angular/cli": "^20.3.8",
     "@angular/compiler-cli": "^20.3.0",
     "@types/jasmine": "~5.1.0",
-    "@types/luxon": "^3.7.1",
     "jasmine-core": "~5.9.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

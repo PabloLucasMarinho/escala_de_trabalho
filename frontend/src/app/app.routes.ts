@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+<<<<<<< Updated upstream
 import { Dashboard } from './dashboard/dashboard';
 import { authGuard } from './guards/auth.guard';
 import { Profile } from './profile/profile';
@@ -13,3 +14,7 @@ export const routes: Routes = [
   { path: 'profile', component: Profile, canActivate: [authGuard] },
   { path: 'shift/register', component: RegisterShift, canActivate: [authGuard] },
 ];
+=======
+
+export const routes: Routes = [];
+>>>>>>> Stashed changes
